@@ -13,6 +13,9 @@ import RestaurantDash from './components/RestaurantDash/restaurantDash';
 
 function App() {
   const globalContext = useContext(GlobalContext);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  globalContext.userLoggedIn = userLoggedIn;
   
   return (
     <main className='App'>
