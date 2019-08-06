@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function restaurantDash() {
+export default function RestaurantDash() {
   return (
     <div>
       restaurantDash.js

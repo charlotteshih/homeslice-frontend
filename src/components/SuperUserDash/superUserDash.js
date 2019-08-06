@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function superUserDash() {
+export default function SuperUserDash() {
   return (
     <div>
       superUserDash.js

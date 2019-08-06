@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function storeFront() {
+export default function StoreFront() {
   return (
     <div>
       storeFront.js
