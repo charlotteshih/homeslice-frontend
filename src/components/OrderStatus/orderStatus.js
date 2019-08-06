@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function home() {
+export default function orderStatus() {
   return (
     <div>
-      home.js
+      orderStatus.js
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import React from './node_modules/react'
+import React from 'react'
 
 export default function header() {
   return (
     <div>
-      
+      header.js
     </div>
   )
 }
