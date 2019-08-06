@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 
-export default function createAccount() {
+export default function CreateAccount() {
+
   return (
     <div>
-      createAccount.js
     </div>
   )
 }

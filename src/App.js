@@ -1,23 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from './contexts/GlobalContext';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
-import Header from './components/Header/header';
-import Home from './components/Home/home';
+import Header from './components/Header/Header';
+import Home from './components/Home/Home';
 import CreateAccount from './components/CreateAccount/createAccount';
-import StoreFront from './components/StoreFront/storeFront';
-import OrderOnline from './components/OrderOnline/orderOnline';
-import OrderStatus from './components/OrderStatus/orderStatus';
-import Payment from './components/Payment/payment.js'
-import SuperUserDash from './components/SuperUserDash/superUserDash';
-import RestaurantDash from './components/RestaurantDash/restaurantDash';
+import StoreFront from './components/StoreFront/StoreFront';
+import OrderOnline from './components/OrderOnline/OrderOnline';
+import OrderStatus from './components/OrderStatus/OrderStatus';
+import Payment from './components/Payment/Payment.js'
+import SuperUserDash from './components/SuperUserDash/SuperUserDash';
+import RestaurantDash from './components/RestaurantDash/RestaurantDash';
 
 
 function App() {
-  const globalContext = useContext(GlobalContext);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-  globalContext.userLoggedIn = userLoggedIn;
-  
   return (
     <main className='App'>
       <BrowserRouter>
