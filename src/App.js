@@ -3,7 +3,7 @@ import GlobalContext from './contexts/GlobalContext';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
-import CreateAccount from './components/CreateAccount/createAccount';
+import CreateAccount from './components/CreateAccount/CreateAccount';
 import StoreFront from './components/StoreFront/StoreFront';
 import OrderOnline from './components/OrderOnline/OrderOnline';
 import OrderStatus from './components/OrderStatus/OrderStatus';
