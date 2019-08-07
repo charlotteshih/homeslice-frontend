@@ -13,14 +13,18 @@ export default function Header() {
     <header>
       <nav>
         <Link to="/">Home</Link>
-        {context.restaurant.hasOwnProperty('id')? (
+        {context.userIsSignedIn? (
           <DashBoardNav />
         )
         :
         (
           <>
           <button onClick={() => setSignInFormShowing(!signInFormShowing)}>Sign In</button>
-          {signInFormShowing? <SignInForm /> : ""}
+          {signInFormShowing? 
+            <SignInForm setSignInFormShowing={setSignInFormShowing}/> 
+            : 
+            ""
+          }
           </>
         )}
       </nav>

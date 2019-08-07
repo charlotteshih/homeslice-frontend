@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
 
-export default function SignInForm() {
+export default function SignInForm(props) {
   let context = useContext(GlobalContext);
 
   let [emailSignIn, setEmailSignIn] = useState('');
@@ -14,10 +14,18 @@ export default function SignInForm() {
       email: emailSignIn,
       password: passwordSignIn
     })
-    .then(res => res.json())
-    .then((json) => {
-      console.log(json);
+    .then(res => {
+      if(res.status === 200) {
+        return res.json();
+      }
+      throw new Error(res);
     })
+    .then((json) => {
+      localStorage.setItem('jwt', json.authToken)
+      context.setUserIsSignedIn(true);
+      props.setSignInFormShowing(false);
+    })
+    .catch(err => console.error(err));
 
 
     function _submitLoginInformation(dataToSubmit) {
@@ -25,7 +33,7 @@ export default function SignInForm() {
         method: 'POST',
         body: JSON.stringify(dataToSubmit),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'Application/Json'
         } 
       })
     }
