@@ -25,9 +25,6 @@ export default function Payment({ match, history }) {
 
   const context = useContext(GlobalContext);
 
-  console.log('context', context);
-
-
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -49,7 +46,6 @@ export default function Payment({ match, history }) {
         context.setCustomerData({...json},
           (updatedState) => {
             //send post to orders table with customer id, pizza id, and restaurant_id
-            console.log('currentState', state);
             const orderData = {
               restaurant_id: match.params.restaurantId,
               pizza_id: updatedState.pizzaData.id,
