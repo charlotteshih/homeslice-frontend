@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import Config from '../../config';
 import GlobalContext from '../../contexts/GlobalContext';
 
-export default function StoreFront(props) {
-  const { match } = props
-  console.log(match)
+export default function StoreFront({ match }) {
   const context = useContext(GlobalContext)
   const [restaurant, setRestaurant] = useState({
     id: 0,
@@ -48,7 +46,7 @@ export default function StoreFront(props) {
           {restaurant.email}
         </span>
       </section>
-      <Link to="/restaurant/2/orderOnline">Place An Order!</Link>
+      <Link to="/restaurant/2/order-online">Place An Order!</Link>
     </div>
   )
 }
