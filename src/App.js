@@ -11,7 +11,6 @@ import Payment from './components/Payment/Payment.js'
 import SuperUserDash from './components/SuperUserDash/SuperUserDash';
 import RestaurantDash from './components/RestaurantDash/RestaurantDash';
 
-
 function App() {
 
   return (
