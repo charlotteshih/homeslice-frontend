@@ -35,22 +35,27 @@ export default function CreateAccount({ history }) {
       city,
       state,
       zipcode
-    });
+    })
+    .then(res => {
+      if(res.status === 201) {
+        return res.json()
+      }
+      throw new Error(res);
+    })
+    .then(response => {
+      context.restaurant = {...response};
+      history.push(`/restaurant/${context.restaurant.id}`)
+    })
+    .catch(err => console.error(err));
 
     function _submitCreateAccount(formData) {
-      fetch(`${Config.apiBaseUrl}/api/restaurants`, {
+      return fetch(`${Config.apiBaseUrl}/api/restaurants`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      .then(res => res.json())
-      .then(response => {
-        context.restaurant = {...response};
-        history.push(`/restaurant/${context.restaurant.id}`)
-      })
-      .catch(err => console.error(err));
     }
   }
 
