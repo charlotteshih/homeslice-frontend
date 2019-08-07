@@ -24,18 +24,18 @@ export default function OrderOnline({ match, history }) {
       size: pizzaSize,
       type: pizzaType
     })
-      .then(res => {
-        if (res.status === 201) {
-          return res.json();
-        } else {
-          throw new Error(res);
-        }
-      })
-      .then(res => {
-        context.setPizzaData({...res});
-        history.push(`/restaurant/${match.params.restaurantId}/payment`)
-      })
-      .catch(err => console.error(err));
+    .then(res => {
+      if (res.status === 201) {
+        return res.json();
+      } else {
+        throw new Error(res);
+      }
+    })
+    .then(res => {
+      context.setPizzaData({...res});
+      history.push(`/restaurant/${match.params.restaurantId}/payment`)
+    })
+    .catch(err => console.error(err));
 
     function _submitCreatePizza(formData) {
       return fetch(`${Config.apiBaseUrl}/pizzas`, {

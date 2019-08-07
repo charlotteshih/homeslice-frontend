@@ -46,7 +46,7 @@ export default function StoreFront({ match }) {
           {restaurant.email}
         </span>
       </section>
-      <Link to="/restaurant/2/order-online">Place An Order!</Link>
+      <Link to={`/restaurant/${restaurant.id}/order-online`}>Place An Order!</Link>
     </div>
   )
 }
