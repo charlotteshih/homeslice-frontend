@@ -36,9 +36,9 @@ export default function SignInForm() {
     <div>
       <h3>Sign In</h3>
       <form onSubmit={(e) => handleSubmit(e, emailSignIn, passwordSignIn)}>
-        <label for="emailSignIn">Email</label>
+        <label htmlFor="emailSignIn">Email</label>
         <input id="emailSignIn" onChange={(e) => setEmailSignIn(e.target.value)}/>
-        <label for="passwordSignIn">Password</label>
+        <label htmlFor="passwordSignIn">Password</label>
         <input id="passwordSignIn" onChange={(e) => setPasswordSignIn(e.target.value)} />
         <input type="submit" value="Sign In" />
       </form>
