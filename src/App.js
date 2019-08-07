@@ -10,26 +10,47 @@ import OrderStatus from './components/OrderStatus/OrderStatus';
 import Payment from './components/Payment/Payment.js'
 import SuperUserDash from './components/SuperUserDash/SuperUserDash';
 import RestaurantDash from './components/RestaurantDash/RestaurantDash';
+import RestaurantAnalytics from './components/RestaurantAnalytics/RestaurantAnalytics';
 
-function App() {
+class App extends React.Component {
 
-  return (
-    <main className='App'>
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/create-account' component={CreateAccount} />
-          <Route exact path='/restaurant/:restaurantId' component={StoreFront} />
-          <Route exact path='/restaurant/:restaurantId/orderOnline' component={OrderOnline} />
-          <Route exact path='/restaurant/:restaurantId/payment' component={Payment} />
-          <Route exact path='/restaurant/:restaurantId/orderStatus/:orderId' component={OrderStatus} />
-          <Route exact path='/dashboard/superuser' component={SuperUserDash} />
-          <Route exact path='/dashboard/restaurant/:restaurantId' component={RestaurantDash} />
-        </Switch>
-      </BrowserRouter>
-    </main>
-  );
+  constructor() {
+    super();
+    this.state = {
+      userIsSignedIn: false,
+    }
+  }
+
+  setUserIsSignedIn = (bool) => {
+    this.setState({userIsSignedIn: bool});
+  }
+
+  render() {
+    let context = {
+      setUserIsSignedIn: this.setUserIsSignedIn,
+      ...this.state
+    }
+    return (
+      <main className='App'>
+        <GlobalContext.Provider value={context}>
+          <BrowserRouter>
+            <Header />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/create-account' component={CreateAccount} />
+              <Route exact path='/restaurant/:restaurantId' component={StoreFront} />
+              <Route exact path='/restaurant/:restaurantId/orderOnline' component={OrderOnline} />
+              <Route exact path='/restaurant/:restaurantId/payment' component={Payment} />
+              <Route exact path='/restaurant/:restaurantId/orderStatus/:orderId' component={OrderStatus} />
+              <Route exact path='/dashboard/superuser' component={SuperUserDash} />
+              <Route exact path='/dashboard/restaurant/:restaurantId' component={RestaurantDash} />
+              <Route exact path='/dashboard/restaurant/:restaurantId/analytics' component={RestaurantAnalytics} />
+            </Switch>
+          </BrowserRouter>
+        </GlobalContext.Provider>
+      </main>
+    );
+  }
 }
 
 export default App;
