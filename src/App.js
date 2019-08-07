@@ -25,7 +25,7 @@ function App() {
           <Route exact path='/restaurant/:restaurantId/payment' component={Payment} />
           <Route exact path='/restaurant/:restaurantId/orderStatus/:orderId' component={OrderStatus} />
           <Route exact path='/dashboard/superuser' component={SuperUserDash} />
-          <Route exact path='/dashboard/restaurant/restaurant-id' component={RestaurantDash} />
+          <Route exact path='/dashboard/restaurant/:restaurantId' component={RestaurantDash} />
         </Switch>
       </BrowserRouter>
     </main>
