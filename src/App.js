@@ -17,8 +17,17 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      restaurantData: {},
+      pizzaData: {},
       userIsSignedIn: false,
     }
+  }
+  setRestaurantData = (obj) => {
+    this.setState({ RestaurantData: obj});
+  }
+
+  setPizzaData = (obj) => {
+    this.setState({ pizzaData: obj});
   }
 
   setUserIsSignedIn = (bool) => {
@@ -27,6 +36,8 @@ class App extends React.Component {
 
   render() {
     let context = {
+      setRestaurantData: this.setRestaurantData,
+      setPizzaData: this.setPizzaData,
       setUserIsSignedIn: this.setUserIsSignedIn,
       ...this.state
     }

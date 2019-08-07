@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import GlobalContext from '../../contexts/GlobalContext';
 
@@ -14,11 +14,11 @@ export default function DashboardNav() {
 
   let { restaurant_id } = jwt.decode(localStorage.getItem('jwt'));
   return (
-    <>
-      <Link to={`/restaurant/${restaurant_id}`}>View Storefront</Link>
-      <Link to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</Link>
-      <Link to={`/restaurant/${restaurant_id}/dashboard/analytics`}>View Analytics</Link>
-      <Link to={`/`} onClick={logOutUser}>Logout</Link>
-    </>
+    <ul>
+      <li><NavLink to={`/restaurant/${restaurant_id}`}>View Storefront</NavLink></li>
+      <li><NavLink to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</NavLink></li>
+      <li><NavLink to={`/restaurant/${restaurant_id}/dashboard/analytics`}>View Analytics</NavLink></li>
+      <li><NavLink to={`/`} onClick={logOutUser}>Logout</NavLink></li>
+    </ul>
   )
 }
