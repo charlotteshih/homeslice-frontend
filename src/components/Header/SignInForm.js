@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
 
