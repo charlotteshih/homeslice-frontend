@@ -25,14 +25,15 @@ export default function OrderOnline({ match, history }) {
       type: pizzaType
     })
     .then(res => {
+      console.log(res);
       if (res.status === 201) {
         return res.json();
       } else {
         throw new Error(res);
       }
     })
-    .then(res => {
-      context.setPizzaData({...res});
+    .then(json => {
+      context.setPizzaData({...json});
       history.push(`/restaurant/${match.params.restaurantId}/payment`)
     })
     .catch(err => console.error(err));

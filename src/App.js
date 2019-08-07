@@ -19,26 +19,39 @@ class App extends React.Component {
     this.state = {
       restaurantData: {},
       pizzaData: {},
+      customerData: {},
+      orderData: {},
       userIsSignedIn: false,
     }
   }
   setRestaurantData = (obj) => {
-    this.setState({ RestaurantData: obj});
+    this.setState({ RestaurantData: obj });
   }
 
   setPizzaData = (obj) => {
-    this.setState({ pizzaData: obj});
+    this.setState({ pizzaData: obj });
+  }
+
+  setCustomerData = (obj, callback) => {
+    console.log('obj', obj);
+    this.setState({ customerData: obj }, () => callback(this.state));
+  }
+
+  setOrderData = (obj, callback) => {
+    this.setState({ orderData: obj}, () => callback(this.state));
   }
 
   setUserIsSignedIn = (bool) => {
-    this.setState({userIsSignedIn: bool});
+    this.setState({ userIsSignedIn: bool });
   }
 
   render() {
     let context = {
       setRestaurantData: this.setRestaurantData,
       setPizzaData: this.setPizzaData,
+      setCustomerData: this.setCustomerData,
       setUserIsSignedIn: this.setUserIsSignedIn,
+      setOrderData: this.setOrderData,
       ...this.state
     }
     return (
