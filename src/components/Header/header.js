@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import GlobalContext from '../../contexts/GlobalContext';
-import DashBoardNav from '../Header/DashboardNav';
-import SignInForm from '../Header/SignInForm';
+import DashBoardNav from './DashboardNav';
+import SignInForm from './SignInForm';
 
 export default function Header() {
   let [signInFormShowing, setSignInFormShowing] = useState(false);
