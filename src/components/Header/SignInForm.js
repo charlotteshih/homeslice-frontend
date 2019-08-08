@@ -8,6 +8,7 @@ export default function SignInForm(props) {
     flexDirection: "column",
     alignItems: "flex-start",
   };
+
   let context = useContext(GlobalContext);
 
   let [emailSignIn, setEmailSignIn] = useState('');

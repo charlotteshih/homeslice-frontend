@@ -25,8 +25,13 @@ class App extends React.Component {
       userIsSignedIn: false,
     }
   }
-  setRestaurantData = (obj) => {
-    this.setState({ RestaurantData: obj });
+  setRestaurantData = (obj, callback) => {
+    this.setState({ RestaurantData: obj }, () => {
+      if(!callback) {
+        return;
+      }
+      callback(this.state);
+    });
   }
 
   setPizzaData = (obj) => {

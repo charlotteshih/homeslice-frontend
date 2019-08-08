@@ -43,8 +43,9 @@ export default function CreateAccount({ history }) {
       throw new Error(res);
     })
     .then(response => {
-      context.setRestaurantData({...response});
-      history.push(`/restaurant/${context.restaurant.id}`)
+      context.setRestaurantData({...response}, (currentState) => {
+        history.push(`/restaurant/${currentState.RestaurantData.id}`)
+      });
     })
     .catch(err => console.error(err));
 
