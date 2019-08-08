@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import GlobalContext from '../../contexts/GlobalContext';
+import config from '../../config';
 
 export default function OrderStatus() {
 
@@ -12,6 +13,14 @@ export default function OrderStatus() {
     context.RestaurantData.city + ", " +
     context.RestaurantData.state;
 
+  function checkOrderStatus(orderId) {
+    fetch(`${config.apiBaseUrl}/orders/${orderId}`)
+      .then(res => res.json())
+      .then(resJson => {
+        context.setOrderData({...resJson})
+      });
+  }
+
 
   return (
     <div>
@@ -20,6 +29,7 @@ export default function OrderStatus() {
       <p>Order Total: {context.orderData.order_total}</p>
       <p>Pickup Location: {restaurantLocation}</p>
       <p><b>Please keep this tab open so that you can view your order status in real time!</b></p>
+      <button onClick={() => checkOrderStatus(context.orderData.id)}>Refresh</button>
     </div>
   )
 }
