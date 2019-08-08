@@ -33,11 +33,21 @@ class App extends React.Component {
   }
 
   setCustomerData = (obj, callback) => {
-    this.setState({ customerData: obj }, () => callback(this.state));
+    this.setState({ customerData: obj }, () => {
+      if(!callback) {
+        return;
+      }
+      callback(this.state);
+    });
   }
 
   setOrderData = (obj, callback) => {
-    this.setState({ orderData: obj}, () => callback(this.state));
+    this.setState({ orderData: obj}, () => {
+      if(!callback) {
+        return;
+      } 
+      callback(this.state)
+    });
   }
 
   setUserIsSignedIn = (bool) => {
