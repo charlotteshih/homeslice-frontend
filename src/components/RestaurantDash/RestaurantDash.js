@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import DashboardNav from "../Header/DashboardNav";
-import RestaurantOrderCard from "./RestaurantOrderCard";
+import RestaurantOrderList from "./RestaurantOrderList";
 import GlobalContext from "../../contexts/GlobalContext";
 import config from "../../config";
 
@@ -10,10 +10,10 @@ export default function RestaurantDash() {
   let payload = JSON.parse(window.atob(base64url));
   let restaurant_id = payload.restaurant_id;
 
-  const [orders, setOrders] = useState({});
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const getOrdersandCustomers = async restaurant_id => {
+    const getOrdersandCustomers = restaurant_id => {
       if (!restaurant_id) {
         throw new Error("restaurant_id is missing. You shouldn't be here.");
       }
@@ -29,21 +29,32 @@ export default function RestaurantDash() {
         .then(res => {
           return res.json();
         })
-        .then(res => console.log(res));
+        .then(res => {
+          console.log("res", res);
+          setOrders(res.orders);
+          return res;
+        });
     };
     getOrdersandCustomers(restaurant_id);
   }, []);
 
   return (
     <>
-      <DashboardNav />
       <section>
         <h2>New Orders</h2>
-        <RestaurantOrderCard />
+        <RestaurantOrderList
+          orderListCategory={"Ordered"}
+          fetchedOrders={orders}
+          changeOrderStatus={setOrders}
+        />
       </section>
       <section>
         <h2>In Progress</h2>
-        <RestaurantOrderCard />
+        <RestaurantOrderList
+          orderListCategory={"In Progress"}
+          fetchedOrders={orders}
+          changeOrderStatus={setOrders}
+        />
       </section>
     </>
   );
