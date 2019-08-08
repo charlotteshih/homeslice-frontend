@@ -80,7 +80,7 @@ export default function Payment({ match, history }) {
         headers: {
           'Content-Type': 'Application/Json',
         }
-      })
+      });
     }
 
 
@@ -91,7 +91,7 @@ export default function Payment({ match, history }) {
         headers: {
           'Content-Type' : 'Application/Json'
         },
-      })
+      });
     }
 
   }

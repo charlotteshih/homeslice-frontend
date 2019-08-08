@@ -17,15 +17,17 @@ export default function OrderOnline({ match, history }) {
   const context = useContext(GlobalContext);
   const [pizzaSize, setPizzaSize] = useState('');
   const [pizzaType, setPizzaType] = useState('');
+  const [pizzaPrice, setPizzaPrice] = useState(5.00);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     _submitCreatePizza({
       size: pizzaSize,
-      type: pizzaType
+      type: pizzaType,
+      price: pizzaPrice
     })
     .then(res => {
-      console.log(res);
+      // console.log(res);
       if (res.status === 201) {
         return res.json();
       } else {
@@ -72,6 +74,8 @@ export default function OrderOnline({ match, history }) {
           <option value="Hawaiian">Hawaiian</option>
           <option value="BBQ Chicken">BBQ Chicken</option>
         </select>
+
+        <span>Subtotal: <b>${pizzaPrice}</b></span>
 
         <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
       </form>
