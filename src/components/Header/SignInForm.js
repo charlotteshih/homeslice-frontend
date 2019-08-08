@@ -3,6 +3,11 @@ import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
 
 export default function SignInForm(props) {
+  const formStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  };
   let context = useContext(GlobalContext);
 
   let [emailSignIn, setEmailSignIn] = useState('');
@@ -43,7 +48,7 @@ export default function SignInForm(props) {
   return (
     <div>
       <h3>Sign In</h3>
-      <form onSubmit={(e) => handleSubmit(e, emailSignIn, passwordSignIn)}>
+      <form  style={formStyle} onSubmit={(e) => handleSubmit(e, emailSignIn, passwordSignIn)}>
         <label htmlFor="emailSignIn">Email</label>
         <input id="emailSignIn" onChange={(e) => setEmailSignIn(e.target.value)}/>
         <label htmlFor="passwordSignIn">Password</label>

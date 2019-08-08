@@ -4,6 +4,10 @@ import Config from '../../config';
 import GlobalContext from '../../contexts/GlobalContext';
 
 export default function StoreFront({ match }) {
+  const pageStyle = {
+    margin: "0 auto",
+    width: "800px"
+  };
   const context = useContext(GlobalContext)
   const [restaurant, setRestaurant] = useState({
     id: 0,
@@ -36,7 +40,7 @@ export default function StoreFront({ match }) {
   useEffect(() => fetchRestaurants(), []);
 
   return (
-    <div>
+    <div style={pageStyle}>
       <section className="restaurant-info">
         <h3>{restaurant.name}</h3>
         <span>
