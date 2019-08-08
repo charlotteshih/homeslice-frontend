@@ -3,6 +3,10 @@ import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
 
 export default function OrderStatus() {
+  const pageStyle = {
+    margin: "0 auto",
+    width: "800px"
+  };
 
   const context = useContext(GlobalContext);
 
@@ -23,7 +27,7 @@ export default function OrderStatus() {
 
 
   return (
-    <div>
+    <div style={pageStyle}>
       <h1>Order Summary</h1>
       <p>Order Status: {context.orderData.order_status}</p>
       <p>Order Total: {context.orderData.order_total}</p>

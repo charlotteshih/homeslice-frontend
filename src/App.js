@@ -11,6 +11,7 @@ import Payment from './components/Payment/Payment.js'
 import SuperUserDash from './components/SuperUserDash/SuperUserDash';
 import RestaurantDash from './components/RestaurantDash/RestaurantDash';
 import RestaurantAnalytics from './components/RestaurantAnalytics/RestaurantAnalytics';
+import NotFound from './components/NotFound/NotFound';
 
 class App extends React.Component {
 
@@ -78,6 +79,7 @@ class App extends React.Component {
               <Route exact path='/dashboard/superuser' component={SuperUserDash} />
               <Route exact path='/dashboard/restaurant/:restaurantId' component={RestaurantDash} />
               <Route exact path='/dashboard/restaurant/:restaurantId/analytics' component={RestaurantAnalytics} />
+              <Route component={NotFound} />
             </Switch>
           </BrowserRouter>
         </GlobalContext.Provider>
