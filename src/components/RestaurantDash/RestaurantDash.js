@@ -5,6 +5,11 @@ import GlobalContext from "../../contexts/GlobalContext";
 import config from "../../config";
 
 export default function RestaurantDash() {
+  const pageStyle = {
+    margin: "0 auto",
+    width: "800px"
+  };
+  
   let currentJWT = localStorage.getItem("jwt");
   let base64url = currentJWT.split(".")[1];
   let payload = JSON.parse(window.atob(base64url));
@@ -39,7 +44,7 @@ export default function RestaurantDash() {
   }, []);
 
   return (
-    <>
+    <div style={pageStyle}>
       <section>
         <h2>New Orders</h2>
         <RestaurantOrderList
@@ -56,6 +61,6 @@ export default function RestaurantDash() {
           setOrders={setOrders}
         />
       </section>
-    </>
+    </div>
   );
 }
