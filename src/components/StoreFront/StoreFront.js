@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Config from '../../config';
 import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function StoreFront({ match }) {
   const pageStyle = {
@@ -21,8 +22,8 @@ export default function StoreFront({ match }) {
     zipcode: ''
   });
 
-  function fetchRestaurants() {
-    fetch(`${Config.apiBaseUrl}/restaurants/${match.params.restaurantId}`)
+  useEffect(() => {
+    FetchServices._getRestaurantById(match.params.restaurantId)
       .then(res => {
         if(res.status === 200) {
           return res.json();
@@ -35,9 +36,7 @@ export default function StoreFront({ match }) {
         context.setRestaurantData({...resJson});
       })
       .catch(err => console.error(err));
-  }
-
-  useEffect(() => fetchRestaurants(), []);
+  }, []);
 
   return (
     <div style={pageStyle}>

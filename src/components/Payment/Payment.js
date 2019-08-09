@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import config from '../../config';
 import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function Payment({ match, history }) {
   const formStyle = {
@@ -39,7 +40,7 @@ export default function Payment({ match, history }) {
       zipcode,
     }
 
-    _submitCustomerData(customerData)
+    FetchServices._submitCreateCustomer(customerData)
       .then(res => res.json())
       .then(json => {
         //set customer id in global state
@@ -53,8 +54,10 @@ export default function Payment({ match, history }) {
               order_status: 'Ordered',
               order_total: Number(updatedState.pizzaData.price)
             }
+
+            console.log('orderData',orderData);
     
-            _submitOrder(orderData)
+            FetchServices._submitCreateOrder(orderData)
             .then(res => {
               if(res.status === 201) {
                 return res.json()
@@ -72,27 +75,6 @@ export default function Payment({ match, history }) {
           });
       })
       .catch(err => console.error(err));
-
-    function _submitOrder(orderData) {
-      return fetch(`${config.apiBaseUrl}/orders`, {
-        method: 'POST',
-        body: JSON.stringify(orderData),
-        headers: {
-          'Content-Type': 'Application/Json',
-        }
-      });
-    }
-
-
-    function _submitCustomerData(customerData) {
-      return fetch(`${config.apiBaseUrl}/customers`, {
-        method: 'POST',
-        body: JSON.stringify(customerData),
-        headers: {
-          'Content-Type' : 'Application/Json'
-        },
-      });
-    }
 
   }
 

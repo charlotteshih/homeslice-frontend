@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
+import FetchServices from '../../services/FetchServices';
 
 export default function OrderStatus() {
   const pageStyle = {
@@ -18,7 +19,7 @@ export default function OrderStatus() {
     context.RestaurantData.state;
 
   function checkOrderStatus(orderId) {
-    fetch(`${config.apiBaseUrl}/orders/${orderId}`)
+    FetchServices._getOrderById(orderId)
       .then(res => res.json())
       .then(resJson => {
         context.setOrderData({...resJson})

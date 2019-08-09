@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
+import FetchServices from '../../services/FetchServices';
 
 export default function SignInForm(props) {
   const formStyle = {
@@ -16,7 +17,7 @@ export default function SignInForm(props) {
 
   const handleSubmit = (e, emailSignIn, passwordSignIn) => {
     e.preventDefault();
-    _submitLoginInformation({
+    FetchServices._submitRestaurantLogin({
       email: emailSignIn,
       password: passwordSignIn
     })
@@ -32,17 +33,6 @@ export default function SignInForm(props) {
       props.setSignInFormShowing(false);
     })
     .catch(err => console.error(err));
-
-
-    function _submitLoginInformation(dataToSubmit) {
-      return fetch(`${config.apiBaseUrl}/authorization/login`, {
-        method: 'POST',
-        body: JSON.stringify(dataToSubmit),
-        headers: {
-          'Content-Type': 'Application/Json'
-        } 
-      })
-    }
   }
 
 
