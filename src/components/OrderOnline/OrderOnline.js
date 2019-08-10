@@ -1,6 +1,12 @@
 import React, { useState, useContext } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import Config from "../../config";
+// import cheese from "../../images/cheese.png";
+// import pepperoni from "../../images/pepperoni.png";
+// import supreme from "../../images/supreme.png";
+// import veggie from "../../images/veggie.png";
+// import hawaiian from "../../images/hawaiian.png";
+// import bbqchicken from "../../images/bbq-chicken.png";
 
 export default function OrderOnline({ match, history }) {
   const formStyle = {
@@ -12,6 +18,12 @@ export default function OrderOnline({ match, history }) {
   const pageStyle = {
     margin: "0 auto",
     width: "800px"
+  };
+
+  const imageStyle = {
+    margin: "0 auto",
+    width: "300px",
+    "margin-bottom": "30px"
   };
 
   const context = useContext(GlobalContext);
@@ -27,7 +39,6 @@ export default function OrderOnline({ match, history }) {
       price: pizzaPrice
     })
       .then(res => {
-        // console.log(res);
         if (res.status === 201) {
           return res.json();
         } else {
@@ -54,6 +65,20 @@ export default function OrderOnline({ match, history }) {
   return (
     <div style={pageStyle}>
       <h3>Place an Order!</h3>
+      {pizzaType.length > 0 && (
+        <img
+          style={imageStyle}
+          src={require(`../../images/${pizzaType
+            .toLowerCase()
+            .replace(/\s/g, "-")}.png`)}
+          alt={`${pizzaType} pizza`}
+        />
+      )}
+      {/* <img
+        style={imageStyle}
+        src={require(`../../images/${pizzaType}`)}
+        alt={`${pizzaType} pizza`}
+      /> */}
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
         <select id="pizzaSize" onChange={e => setPizzaSize(e.target.value)}>
