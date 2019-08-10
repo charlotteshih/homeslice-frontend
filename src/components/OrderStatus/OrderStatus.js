@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import GlobalContext from '../../contexts/GlobalContext';
 import config from '../../config';
 import FetchServices from '../../services/FetchServices';
+
 
 export default function OrderStatus({ match }) {
   const pageStyle = {
@@ -13,6 +14,7 @@ export default function OrderStatus({ match }) {
   const [isLoading, setIsLoading] = useState({isLoading: true});
   const [isLoadingRestaurant, setIsLoadingRestaurant] = useState({isLoadingRestaurant: true});
   const [isLoadingOrder, setIsLoadingOrder] = useState({isLoadingOrder: true});
+  const checkOrderStatusInterval = 1000 * 10;
 
   useEffect(() => {
     if(!context.RestaurantData || context.RestaurantData.id !== match.params.restaurantId) {
@@ -65,14 +67,39 @@ export default function OrderStatus({ match }) {
       context.RestaurantData.state;
   }
 
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
   function checkOrderStatus(orderId) {
     FetchServices._getOrderById(orderId)
       .then(res => res.json())
       .then(resJson => {
-        context.setOrderData({...resJson})
+        context.setOrderData({ ...resJson });
       });
   }
 
+
+  useInterval(() => {
+    checkOrderStatus(context.orderData.id);
+  }, checkOrderStatusInterval);
+  
   if(isLoading) {
     return (
       <div style={pageStyle}>
@@ -92,5 +119,6 @@ export default function OrderStatus({ match }) {
       </div>
     )
   }
+
 
 }
