@@ -3,13 +3,14 @@ import {Link} from 'react-router-dom';
 import GlobalContext from '../../contexts/GlobalContext';
 import DashBoardNav from './DashboardNav';
 import SignInForm from './SignInForm';
+import AdminSignIn from './AdminSignIn';
 
-export default function Header() {
+export default function Header({ history }) {
   const pageStyle = {
     margin: "0 auto",
     width: "800px"
   };
-  let [signInFormShowing, setSignInFormShowing] = useState(false);
+  let [signInFormsShowing, setSignInFormsShowing] = useState(false);
 
   let context = useContext(GlobalContext);
 
@@ -23,9 +24,16 @@ export default function Header() {
         :
         (
           <>
-          <button onClick={() => setSignInFormShowing(!signInFormShowing)}>Sign In</button>
-          {signInFormShowing? 
-            <SignInForm setSignInFormShowing={setSignInFormShowing}/> 
+          <button onClick={() => setSignInFormsShowing(!signInFormsShowing)}>Sign In</button>
+          {signInFormsShowing?
+            <> 
+            <SignInForm
+              setSignInFormsShowing={setSignInFormsShowing} 
+              history={history}/>
+            <AdminSignIn 
+              setSignInFormsShowing={setSignInFormsShowing}
+              history={history}/>
+            </>   
             : 
             ""
           }

@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
+import config from '../../config';
 import FetchServices from '../../services/FetchServices';
-import jwt from 'jsonwebtoken';
 
 export default function SignInForm(props) {
   const formStyle = {
@@ -15,9 +15,9 @@ export default function SignInForm(props) {
   let [emailSignIn, setEmailSignIn] = useState('');
   let [passwordSignIn, setPasswordSignIn] = useState('');
 
-  const handleRestaurantSubmit = (e, emailSignIn, passwordSignIn) => {
+  const handleAdminSubmit = (e, emailSignIn, passwordSignIn) => {
     e.preventDefault();
-    FetchServices._submitRestaurantLogin({
+    FetchServices._submitAdminLogin({
       email: emailSignIn,
       password: passwordSignIn
     })
@@ -30,9 +30,9 @@ export default function SignInForm(props) {
     .then((json) => {
       localStorage.setItem('jwt', json.authToken)
       context.setUserIsSignedIn(true);
+      context.setUserIsAdmin(true);
       props.setSignInFormsShowing(false);
-      let { restaurant_id } = jwt.decode(localStorage.getItem('jwt'));
-      props.history.push(`/dashboard/restaurant/${restaurant_id}`);
+      props.history.push(`/dashboard/admin`);
     })
     .catch(err => console.error(err));
   }
@@ -40,12 +40,12 @@ export default function SignInForm(props) {
 
   return (
     <div>
-      <h3>Sign In</h3>
-      <form  style={formStyle} onSubmit={(e) => handleRestaurantSubmit(e, emailSignIn, passwordSignIn)}>
-        <label htmlFor="emailSignIn">Email</label>
-        <input id="emailSignIn" onChange={(e) => setEmailSignIn(e.target.value)}/>
-        <label htmlFor="passwordSignIn">Password</label>
-        <input id="passwordSignIn" onChange={(e) => setPasswordSignIn(e.target.value)} />
+      <h3>Admin Sign In</h3>
+      <form  style={formStyle} onSubmit={(e) => handleAdminSubmit(e, emailSignIn, passwordSignIn)}>
+        <label htmlFor="adminEmailSignIn">Email</label>
+        <input id="adminEmailSignIn" onChange={(e) => setEmailSignIn(e.target.value)}/>
+        <label htmlFor="adminPasswordSignIn">Password</label>
+        <input id="adminPasswordSignIn" onChange={(e) => setPasswordSignIn(e.target.value)} />
         <input type="submit" value="Sign In" />
       </form>
     </div>
