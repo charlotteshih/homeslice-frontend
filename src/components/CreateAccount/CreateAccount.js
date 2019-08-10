@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
-import Config from '../../config';
+import FetchServices from '../../services/FetchServices';
 
 export default function CreateAccount({ history }) {
   const formStyle = {
@@ -26,7 +26,7 @@ export default function CreateAccount({ history }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    _submitCreateAccount({
+    FetchServices._submitCreateAccount({
       name: restaurantName,
       email,
       password,
@@ -43,21 +43,12 @@ export default function CreateAccount({ history }) {
       throw new Error(res);
     })
     .then(response => {
-      context.setRestaurantData({...response}, (currentState) => {
-        history.push(`/restaurant/${currentState.RestaurantData.id}`)
-      });
+      context.setRestaurantData({...response})
+      .then(updatedState => {
+        history.push(`/restaurant/${updatedState.RestaurantData.id}`)
+      })
     })
     .catch(err => console.error(err));
-
-    function _submitCreateAccount(formData) {
-      return fetch(`${Config.apiBaseUrl}/restaurants`, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    }
   }
 
 

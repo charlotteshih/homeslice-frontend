@@ -1,29 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Config from '../../config';
 import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function StoreFront({ match }) {
   const pageStyle = {
     margin: "0 auto",
     width: "800px"
   };
-  const context = useContext(GlobalContext)
-  const [restaurant, setRestaurant] = useState({
-    id: 0,
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    street_address: '',
-    city: '',
-    state: '',
-    zipcode: ''
-  });
+  const { RestaurantData, setRestaurantData } = useContext(GlobalContext);
+  const [isLoading, setIsLoading] = useState(true);
+  //const [localRestaurantData, setLocalRestaurantData] = useState(context.restaurantData);
 
-  function fetchRestaurants() {
-    fetch(`${Config.apiBaseUrl}/restaurants/${match.params.restaurantId}`)
+  useEffect(() => {
+    FetchServices._getRestaurantById(match.params.restaurantId)
       .then(res => {
+        console.log('storefron-res', res);
         if(res.status === 200) {
           return res.json();
         } else {
@@ -31,26 +23,36 @@ export default function StoreFront({ match }) {
         }
       })
       .then(resJson => {
-        setRestaurant({...resJson});
-        context.setRestaurantData({...resJson});
+        console.log('resJson', resJson)
+        return setRestaurantData({...resJson});
+      })
+      .then(() => {
+        setIsLoading(false);
       })
       .catch(err => console.error(err));
+  }, []);
+
+  if(isLoading) {
+    return (
+      <div style={pageStyle}>
+        <h1>Loading...</h1>
+      </div>
+    );
   }
-
-  useEffect(() => fetchRestaurants(), []);
-
-  return (
-    <div style={pageStyle}>
-      <section className="restaurant-info">
-        <h3>{restaurant.name}</h3>
-        <span>
-          {restaurant.street_address}<br />
-          {restaurant.city}, {restaurant.state} {restaurant.zipcode}<br />
-          {restaurant.phone}<br />
-          {restaurant.email}
-        </span>
-      </section>
-      <Link to={`/restaurant/${restaurant.id}/order-online`}>Place An Order!</Link>
-    </div>
-  )
+  else {
+    return (
+      <div style={pageStyle}>
+        <section className="restaurant-info">
+          <h3>{RestaurantData.name}</h3>
+          <span>
+            {RestaurantData.street_address}<br />
+            {RestaurantData.city}, {RestaurantData.state} {RestaurantData.zipcode}<br />
+            {RestaurantData.phone}<br />
+            {RestaurantData.email}
+          </span>
+        </section>
+        <Link to={`/restaurant/${RestaurantData.id}/order-online`}>Place An Order!</Link>
+      </div>
+    )
+  }
 }
