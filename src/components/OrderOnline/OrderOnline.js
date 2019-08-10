@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
-import Config from '../../config';
+import FetchServices from '../../services/FetchServices';
 
 export default function OrderOnline({ match, history }) {
   const formStyle = {
@@ -21,7 +21,7 @@ export default function OrderOnline({ match, history }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    _submitCreatePizza({
+    FetchServices._submitCreatePizza({
       size: pizzaSize,
       type: pizzaType,
       price: pizzaPrice
@@ -35,20 +35,12 @@ export default function OrderOnline({ match, history }) {
       }
     })
     .then(json => {
-      context.setPizzaData({...json});
+      return context.setPizzaData({...json});
+    })
+    .then(() => {
       history.push(`/restaurant/${match.params.restaurantId}/payment`)
     })
     .catch(err => console.error(err));
-
-    function _submitCreatePizza(formData) {
-      return fetch(`${Config.apiBaseUrl}/pizzas`, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'Application/json'
-        }
-      });
-    }
   }
 
   return (

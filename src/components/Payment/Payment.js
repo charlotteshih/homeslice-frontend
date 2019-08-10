@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
-import config from '../../config';
 import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function Payment({ match, history }) {
   const formStyle = {
@@ -39,64 +39,43 @@ export default function Payment({ match, history }) {
       zipcode,
     }
 
-    _submitCustomerData(customerData)
-      .then(res => res.json())
+    FetchServices._submitCreateCustomer(customerData)
+      .then(res => {
+        if(res.status === 201) {
+          return res.json();
+        }
+        throw new Error(res)
+      })
       .then(json => {
         //set customer id in global state
-        context.setCustomerData({...json},
-          (updatedState) => {
-            //send post to orders table with customer id, pizza id, and restaurant_id
-            const orderData = {
-              restaurant_id: match.params.restaurantId,
-              pizza_id: updatedState.pizzaData.id,
-              customer_id: updatedState.customerData.id,
-              order_status: 'Ordered',
-              order_total: Number(updatedState.pizzaData.price)
-            }
-    
-            _submitOrder(orderData)
-            .then(res => {
-              if(res.status === 201) {
-                return res.json()
-              }
-              throw new Error(res);
-            })
-            .then(json => {
-              context.setOrderData({...json}, 
-                (updatedState) => {
-                  history.push(
-                    `/restaurant/${match.params.restaurantId}/order-status/${updatedState.orderData.id}`
-                    );
-                });
-            })
-          });
+        return context.setCustomerData({...json})
+      })
+      .then(updatedState => {
+        const orderData = {
+          restaurant_id: match.params.restaurantId,
+          pizza_id: updatedState.pizzaData.id,
+          customer_id: updatedState.customerData.id,
+          order_status: 'Ordered',
+          order_total: Number(updatedState.pizzaData.price)
+        }
+
+        console.log('orderData',orderData);
+        return FetchServices._submitCreateOrder(orderData);
+      })
+      .then(res => {
+        if(res.status === 201) {
+          return res.json()
+        }
+        throw new Error(res);
+      })
+      .then(json => {
+        return context.setOrderData({...json})
+      })
+      .then(updatedState => {
+        history.push(`/restaurant/${match.params.restaurantId}/order-status/${updatedState.orderData.id}`);
       })
       .catch(err => console.error(err));
-
-    function _submitOrder(orderData) {
-      return fetch(`${config.apiBaseUrl}/orders`, {
-        method: 'POST',
-        body: JSON.stringify(orderData),
-        headers: {
-          'Content-Type': 'Application/Json',
-        }
-      });
-    }
-
-
-    function _submitCustomerData(customerData) {
-      return fetch(`${config.apiBaseUrl}/customers`, {
-        method: 'POST',
-        body: JSON.stringify(customerData),
-        headers: {
-          'Content-Type' : 'Application/Json'
-        },
-      });
-    }
-
   }
-
-
 
   return (
     <div style={pageStyle}>
