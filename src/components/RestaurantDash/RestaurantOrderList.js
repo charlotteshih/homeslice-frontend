@@ -11,14 +11,14 @@ export default function RestaurantOrderList(props) {
       return;
     } else {
       if (props.orderListCategory === "Ordered") {
-        selectedOrders = orderArray.filter(
-          order => order.order_status === "Ordered"
-        ).reverse();
+        selectedOrders = orderArray
+          .filter(order => order.order_status === "Ordered")
+          .reverse();
       }
       if (props.orderListCategory === "In Progress") {
-        selectedOrders = orderArray.filter(
-          order => order.order_status === "In Progress"
-        ).reverse();
+        selectedOrders = orderArray
+          .filter(order => order.order_status === "In Progress")
+          .reverse();
       }
     }
     console.log("selectedOrders", selectedOrders);
@@ -36,9 +36,6 @@ export default function RestaurantOrderList(props) {
     }
   };
   return (
-    <div>
-      RestaurantOrderList
-      {displaySelectedOrders(props.orders, props.orderListCategory)}
-    </div>
+    <div>{displaySelectedOrders(props.orders, props.orderListCategory)}</div>
   );
 }
