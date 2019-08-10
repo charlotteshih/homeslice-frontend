@@ -35,7 +35,9 @@ export default function OrderOnline({ match, history }) {
       }
     })
     .then(json => {
-      context.setPizzaData({...json});
+      return context.setPizzaData({...json});
+    })
+    .then(() => {
       history.push(`/restaurant/${match.params.restaurantId}/payment`)
     })
     .catch(err => console.error(err));
