@@ -1,12 +1,12 @@
-import React, {useState, useContext} from 'react';
-import GlobalContext from '../../contexts/GlobalContext';
-import Config from '../../config';
+import React, { useState, useContext } from "react";
+import GlobalContext from "../../contexts/GlobalContext";
+import Config from "../../config";
 
 export default function OrderOnline({ match, history }) {
   const formStyle = {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   };
 
   const pageStyle = {
@@ -15,41 +15,41 @@ export default function OrderOnline({ match, history }) {
   };
 
   const context = useContext(GlobalContext);
-  const [pizzaSize, setPizzaSize] = useState('');
-  const [pizzaType, setPizzaType] = useState('');
-  const [pizzaPrice, setPizzaPrice] = useState(5.00);
+  const [pizzaSize, setPizzaSize] = useState("");
+  const [pizzaType, setPizzaType] = useState("");
+  const [pizzaPrice, setPizzaPrice] = useState(5.0);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     _submitCreatePizza({
       size: pizzaSize,
       type: pizzaType,
       price: pizzaPrice
     })
-    .then(res => {
-      // console.log(res);
-      if (res.status === 201) {
-        return res.json();
-      } else {
-        throw new Error(res);
-      }
-    })
-    .then(json => {
-      context.setPizzaData({...json});
-      history.push(`/restaurant/${match.params.restaurantId}/payment`)
-    })
-    .catch(err => console.error(err));
+      .then(res => {
+        // console.log(res);
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          throw new Error(res);
+        }
+      })
+      .then(json => {
+        context.setPizzaData({ ...json });
+        history.push(`/restaurant/${match.params.restaurantId}/payment`);
+      })
+      .catch(err => console.error(err));
 
     function _submitCreatePizza(formData) {
       return fetch(`${Config.apiBaseUrl}/pizzas`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(formData),
         headers: {
-          'Content-Type': 'Application/json'
+          "Content-Type": "Application/json"
         }
       });
     }
-  }
+  };
 
   return (
     <div style={pageStyle}>
@@ -75,10 +75,12 @@ export default function OrderOnline({ match, history }) {
           <option value="BBQ Chicken">BBQ Chicken</option>
         </select>
 
-        <span>Subtotal: <b>${pizzaPrice}</b></span>
+        <span>
+          Subtotal: <b>${pizzaPrice}</b>
+        </span>
 
         <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
       </form>
     </div>
-  )
+  );
 }

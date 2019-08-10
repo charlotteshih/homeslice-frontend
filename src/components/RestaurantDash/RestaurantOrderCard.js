@@ -44,12 +44,12 @@ export default function RestaurantOrderCard(props) {
         order_status: "In Progress"
       })
     }).then(res => {
-      const updatedOrders = props.orders.filter((order) => {
-        if(order.id === order_id) {
-          order.order_status = 'In Progress';
+      const updatedOrders = props.orders.filter(order => {
+        if (order.id === order_id) {
+          order.order_status = "In Progress";
         }
         return order;
-      })
+      });
       props.setOrders(updatedOrders);
       console.log(res);
     });
@@ -65,12 +65,12 @@ export default function RestaurantOrderCard(props) {
         order_status: "Ready For Pickup"
       })
     }).then(res => {
-      const updatedOrders = props.orders.filter((order) => {
-        if(order.id === order_id) {
-          order.order_status = 'Ready For Pickup';
+      const updatedOrders = props.orders.filter(order => {
+        if (order.id === order_id) {
+          order.order_status = "Ready For Pickup";
         }
         return order;
-      })
+      });
       props.setOrders(updatedOrders);
       console.log(res);
     });
