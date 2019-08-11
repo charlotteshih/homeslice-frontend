@@ -56,7 +56,6 @@ export default function RestaurantOrderCard(props) {
     .catch(err => console.error(err));
   };
 
-
   return (
     <>
       <div style={cardStyle}>

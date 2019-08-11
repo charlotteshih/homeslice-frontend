@@ -1,8 +1,8 @@
-import React, {useState, useContext, useEffect} from 'react'
-import {Link} from 'react-router-dom';
-import GlobalContext from '../../contexts/GlobalContext';
-import DashBoardNav from './DashboardNav';
-import SignInForm from './SignInForm';
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import GlobalContext from "../../contexts/GlobalContext";
+import DashBoardNav from "./DashboardNav";
+import SignInForm from "./SignInForm";
 
 export default function Header() {
   const pageStyle = {
@@ -17,21 +17,21 @@ export default function Header() {
     <header style={pageStyle}>
       <nav>
         <Link to="/">Home</Link>
-        {context.userIsSignedIn? (
+        {context.userIsSignedIn ? (
           <DashBoardNav />
-        )
-        :
-        (
+        ) : (
           <>
-          <button onClick={() => setSignInFormShowing(!signInFormShowing)}>Sign In</button>
-          {signInFormShowing? 
-            <SignInForm setSignInFormShowing={setSignInFormShowing}/> 
-            : 
-            ""
-          }
+            <button onClick={() => setSignInFormShowing(!signInFormShowing)}>
+              Sign In
+            </button>
+            {signInFormShowing ? (
+              <SignInForm setSignInFormShowing={setSignInFormShowing} />
+            ) : (
+              ""
+            )}
           </>
         )}
       </nav>
     </header>
-  )
+  );
 }
