@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import GlobalContext from "../../contexts/GlobalContext";
-import Config from "../../config";
+import React, {useState, useEffect, useContext} from 'react';
+import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function CreateAccount({ history }) {
   const formStyle = {
@@ -26,7 +26,7 @@ export default function CreateAccount({ history }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    _submitCreateAccount({
+    FetchServices._submitCreateAccount({
       name: restaurantName,
       email,
       password,
@@ -36,29 +36,20 @@ export default function CreateAccount({ history }) {
       state,
       zipcode
     })
-      .then(res => {
-        if (res.status === 201) {
-          return res.json();
-        }
-        throw new Error(res);
+    .then(res => {
+      if(res.status === 201) {
+        return res.json()
+      }
+      throw new Error(res);
+    })
+    .then(response => {
+      context.setRestaurantData({...response})
+      .then(updatedState => {
+        history.push(`/restaurant/${updatedState.RestaurantData.id}`)
       })
-      .then(response => {
-        context.setRestaurantData({ ...response }, currentState => {
-          history.push(`/restaurant/${currentState.RestaurantData.id}`);
-        });
-      })
-      .catch(err => console.error(err));
-
-    function _submitCreateAccount(formData) {
-      return fetch(`${Config.apiBaseUrl}/restaurants`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-    }
-  };
+    })
+    .catch(err => console.error(err));
+  }
 
   return (
     <div style={pageStyle}>

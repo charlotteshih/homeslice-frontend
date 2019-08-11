@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import config from "../../config";
+import React from "react";
+import FetchServices from "../../services/FetchServices";
 
 export default function RestaurantOrderCard(props) {
   console.log("props.order", props.order);
@@ -34,46 +34,26 @@ export default function RestaurantOrderCard(props) {
     flexDirection: "column"
   };
 
-  const markInProgress = order_id => {
-    fetch(`${config.apiBaseUrl}/orders/${order_id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "Application/JSON"
-      },
-      body: JSON.stringify({
-        order_status: "In Progress"
-      })
-    }).then(res => {
-      const updatedOrders = props.orders.filter(order => {
-        if (order.id === order_id) {
-          order.order_status = "In Progress";
+  const updateOrderStatus = (order_id, status) => {
+    FetchServices._updateOrderStatusById(order_id, status)
+    .then(res => {
+      if(res.status === 204 ) {
+        return;
+      }
+      throw new Error(res);
+    })
+    .then(() => {
+      return props.orders.filter((order) => {
+        if(order.id === order_id) {
+          order.order_status = status;
         }
         return order;
       });
-      props.setOrders(updatedOrders);
-      console.log(res);
-    });
-  };
-
-  const markReadyForPickup = order_id => {
-    fetch(`${config.apiBaseUrl}/orders/${order_id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "Application/JSON"
-      },
-      body: JSON.stringify({
-        order_status: "Ready For Pickup"
-      })
-    }).then(res => {
-      const updatedOrders = props.orders.filter(order => {
-        if (order.id === order_id) {
-          order.order_status = "Ready For Pickup";
-        }
-        return order;
-      });
-      props.setOrders(updatedOrders);
-      console.log(res);
-    });
+    })
+    .then(updatedOrdersList => {
+      props.setOrders(updatedOrdersList);
+    })
+    .catch(err => console.error(err));
   };
 
   return (
@@ -83,10 +63,10 @@ export default function RestaurantOrderCard(props) {
         <div style={pizzaIconStyle}>{props.order.pizza_size}</div>
         <div style={pizzaTypeStyle}>{props.order.pizza_type}</div>
         <div style={optionButtonsStyle}>
-          <button onClick={() => markInProgress(props.order.id)}>
+          <button onClick={() => updateOrderStatus(props.order.id, "In Progress")}>
             Mark In Progress
           </button>
-          <button onClick={() => markReadyForPickup(props.order.id)}>
+          <button onClick={() => updateOrderStatus(props.order.id, "Ready For Pickup")}>
             Mark Ready For Pickup
           </button>
         </div>

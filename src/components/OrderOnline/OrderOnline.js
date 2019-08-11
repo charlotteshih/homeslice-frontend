@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import GlobalContext from "../../contexts/GlobalContext";
-import Config from "../../config";
+import React, {useState, useContext} from 'react';
+import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function OrderOnline({ match, history }) {
   const formStyle = {
@@ -86,35 +86,28 @@ export default function OrderOnline({ match, history }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    _submitCreatePizza({
+    FetchServices._submitCreatePizza({
       size: pizzaSize,
       type: pizzaType
       // base_price: pizzaBasePrice,
       // addl_price: pizzaAddlPrice
     })
-      .then(res => {
-        if (res.status === 201) {
-          return res.json();
-        } else {
-          throw new Error(res);
-        }
-      })
-      .then(json => {
-        context.setPizzaData({ ...json });
-        history.push(`/restaurant/${match.params.restaurantId}/payment`);
-      })
-      .catch(err => console.error(err));
-
-    function _submitCreatePizza(formData) {
-      return fetch(`${Config.apiBaseUrl}/pizzas`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "Application/json"
-        }
-      });
-    }
-  };
+    .then(res => {
+      // console.log(res);
+      if (res.status === 201) {
+        return res.json();
+      } else {
+        throw new Error(res);
+      }
+    })
+    .then(json => {
+      return context.setPizzaData({...json});
+    })
+    .then(() => {
+      history.push(`/restaurant/${match.params.restaurantId}/payment`)
+    })
+    .catch(err => console.error(err));
+  }
 
   return (
     <div style={pageStyle}>

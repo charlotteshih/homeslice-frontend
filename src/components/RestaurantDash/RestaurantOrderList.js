@@ -13,12 +13,12 @@ export default function RestaurantOrderList(props) {
       if (props.orderListCategory === "Ordered") {
         selectedOrders = orderArray.filter(
           order => order.order_status === "Ordered"
-        );
+        ).reverse();
       }
       if (props.orderListCategory === "In Progress") {
         selectedOrders = orderArray.filter(
           order => order.order_status === "In Progress"
-        );
+        ).reverse();
       }
     }
     console.log("selectedOrders", selectedOrders);

@@ -24,40 +24,35 @@ class App extends React.Component {
       userIsSignedIn: false
     };
   }
-  setRestaurantData = (obj, callback) => {
-    this.setState({ RestaurantData: obj }, () => {
-      if (!callback) {
-        return;
-      }
-      callback(this.state);
+  setRestaurantData = (obj) => {
+    return new Promise(resolve => {
+      this.setState({ RestaurantData: obj }, () => resolve(this.state));
     });
   };
 
-  setPizzaData = obj => {
-    this.setState({ pizzaData: obj });
-  };
+  setPizzaData = (obj) => {
+    return new Promise(resolve => {
+      this.setState({ pizzaData: obj }, () => resolve(this.state));
+    });
+  }
 
-  setCustomerData = (obj, callback) => {
-    this.setState({ customerData: obj }, () => {
-      if (!callback) {
-        return;
-      }
-      callback(this.state);
+  setCustomerData = (obj) => {
+    return new Promise(resolve => {
+      this.setState({ customerData: obj }, () => resolve(this.state));
     });
   };
 
-  setOrderData = (obj, callback) => {
-    this.setState({ orderData: obj }, () => {
-      if (!callback) {
-        return;
-      }
-      callback(this.state);
+  setOrderData = (obj) => {
+    return new Promise(resolve => {
+      this.setState({ orderData: obj}, () => resolve(this.state));
     });
   };
 
-  setUserIsSignedIn = bool => {
-    this.setState({ userIsSignedIn: bool });
-  };
+  setUserIsSignedIn = (bool) => {
+    return new Promise(resolve => {
+      this.setState({ userIsSignedIn: bool }, resolve);
+    });
+  }
 
   render() {
     let context = {

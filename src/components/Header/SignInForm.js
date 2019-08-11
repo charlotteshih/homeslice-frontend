@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
-import GlobalContext from "../../contexts/GlobalContext";
-import config from "../../config";
+import React, { useContext, useState, useEffect } from 'react';
+import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
 
 export default function SignInForm(props) {
   const formStyle = {
@@ -16,33 +16,23 @@ export default function SignInForm(props) {
 
   const handleSubmit = (e, emailSignIn, passwordSignIn) => {
     e.preventDefault();
-    _submitLoginInformation({
+    FetchServices._submitRestaurantLogin({
       email: emailSignIn,
       password: passwordSignIn
     })
-      .then(res => {
-        if (res.status === 200) {
-          return res.json();
-        }
-        throw new Error(res);
-      })
-      .then(json => {
-        localStorage.setItem("jwt", json.authToken);
-        context.setUserIsSignedIn(true);
-        props.setSignInFormShowing(false);
-      })
-      .catch(err => console.error(err));
-
-    function _submitLoginInformation(dataToSubmit) {
-      return fetch(`${config.apiBaseUrl}/authorization/login`, {
-        method: "POST",
-        body: JSON.stringify(dataToSubmit),
-        headers: {
-          "Content-Type": "Application/Json"
-        }
-      });
-    }
-  };
+    .then(res => {
+      if(res.status === 200) {
+        return res.json();
+      }
+      throw new Error(res);
+    })
+    .then((json) => {
+      localStorage.setItem('jwt', json.authToken)
+      context.setUserIsSignedIn(true);
+      props.setSignInFormShowing(false);
+    })
+    .catch(err => console.error(err));
+  }
 
   return (
     <div>
