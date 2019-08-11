@@ -72,6 +72,9 @@ const FetchServices = {
       }
     });
   },
+  _getAllRestaurants() {
+    return fetch(`${Config.apiBaseUrl}/restaurants/`)
+  }, 
   _getRestaurantById(restaurantId) {
     return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`);
   },
