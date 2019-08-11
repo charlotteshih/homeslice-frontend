@@ -49,8 +49,8 @@ export default function Payment({ match, history }) {
             restaurant_id: match.params.restaurantId,
             pizza_id: updatedState.pizzaData.id,
             customer_id: updatedState.customerData.id,
-            order_status: "Ordered",
-            order_total: Number(updatedState.pizzaData.price)
+            order_status: "Ordered"
+            // order_total: Number(updatedState.pizzaData.price)
           };
 
           _submitOrder(orderData)

@@ -1,12 +1,6 @@
 import React, { useState, useContext } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import Config from "../../config";
-// import cheese from "../../images/cheese.png";
-// import pepperoni from "../../images/pepperoni.png";
-// import supreme from "../../images/supreme.png";
-// import veggie from "../../images/veggie.png";
-// import hawaiian from "../../images/hawaiian.png";
-// import bbqchicken from "../../images/bbq-chicken.png";
 
 export default function OrderOnline({ match, history }) {
   const formStyle = {
@@ -23,20 +17,80 @@ export default function OrderOnline({ match, history }) {
   const imageStyle = {
     margin: "0 auto",
     width: "300px",
-    "margin-bottom": "30px"
+    marginBottom: "30px"
   };
 
   const context = useContext(GlobalContext);
   const [pizzaSize, setPizzaSize] = useState("");
   const [pizzaType, setPizzaType] = useState("");
-  const [pizzaPrice, setPizzaPrice] = useState(5.0);
+  const [pizzaBasePrice, setPizzaBasePrice] = useState(0);
+  const [pizzaAddlPrice, setPizzaAddlPrice] = useState(0);
+
+  const _handlePizzaSizeChange = e => {
+    const selectedSize = e.target.value;
+    let selectedPrice = 0;
+
+    setPizzaSize(selectedSize);
+
+    switch (selectedSize) {
+      case "Small":
+        selectedPrice = 9;
+        break;
+      case "Medium":
+        selectedPrice = 10;
+        break;
+      case "Large":
+        selectedPrice = 11;
+        break;
+      case "X-Large":
+        selectedPrice = 12;
+        break;
+      default:
+        selectedPrice = 0;
+    }
+
+    setPizzaBasePrice(selectedPrice);
+  };
+
+  const _handlePizzaTypeChange = e => {
+    const selectedType = e.target.value;
+    let selectedPrice = 0;
+
+    setPizzaType(selectedType);
+
+    switch (selectedType) {
+      case "Cheese":
+        selectedPrice = 0;
+        break;
+      case "Pepperoni":
+        selectedPrice = 2;
+        break;
+      case "Supreme":
+        selectedPrice = 3;
+        break;
+      case "Veggie":
+        selectedPrice = 1;
+        break;
+      case "Hawaiian":
+        selectedPrice = 2;
+        break;
+      case "BBQ Chicken":
+        selectedPrice = 2;
+        break;
+      default:
+        selectedPrice = 0;
+    }
+
+    setPizzaAddlPrice(selectedPrice);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
     _submitCreatePizza({
       size: pizzaSize,
-      type: pizzaType,
-      price: pizzaPrice
+      type: pizzaType
+      // base_price: pizzaBasePrice,
+      // addl_price: pizzaAddlPrice
     })
       .then(res => {
         if (res.status === 201) {
@@ -74,14 +128,9 @@ export default function OrderOnline({ match, history }) {
           alt={`${pizzaType} pizza`}
         />
       )}
-      {/* <img
-        style={imageStyle}
-        src={require(`../../images/${pizzaType}`)}
-        alt={`${pizzaType} pizza`}
-      /> */}
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
-        <select id="pizzaSize" onChange={e => setPizzaSize(e.target.value)}>
+        <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
           <option value="">Please select a size...</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
@@ -90,7 +139,7 @@ export default function OrderOnline({ match, history }) {
         </select>
 
         <label htmlFor="pizzaType">Type</label>
-        <select id="pizzaType" onChange={e => setPizzaType(e.target.value)}>
+        <select id="pizzaType" onChange={e => _handlePizzaTypeChange(e)}>
           <option value="">Please select a type...</option>
           <option value="Cheese">Cheese</option>
           <option value="Pepperoni">Pepperoni</option>
@@ -101,7 +150,7 @@ export default function OrderOnline({ match, history }) {
         </select>
 
         <span>
-          Subtotal: <b>${pizzaPrice}</b>
+          Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b>
         </span>
 
         <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
