@@ -81,7 +81,7 @@ export default function OrderStatus({ match }) {
       });
   }
 
-  IntervalServices.useInterval(() => {
+  IntervalServices._useInterval(() => {
     checkOrderStatus(context.orderData.id);
   }, checkOrderStatusInterval);
 
@@ -104,9 +104,6 @@ export default function OrderStatus({ match }) {
             real time!
           </b>
         </p>
-        <button onClick={() => checkOrderStatus(context.orderData.id)}>
-          Refresh
-        </button>
       </div>
     );
   }
