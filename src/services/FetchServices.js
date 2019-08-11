@@ -89,6 +89,11 @@ const FetchServices = {
       })
     });
   },
+  _deleteRestaurantById(restaurantId) {
+    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`, {
+      method: "DELETE"
+    });
+  }
 }
 
 export default FetchServices

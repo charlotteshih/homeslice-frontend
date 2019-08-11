@@ -44,17 +44,20 @@ export default function CreateAccount(props) {
     })
     .then(response => {
       if(context.userIsAdmin) {
+        console.log('response', response);
         let newList = props.restaurants;
+        console.log('newList', newList);
+        newList.unshift({...response});
+        console.log('newList2', newList);
 
-        newList.
-
-        props.setRestaurants()
+        props.setRestaurants([...newList]);
         return;
       }
       return context.setRestaurantData({...response})
     })
     .then(updatedState => {
-      if(context.userIsAdmin) {
+      if(props.setIsExpanded) {
+        props.setIsExpanded(false);
         return;
       }
       props.history.push(`/restaurant/${updatedState.RestaurantData.id}`)

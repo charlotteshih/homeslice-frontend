@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import FetchServices from '../../services/FetchServices';
 import RestaurantCard from '../AdminDash/RestaurantCard';
 import RestaurantAnalytics from '../RestaurantAnalytics/RestaurantAnalytics';
-import CreateAccount from '../CreateAccount/CreateAccount';
+import AddRestaurant from '../AdminDash/AddRestaurant';
 
 export default function AdminDash() {
   const pageStyle = {
@@ -35,8 +35,16 @@ export default function AdminDash() {
       }
       return true;
     })
-
-    setRestaurants(newList);
+    FetchServices._deleteRestaurantById(restaurantId)
+      .then(res => {
+        if (res.status === 204) {
+          setRestaurants(newList);
+          return;
+        }
+        throw new Error({...res});
+      })
+    
+    
   }
 
   return (
@@ -47,11 +55,13 @@ export default function AdminDash() {
       </>
       :
       <>
-        <CreateAccount 
+        <AddRestaurant 
           setRestaurants={setRestaurants}
-          restaurants={restaurants}/>
+          restaurants={restaurants}
+        />
         <h1>Restaurants</h1>
         {restaurants.map((restaurant) => {
+          console.log('rest', restaurant);
           return (
           <RestaurantCard 
             key={restaurant.id} 
