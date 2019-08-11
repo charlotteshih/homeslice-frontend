@@ -3,8 +3,9 @@ import FetchServices from '../../services/FetchServices';
 import RestaurantCard from '../AdminDash/RestaurantCard';
 import RestaurantAnalytics from '../RestaurantAnalytics/RestaurantAnalytics';
 import AddRestaurant from '../AdminDash/AddRestaurant';
+import jwt from 'jsonwebtoken';
 
-export default function AdminDash() {
+export default function AdminDash({ history }) {
   const pageStyle = {
     margin: "0 auto",
     width: "800px"
@@ -12,6 +13,11 @@ export default function AdminDash() {
 
   //name: admin
   //pw: Admin123!
+  let decoded = jwt.decode(localStorage.getItem('jwt'));
+  if(!decoded || decoded.admin_id !== 1) {
+    console.log('inside decoded if');
+    history.push('/');
+  }
   let [restaurants, setRestaurants] = useState([])
 
   useEffect(() => {
