@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import FetchServices from '../../services/FetchServices';
 import RestaurantCard from '../AdminDash/RestaurantCard';
-import RestaurantAnalytics from '../RestaurantAnalytics/RestaurantAnalytics';
 import AddRestaurant from '../AdminDash/AddRestaurant';
 import jwt from 'jsonwebtoken';
 
@@ -18,6 +17,8 @@ export default function AdminDash({ history }) {
     console.log('inside decoded if');
     history.push('/');
   }
+
+
   let [restaurants, setRestaurants] = useState([])
 
   useEffect(() => {
@@ -41,7 +42,8 @@ export default function AdminDash({ history }) {
       }
       return true;
     })
-    FetchServices._deleteRestaurantById(restaurantId)
+    let auth = localStorage.getItem('jwt') || 'no jwt found';
+    FetchServices._adminDeleteRestaurantById(restaurantId, auth)
       .then(res => {
         if (res.status === 204) {
           setRestaurants(newList);
@@ -49,8 +51,6 @@ export default function AdminDash({ history }) {
         }
         throw new Error({...res});
       })
-    
-    
   }
 
   return (

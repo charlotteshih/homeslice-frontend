@@ -91,8 +91,16 @@ const FetchServices = {
   },
   _deleteRestaurantById(restaurantId) {
     return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
+  },
+  _adminDeleteRestaurantById(restaurantId, auth) {
+    return fetch(`${Config.apiBaseUrl}/admin/${restaurantId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${auth}`
+      }
+    })
   }
 }
 

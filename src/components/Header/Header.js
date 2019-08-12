@@ -4,6 +4,8 @@ import GlobalContext from '../../contexts/GlobalContext';
 import DashBoardNav from './DashboardNav';
 import SignInForm from './SignInForm';
 import AdminSignIn from './AdminSignIn';
+import jwt from 'jsonwebtoken';
+import FetchServices from '../../services/FetchServices';
 
 export default function Header({ history }) {
   const pageStyle = {
@@ -11,8 +13,46 @@ export default function Header({ history }) {
     width: "800px"
   };
   let [signInFormsShowing, setSignInFormsShowing] = useState(false);
-
   let context = useContext(GlobalContext);
+
+
+  const token = localStorage.getItem('jwt');
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+
+    if(localStorage.getItem('jwt')) {
+      context.setUserIsSignedIn(true);
+      let decoded = jwt.decode(token);
+      console.log('decodedInHeader', decoded);
+      let userId = 0;
+      decoded.sub === 'Admin'
+        ? userId = decoded.admin_id 
+        : userId = decoded.restaurant_id
+
+      FetchServices._getRestaurantById(userId)
+        .then(res => {
+          console.log(res);
+          if(res.ok) {
+            return res.json();
+          }
+          throw new Error({...res});
+        })
+        .then(json => {
+          return context.setRestaurantData({...json})
+        })
+        .then(() => {
+          if(decoded.sub === 'Admin') {
+            context.setUserIsAdmin(true);
+          }
+        })
+
+      console.dir(decoded);
+
+
+    }
+  }, []);
+
+
 
   return (
     <header style={pageStyle}>

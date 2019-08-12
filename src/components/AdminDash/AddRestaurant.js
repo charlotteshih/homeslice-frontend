@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState } from 'react'
 import CreateAccount from '../CreateAccount/CreateAccount';
 
 export default function AddRestaurant(props) {

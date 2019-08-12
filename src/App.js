@@ -28,7 +28,7 @@ class App extends React.Component {
   }
   setRestaurantData = (obj) => {
     return new Promise(resolve => {
-      this.setState({ RestaurantData: obj }, () => resolve(this.state));
+      this.setState({ restaurantData: obj }, () => resolve(this.state));
     });
   }
 
