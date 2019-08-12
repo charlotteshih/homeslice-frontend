@@ -9,6 +9,7 @@ export default function RestaurantDash({ match }) {
     width: "800px"
   };
 
+  const [currentTab, setCurrentTab] = useState("New Orders / In Progress");
   const [orders, setOrders] = useState([]);
   const [customers, setCustomers] = useState([]);
   const checkOrdersAndCustomersInterval = 1000 * 10;
@@ -34,32 +35,59 @@ export default function RestaurantDash({ match }) {
   return (
     <div style={pageStyle}>
       <section>
-        <h2>New Orders</h2>
-        <RestaurantOrderList
-          orderListCategory={"Ordered"}
-          orders={orders}
-          setOrders={setOrders}
-          customers={customers}
-        />
+        <button onClick={() => setCurrentTab("New Orders / In Progress")}>
+          New Orders / In Progress
+        </button>
+        <button onClick={() => setCurrentTab("Ready For Pickup")}>
+          Ready For Pickup
+        </button>
+        <button onClick={() => setCurrentTab("Completed")}>Completed</button>
       </section>
-      <section>
-        <h2>In Progress</h2>
-        <RestaurantOrderList
-          orderListCategory={"In Progress"}
-          orders={orders}
-          setOrders={setOrders}
-          customers={customers}
-        />
-      </section>
-      <section>
-        <h2>Ready For Pickup</h2>
-        <RestaurantOrderList
-          orderListCategory={"Ready For Pickup"}
-          orders={orders}
-          setOrders={setOrders}
-          customers={customers}
-        />
-      </section>
+      {currentTab === "New Orders / In Progress" ? (
+        <>
+          <section>
+            <h2>New Orders</h2>
+            <RestaurantOrderList
+              orderListCategory={"Ordered"}
+              orders={orders}
+              setOrders={setOrders}
+              customers={customers}
+            />
+          </section>
+          <section>
+            <h2>In Progress</h2>
+            <RestaurantOrderList
+              orderListCategory={"In Progress"}
+              orders={orders}
+              setOrders={setOrders}
+              customers={customers}
+            />
+          </section>
+        </>
+      ) : null}
+      {currentTab === "Ready For Pickup" ? (
+        <section>
+          <h2>Ready For Pickup</h2>
+          <RestaurantOrderList
+            orderListCategory={"Ready For Pickup"}
+            orders={orders}
+            setOrders={setOrders}
+            customers={customers}
+          />
+        </section>
+      ) : null}
+
+      {currentTab === "Completed" ? (
+        <section>
+          <h2>Completed</h2>
+          <RestaurantOrderList
+            orderListCategory={"Completed"}
+            orders={orders}
+            setOrders={setOrders}
+            customers={customers}
+          />
+        </section>
+      ) : null}
     </div>
   );
 }
