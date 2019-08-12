@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RestaurantOrderList from "./RestaurantOrderList";
-import FetchServices from '../../services/FetchServices';
+import FetchServices from "../../services/FetchServices";
+import IntervalServices from "../../services/IntervalServices";
 
 export default function RestaurantDash({ match }) {
   const pageStyle = {
@@ -9,29 +10,36 @@ export default function RestaurantDash({ match }) {
   };
 
   const [orders, setOrders] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const checkOrdersAndCustomersInterval = 1000 * 10;
 
   useEffect(() => {
     FetchServices._getOrdersAndCustomersById(match.params.restaurantId)
-    .then(res => res.json())
-    .then(res => {
-      setOrders(res.orders);
-    });
+      .then(res => res.json())
+      .then(res => {
+        setOrders(res.orders);
+        setCustomers(res.customers);
+      });
   }, []);
 
+  IntervalServices._useInterval(() => {
+    FetchServices._getOrdersAndCustomersById(match.params.restaurantId)
+      .then(res => res.json())
+      .then(res => {
+        setOrders(res.orders);
+        setCustomers(res.customers);
+      });
+  }, checkOrdersAndCustomersInterval);
 
   return (
     <div style={pageStyle}>
-      <button onClick={() => {
-        FetchServices._getOrdersAndCustomersById(match.params.restaurantId);
-        }}>
-        Refresh
-      </button>
       <section>
         <h2>New Orders</h2>
         <RestaurantOrderList
           orderListCategory={"Ordered"}
           orders={orders}
           setOrders={setOrders}
+          customers={customers}
         />
       </section>
       <section>
@@ -40,6 +48,16 @@ export default function RestaurantDash({ match }) {
           orderListCategory={"In Progress"}
           orders={orders}
           setOrders={setOrders}
+          customers={customers}
+        />
+      </section>
+      <section>
+        <h2>Ready For Pickup</h2>
+        <RestaurantOrderList
+          orderListCategory={"Ready For Pickup"}
+          orders={orders}
+          setOrders={setOrders}
+          customers={customers}
         />
       </section>
     </div>
