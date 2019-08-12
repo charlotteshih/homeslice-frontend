@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
 
-export default function CreateAccount({ history }) {
+export default function CreateAccount(props) {
   const formStyle = {
     display: "flex",
     flexDirection: "column",
@@ -43,10 +43,24 @@ export default function CreateAccount({ history }) {
       throw new Error(res);
     })
     .then(response => {
-      context.setRestaurantData({...response})
-      .then(updatedState => {
-        history.push(`/restaurant/${updatedState.RestaurantData.id}`)
-      })
+      if(context.userIsAdmin) {
+        console.log('response', response);
+        let newList = props.restaurants;
+        console.log('newList', newList);
+        newList.unshift({...response});
+        console.log('newList2', newList);
+
+        props.setRestaurants([...newList]);
+        return;
+      }
+      return context.setRestaurantData({...response})
+    })
+    .then(updatedState => {
+      if(props.setIsExpanded) {
+        props.setIsExpanded(false);
+        return;
+      }
+      props.history.push(`/restaurant/${updatedState.RestaurantData.id}`)
     })
     .catch(err => console.error(err));
   }

@@ -8,7 +8,7 @@ import StoreFront from './components/StoreFront/StoreFront';
 import OrderOnline from './components/OrderOnline/OrderOnline';
 import OrderStatus from './components/OrderStatus/OrderStatus';
 import Payment from './components/Payment/Payment.js'
-import SuperUserDash from './components/SuperUserDash/SuperUserDash';
+import AdminDash from './components/AdminDash/AdminDash';
 import RestaurantDash from './components/RestaurantDash/RestaurantDash';
 import RestaurantAnalytics from './components/RestaurantAnalytics/RestaurantAnalytics';
 import NotFound from './components/NotFound/NotFound';
@@ -23,11 +23,12 @@ class App extends React.Component {
       customerData: {},
       orderData: {},
       userIsSignedIn: false,
+      userIsAdmin: false,
     }
   }
   setRestaurantData = (obj) => {
     return new Promise(resolve => {
-      this.setState({ RestaurantData: obj }, () => resolve(this.state));
+      this.setState({ restaurantData: obj }, () => resolve(this.state));
     });
   }
 
@@ -55,12 +56,19 @@ class App extends React.Component {
     });
   }
 
+  setUserIsAdmin = (bool) => {
+    return new Promise(resolve => {
+      this.setState({ userIsAdmin: bool }, resolve);
+    });
+  }
+
   render() {
     let context = {
       setRestaurantData: this.setRestaurantData,
       setPizzaData: this.setPizzaData,
       setCustomerData: this.setCustomerData,
-      setUserIsSignedIn: this.setUserIsSignedIn,
+      setUserIsSignedIn: this.setUserIsSignedIn, 
+      setUserIsAdmin: this.setUserIsAdmin,
       setOrderData: this.setOrderData,
       ...this.state
     }
@@ -68,7 +76,7 @@ class App extends React.Component {
       <main className='App'>
         <GlobalContext.Provider value={context}>
           <BrowserRouter>
-            <Header />
+            <Route path='/' component={Header}/>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/create-account' component={CreateAccount} />
@@ -76,7 +84,7 @@ class App extends React.Component {
               <Route exact path='/restaurant/:restaurantId/order-online' component={OrderOnline} />
               <Route exact path='/restaurant/:restaurantId/payment' component={Payment} />
               <Route exact path='/restaurant/:restaurantId/order-status/:orderId' component={OrderStatus} />
-              <Route exact path='/dashboard/superuser' component={SuperUserDash} />
+              <Route exact path='/dashboard/admin' component={AdminDash} />
               <Route exact path='/dashboard/restaurant/:restaurantId' component={RestaurantDash} />
               <Route exact path='/dashboard/restaurant/:restaurantId/analytics' component={RestaurantAnalytics} />
               <Route component={NotFound} />

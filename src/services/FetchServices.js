@@ -8,7 +8,7 @@ const FetchServices = {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    });
   },
   _submitRestaurantLogin(dataToSubmit) {
     return fetch(`${Config.apiBaseUrl}/authorization/login`, {
@@ -17,7 +17,16 @@ const FetchServices = {
       headers: {
         'Content-Type': 'Application/Json'
       } 
-    })
+    });
+  },
+  _submitAdminLogin(dataToSubmit) {
+    return fetch(`${Config.apiBaseUrl}/admin/login`, {
+      method: 'POST',
+      body: JSON.stringify(dataToSubmit),
+      headers: {
+        'Content-Type': 'Application/Json'
+      }
+    });
   },
   _submitCreatePizza(formData) {
     return fetch(`${Config.apiBaseUrl}/pizzas`, {
@@ -47,7 +56,7 @@ const FetchServices = {
     });
   },
   _getOrderById(orderId) {
-    return fetch(`${Config.apiBaseUrl}/orders/${orderId}`)
+    return fetch(`${Config.apiBaseUrl}/orders/${orderId}`);
   },
   _getOrdersAndCustomersById(restaurantId) {
     
@@ -61,10 +70,13 @@ const FetchServices = {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN0YXVyYW50X2lkIjoxLCJpYXQiOjE1NjUxNDg1MzMsImV4cCI6MTU2NTIzNDkzMywic3ViIjoiZGVtb0BkZW1vLmNvbSJ9.9T2jUsJ-0wRKE7IsbqHo86tBFMnQc3MUvQdxRjukikk"
       }
-    })
+    });
   },
+  _getAllRestaurants() {
+    return fetch(`${Config.apiBaseUrl}/restaurants/`)
+  }, 
   _getRestaurantById(restaurantId) {
-    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`)
+    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`);
   },
   _updateOrderStatusById(orderId, status) {
     return fetch(`${Config.apiBaseUrl}/orders/${orderId}`, {
@@ -75,8 +87,21 @@ const FetchServices = {
       body: JSON.stringify({
         order_status: status
       })
-    })
+    });
   },
+  _deleteRestaurantById(restaurantId) {
+    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`, {
+      method: "DELETE",
+    });
+  },
+  _adminDeleteRestaurantById(restaurantId, auth) {
+    return fetch(`${Config.apiBaseUrl}/admin/restaurant/${restaurantId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${auth}`
+      }
+    })
+  }
 }
 
 export default FetchServices
