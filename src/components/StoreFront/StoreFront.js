@@ -8,7 +8,7 @@ export default function StoreFront({ match }) {
     margin: "0 auto",
     width: "800px"
   };
-  const { RestaurantData, setRestaurantData } = useContext(GlobalContext);
+  const { restaurantData, setRestaurantData } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
   //const [localRestaurantData, setLocalRestaurantData] = useState(context.restaurantData);
 
@@ -43,15 +43,15 @@ export default function StoreFront({ match }) {
     return (
       <div style={pageStyle}>
         <section className="restaurant-info">
-          <h3>{RestaurantData.name}</h3>
+          <h3>{restaurantData.name}</h3>
           <span>
-            {RestaurantData.street_address}<br />
-            {RestaurantData.city}, {RestaurantData.state} {RestaurantData.zipcode}<br />
-            {RestaurantData.phone}<br />
-            {RestaurantData.email}
+            {restaurantData.street_address}<br />
+            {restaurantData.city}, {restaurantData.state} {restaurantData.zipcode}<br />
+            {restaurantData.phone}<br />
+            {restaurantData.email}
           </span>
         </section>
-        <Link to={`/restaurant/${RestaurantData.id}/order-online`}>Place An Order!</Link>
+        <Link to={`/restaurant/${restaurantData.id}/order-online`}>Place An Order!</Link>
       </div>
     )
   }
