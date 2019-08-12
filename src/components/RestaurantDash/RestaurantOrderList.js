@@ -36,6 +36,9 @@ export default function RestaurantOrderList(props) {
     }
   };
   return (
-    <div>{displaySelectedOrders(props.orders, props.orderListCategory)}</div>
+    <div>
+      RestaurantOrderList
+      {displaySelectedOrders(props.orders, props.orderListCategory)}
+    </div>
   );
 }

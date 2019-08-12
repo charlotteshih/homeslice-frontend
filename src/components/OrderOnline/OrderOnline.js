@@ -6,7 +6,7 @@ export default function OrderOnline({ match, history }) {
   const formStyle = {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start"
+    alignItems: "flex-start",
   };
 
   const pageStyle = {
@@ -14,83 +14,17 @@ export default function OrderOnline({ match, history }) {
     width: "800px"
   };
 
-  const imageStyle = {
-    margin: "0 auto",
-    width: "300px",
-    marginBottom: "30px"
-  };
-
   const context = useContext(GlobalContext);
-  const [pizzaSize, setPizzaSize] = useState("");
-  const [pizzaType, setPizzaType] = useState("");
-  const [pizzaBasePrice, setPizzaBasePrice] = useState(0);
-  const [pizzaAddlPrice, setPizzaAddlPrice] = useState(0);
+  const [pizzaSize, setPizzaSize] = useState('');
+  const [pizzaType, setPizzaType] = useState('');
+  const [pizzaPrice, setPizzaPrice] = useState(5.00);
 
-  const _handlePizzaSizeChange = e => {
-    const selectedSize = e.target.value;
-    let selectedPrice = 0;
-
-    setPizzaSize(selectedSize);
-
-    switch (selectedSize) {
-      case "Small":
-        selectedPrice = 9;
-        break;
-      case "Medium":
-        selectedPrice = 10;
-        break;
-      case "Large":
-        selectedPrice = 11;
-        break;
-      case "X-Large":
-        selectedPrice = 12;
-        break;
-      default:
-        selectedPrice = 0;
-    }
-
-    setPizzaBasePrice(selectedPrice);
-  };
-
-  const _handlePizzaTypeChange = e => {
-    const selectedType = e.target.value;
-    let selectedPrice = 0;
-
-    setPizzaType(selectedType);
-
-    switch (selectedType) {
-      case "Cheese":
-        selectedPrice = 0;
-        break;
-      case "Pepperoni":
-        selectedPrice = 2;
-        break;
-      case "Supreme":
-        selectedPrice = 3;
-        break;
-      case "Veggie":
-        selectedPrice = 1;
-        break;
-      case "Hawaiian":
-        selectedPrice = 2;
-        break;
-      case "BBQ Chicken":
-        selectedPrice = 2;
-        break;
-      default:
-        selectedPrice = 0;
-    }
-
-    setPizzaAddlPrice(selectedPrice);
-  };
-
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     FetchServices._submitCreatePizza({
       size: pizzaSize,
-      type: pizzaType
-      // base_price: pizzaBasePrice,
-      // addl_price: pizzaAddlPrice
+      type: pizzaType,
+      price: pizzaPrice
     })
     .then(res => {
       // console.log(res);
@@ -112,18 +46,9 @@ export default function OrderOnline({ match, history }) {
   return (
     <div style={pageStyle}>
       <h3>Place an Order!</h3>
-      {pizzaType.length > 0 && (
-        <img
-          style={imageStyle}
-          src={require(`../../images/${pizzaType
-            .toLowerCase()
-            .replace(/\s/g, "-")}.png`)}
-          alt={`${pizzaType} pizza`}
-        />
-      )}
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
-        <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
+        <select id="pizzaSize" onChange={e => setPizzaSize(e.target.value)}>
           <option value="">Please select a size...</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
@@ -132,7 +57,7 @@ export default function OrderOnline({ match, history }) {
         </select>
 
         <label htmlFor="pizzaType">Type</label>
-        <select id="pizzaType" onChange={e => _handlePizzaTypeChange(e)}>
+        <select id="pizzaType" onChange={e => setPizzaType(e.target.value)}>
           <option value="">Please select a type...</option>
           <option value="Cheese">Cheese</option>
           <option value="Pepperoni">Pepperoni</option>
@@ -142,12 +67,10 @@ export default function OrderOnline({ match, history }) {
           <option value="BBQ Chicken">BBQ Chicken</option>
         </select>
 
-        <span>
-          Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b>
-        </span>
+        <span>Subtotal: <b>${pizzaPrice}</b></span>
 
         <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
       </form>
     </div>
-  );
+  )
 }

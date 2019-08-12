@@ -8,20 +8,6 @@ export default function StoreFront({ match }) {
     margin: "0 auto",
     width: "800px"
   };
-
-  const context = useContext(GlobalContext);
-  const [restaurant, setRestaurant] = useState({
-    id: 0,
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    street_address: "",
-    city: "",
-    state: "",
-    zipcode: ""
-  });
-
   const { RestaurantData, setRestaurantData } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
   //const [localRestaurantData, setLocalRestaurantData] = useState(context.restaurantData);
@@ -29,6 +15,7 @@ export default function StoreFront({ match }) {
   useEffect(() => {
     FetchServices._getRestaurantById(match.params.restaurantId)
       .then(res => {
+        console.log('storefron-res', res);
         if(res.status === 200) {
           return res.json();
         } else {

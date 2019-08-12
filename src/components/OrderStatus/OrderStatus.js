@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import GlobalContext from '../../contexts/GlobalContext';
+import config from '../../config';
 import FetchServices from '../../services/FetchServices';
+
 
 export default function OrderStatus({ match }) {
   const pageStyle = {
@@ -67,12 +69,6 @@ export default function OrderStatus({ match }) {
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
-    const restaurantLocation =
-    context.RestaurantData.street_address +
-    ", " +
-    context.RestaurantData.city +
-    ", " +
-    context.RestaurantData.state;
 
     // Remember the latest callback.
     useEffect(() => {
@@ -99,6 +95,7 @@ export default function OrderStatus({ match }) {
       });
   }
 
+
   useInterval(() => {
     checkOrderStatus(context.orderData.id);
   }, checkOrderStatusInterval);
@@ -122,4 +119,6 @@ export default function OrderStatus({ match }) {
       </div>
     )
   }
+
+
 }
