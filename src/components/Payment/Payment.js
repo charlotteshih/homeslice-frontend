@@ -56,7 +56,7 @@ export default function Payment({ match, history }) {
           pizza_id: updatedState.pizzaData.id,
           customer_id: updatedState.customerData.id,
           order_status: 'Ordered',
-          order_total: Number(updatedState.pizzaData.price)
+          // order_total: Number(updatedState.pizzaData.price)
         }
 
         console.log('orderData',orderData);
@@ -69,6 +69,7 @@ export default function Payment({ match, history }) {
         throw new Error(res);
       })
       .then(json => {
+        console.log('json', json);
         return context.setOrderData({...json})
       })
       .then(updatedState => {
