@@ -14,6 +14,12 @@ export default function OrderOnline({ match, history }) {
     width: "800px"
   };
 
+  const imageStyle = {
+    margin: "0 auto",
+    width: "300px",
+    marginBottom: "30px"
+  };
+
   const context = useContext(GlobalContext);
   const [pizzaSize, setPizzaSize] = useState('');
   const [pizzaType, setPizzaType] = useState('');
@@ -105,6 +111,12 @@ export default function OrderOnline({ match, history }) {
   return (
     <div style={pageStyle}>
       <h3>Place an Order!</h3>
+      {
+        pizzaType.length ?
+        <img style={imageStyle} src={require(`../../images/${pizzaType.toLowerCase().replace(/\s+/g, "-")}.png`)} alt={`${pizzaType} pizza`} />
+        :
+        <img style={imageStyle} src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
+      }
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
         <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
