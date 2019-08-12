@@ -17,17 +17,76 @@ export default function OrderOnline({ match, history }) {
   const context = useContext(GlobalContext);
   const [pizzaSize, setPizzaSize] = useState('');
   const [pizzaType, setPizzaType] = useState('');
-  const [pizzaPrice, setPizzaPrice] = useState(5.00);
+  const [pizzaBasePrice, setPizzaBasePrice] = useState(0);
+  const [pizzaAddlPrice, setPizzaAddlPrice] = useState(0);
+
+  const _handlePizzaSizeChange = e => {
+    e.preventDefault();
+
+    let pizzaSize = e.target.value;
+    let basePrice = 0;
+
+    switch (pizzaSize) {
+      case "Small":
+        basePrice = 9;
+        break;
+      case "Medium":
+        basePrice = 10;
+        break;
+      case "Large":
+        basePrice = 11;
+        break;
+      case "X-Large":
+        basePrice = 12;
+        break;
+      default:
+        basePrice = 0;
+    }
+
+    setPizzaSize(pizzaSize);
+    setPizzaBasePrice(basePrice);
+  }
+
+  const _handlePizzaTypeChange = e => {
+    e.preventDefault();
+
+    let pizzaType = e.target.value;
+    let addlPrice = 0;
+
+    switch (pizzaType) {
+      case "Cheese":
+        addlPrice = 0;
+        break;
+      case "Pepperoni":
+        addlPrice = 2;
+        break;
+      case "Supreme":
+        addlPrice = 3;
+        break;
+      case "Veggie":
+        addlPrice = 1;
+        break;
+      case "Hawaiian":
+        addlPrice = 2;
+        break;
+      case "BBQ Chicken":
+        addlPrice = 2;
+        break;
+      default:
+        addlPrice = 0;
+    }
+
+    setPizzaType(pizzaType);
+    setPizzaAddlPrice(addlPrice);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     FetchServices._submitCreatePizza({
       size: pizzaSize,
-      type: pizzaType,
-      price: pizzaPrice
+      type: pizzaType
     })
     .then(res => {
-      // console.log(res);
       if (res.status === 201) {
         return res.json();
       } else {
@@ -48,7 +107,7 @@ export default function OrderOnline({ match, history }) {
       <h3>Place an Order!</h3>
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
-        <select id="pizzaSize" onChange={e => setPizzaSize(e.target.value)}>
+        <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
           <option value="">Please select a size...</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
@@ -57,7 +116,7 @@ export default function OrderOnline({ match, history }) {
         </select>
 
         <label htmlFor="pizzaType">Type</label>
-        <select id="pizzaType" onChange={e => setPizzaType(e.target.value)}>
+        <select id="pizzaType" onChange={e => _handlePizzaTypeChange(e)}>
           <option value="">Please select a type...</option>
           <option value="Cheese">Cheese</option>
           <option value="Pepperoni">Pepperoni</option>
@@ -67,7 +126,7 @@ export default function OrderOnline({ match, history }) {
           <option value="BBQ Chicken">BBQ Chicken</option>
         </select>
 
-        <span>Subtotal: <b>${pizzaPrice}</b></span>
+        <span>Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b></span>
 
         <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
       </form>
