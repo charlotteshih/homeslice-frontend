@@ -141,8 +141,12 @@ export default function RestaurantOrderCard(props) {
           >
             Ready For Pickup
           </button>
+
           <button
-            onClick={() => updateOrderStatus(props.order.id, "Completed")}
+            onClick={() => {
+              // CHECK THIS CODE - an unrelated bug is preventing me from testing whether this works as intended
+              updateOrderStatus(props.order.id, "Completed");
+            }}
           >
             Completed
           </button>
