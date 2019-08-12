@@ -3,15 +3,16 @@ import FetchServices from "../../services/FetchServices";
 
 export default function RestaurantOrderCard(props) {
   const cardStyle = {
-    display: "flex",
-    alignItems: "center",
     border: "2px black solid",
     padding: "10px"
   };
 
-  const readyForPickupCardStyle = {
+  const pizzaAndCustomerStyle = {
     display: "flex",
-    alignItems: "center",
+    alignItems: "center"
+  };
+
+  const readyForPickupCardStyle = {
     border: "2px black solid",
     padding: "10px",
     backgroundColor: "red"
@@ -28,16 +29,16 @@ export default function RestaurantOrderCard(props) {
     textAlign: "center"
   };
 
-  const pizzaTypeStyle = {
+  const customerInformation = {
     height: "100px",
     width: "200px",
     border: "2px black solid",
-    margin: "0 10px 0 10px"
+    margin: "0 10px 0 10px",
+    fontSize: "10px"
   };
 
   const optionButtonsStyle = {
-    display: "flex",
-    flexDirection: "column"
+    display: "flex"
   };
 
   const [seconds, setSeconds] = useState(0);
@@ -87,37 +88,91 @@ export default function RestaurantOrderCard(props) {
     <>
       <div
         style={
-          props.order.order_status === "Ready For Pickup" && seconds >= 10
+          props.order.order_status === "Ready For Pickup" && isOverdue
             ? readyForPickupCardStyle
             : cardStyle
         }
       >
-        <h3>Order status: {props.order.order_status}</h3>
-        <div style={pizzaIconStyle}>{props.order.pizza_size}</div>
-        <div style={pizzaTypeStyle}>{props.order.pizza_type}</div>
+        <div style={pizzaAndCustomerStyle}>
+          <div>
+            <div style={pizzaIconStyle}>{props.order.pizza_size}</div>
+            <p>{props.order.pizza_type}</p>
+          </div>
+          {props.customerInfo ? (
+            <div style={customerInformation}>
+              Ordered on: {props.order.date_created}
+              <br />
+              Ordered by: <br />
+              <ul>
+                <li>
+                  {`${props.customerInfo.first_name} ${
+                    props.customerInfo.last_name
+                  }`}
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${props.customerInfo.email}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {props.customerInfo.email}
+                  </a>
+                </li>
+                <li>
+                  <a href={`tel:${props.customerInfo.phone}`}>
+                    {props.customerInfo.phone}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          ) : null}
+        </div>
+
         <div style={optionButtonsStyle}>
           <button
             onClick={() => updateOrderStatus(props.order.id, "In Progress")}
           >
-            Mark In Progress
+            In Progress
           </button>
           <button
             onClick={() =>
               updateOrderStatus(props.order.id, "Ready For Pickup")
             }
           >
-            Mark Ready For Pickup
+            Ready For Pickup
           </button>
+          <button
+            onClick={() => updateOrderStatus(props.order.id, "Completed")}
+          >
+            Completed
+          </button>
+          <label htmlFor="cancel-select">
+            Need to cancel? Choose a reason:
+          </label>
+          <select
+            id="cancel-select"
+            onChange={e => {
+              // CHECK THIS CODE - an unrelated bug is preventing me from testing whether this works as intended
+              updateOrderStatus(props.order.id, e.target.value);
+              console.log(e.target.value);
+            }}
+          >
+            <option value="Please choose an option:">
+              Please choose an option:
+            </option>
+            <option value="Canceled: Out of stock">
+              Canceled: Out of stock
+            </option>
+            <option value="Canceled: Customer request">
+              Canceled: Customer request
+            </option>
+            <option value="Canceled: Other">Canceled: Other</option>
+          </select>
         </div>
         {isOverdue ? (
           <div>
             It has been over 20 minutes since this order was marked Ready For
-            Pickup! <br /> Customer phone number:{" "}
-            <a
-              href={`tel:${props.customerInfo ? props.customerInfo.phone : ""}`}
-            >
-              {props.customerInfo ? props.customerInfo.phone : ""}
-            </a>
+            Pickup! <br />
           </div>
         ) : null}
       </div>
