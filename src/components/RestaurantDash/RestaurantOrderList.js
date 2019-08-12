@@ -22,6 +22,11 @@ export default function RestaurantOrderList(props) {
           .filter(order => order.order_status === "Ready For Pickup")
           .reverse();
       }
+      if (props.orderListCategory === "Completed") {
+        selectedOrders = orderArray
+          .filter(order => order.order_status === "Completed")
+          .reverse();
+      }
     }
     if (selectedOrders) {
       return selectedOrders.map(order => {
