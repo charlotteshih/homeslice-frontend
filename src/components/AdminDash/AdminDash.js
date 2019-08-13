@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import FetchServices from '../../services/FetchServices';
 import RestaurantCard from '../AdminDash/RestaurantCard';
 import AddRestaurant from '../AdminDash/AddRestaurant';
+import DeleteRestaurantLightBox from './DeleteRestaurantLightBox';
 import jwt from 'jsonwebtoken';
 
 export default function AdminDash({ history }) {
@@ -9,6 +10,9 @@ export default function AdminDash({ history }) {
     margin: "0 auto",
     width: "800px"
   };
+
+  let [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+  let [restaurantToRemove, setRestaurantToRemove] = useState({});
 
   //name: admin
   //pw: Admin123!
@@ -61,6 +65,12 @@ export default function AdminDash({ history }) {
       </>
       :
       <>
+        {deleteConfirmVisible
+        ? <DeleteRestaurantLightBox 
+            deleteRestaurant={deleteRestaurant} 
+            restaurantToRemove={restaurantToRemove}
+            setDeleteConfirmVisible={setDeleteConfirmVisible} />
+        : ""}
         <AddRestaurant 
           setRestaurants={setRestaurants}
           restaurants={restaurants}
@@ -73,6 +83,8 @@ export default function AdminDash({ history }) {
             key={restaurant.id} 
             details={{...restaurant}} 
             deleteRestaurant={deleteRestaurant}
+            setDeleteConfirmVisible={setDeleteConfirmVisible}
+            setRestaurantToRemove={setRestaurantToRemove}
             />
           )
         })}
