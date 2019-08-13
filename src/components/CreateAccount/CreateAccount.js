@@ -12,20 +12,67 @@ export default function CreateAccount(props) {
     margin: "0 auto",
     width: "800px"
   }
+  const errorStyle = {
+    color: 'red',
+    border: '2px solid #f44336'
+  }
+  
 
   let [restaurantName, setRestaurantName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
+  let [passwordMatch, setPasswordMatch] = useState('');
   let [phone, setPhone] = useState('');
   let [streetAddress, setStreetAddress] = useState('');
   let [city, setCity] = useState('');
   let [state, setState] = useState('');
   let [zipcode, setZipcode] = useState('');
+  let [validationErr, setValidationErr] = useState('');
 
   let context = useContext(GlobalContext);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    let passwordRegex = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/
+    let usernameRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    let phoneRegex = /^\d{10}$/
+    let pwIsRegexMatch = passwordRegex.test(password);
+    let usernameIsRegexMatch = usernameRegex.test(email);
+    let phoneIsRegexMatch = phoneRegex.test(phone);
+    let passwordsMatch = password === passwordMatch;
+
+    if(!pwIsRegexMatch) {
+      setValidationErr((
+        <>
+        <p>Passwords must contain:</p>
+        <ul>
+          <li>1 uppercase letter</li>
+          <li>1 lowercase letter</li>
+          <li>1 number</li>
+          <li>1 special character</li>
+          <li>be least 8 characters long</li>
+        </ul>
+        </>
+      ));
+    }
+    if(!usernameIsRegexMatch) {
+      setValidationErr(
+        `Please provide a valid email`
+      );
+    }
+    if(!phoneIsRegexMatch) {
+      setValidationErr(
+        'Invalid Phone number, did you include the area code?'
+      );
+    }
+    if(!passwordsMatch) {
+      setValidationErr(
+        'Passwords do not match'
+      );
+    }
+
+
     FetchServices._submitCreateAccount({
       name: restaurantName,
       email,
@@ -39,6 +86,9 @@ export default function CreateAccount(props) {
     .then(res => {
       if(res.status === 201) {
         return res.json()
+      }
+      else if(res.status === 400) {
+        setValidationErr('Email already in use.');
       }
       throw new Error(res);
     })
@@ -60,7 +110,7 @@ export default function CreateAccount(props) {
         props.setIsExpanded(false);
         return;
       }
-      props.history.push(`/restaurant/${updatedState.RestaurantData.id}`)
+      props.history.push(`/restaurant/${updatedState.restaurantData.id}`)
     })
     .catch(err => console.error(err));
   }
@@ -70,54 +120,73 @@ export default function CreateAccount(props) {
     <div style={pageStyle}>
       <h1>Create Account</h1>
       <hr />
+      {validationErr
+      ? <div style={{color: 'red'}}>{validationErr}</div>
+      : ''
+      }
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="restaurantNameInput">Restaurant name</label>
         <input 
           onChange={(e) => setRestaurantName(e.target.value)} 
           id="restaurantNameInput" 
-          type="text"/>
+          type="text"
+          required/>
 
         <label htmlFor="emailInput">Email</label>
         <input 
           onChange={(e) => setEmail(e.target.value)} 
           id="emailInput" 
-          type="text"/>
+          type="text"
+          required/>
 
         <label htmlFor="passwordInput">Password</label>
         <input
           onChange={(e) => setPassword(e.target.value)}  
           id="passwordInput" 
-          type="text"/>
+          type="text"
+          required/>
+
+        <label htmlFor="passwordMatchInput">Confirm password</label>
+        <input
+          onChange={(e) => setPasswordMatch(e.target.value)}  
+          id="passwordMatchInput" 
+          type="text"
+          required/>  
 
         <label htmlFor="phoneInput">Phone</label>
         <input 
           onChange={(e) => setPhone(e.target.value)} 
           id="phoneInput" 
-          type="text"/>
+          type="text"
+          required/>
 
         <label htmlFor="streetAddressInput">Street Address</label>
         <input 
           onChange={(e) => setStreetAddress(e.target.value)} 
           id="streetAddressInput" 
-          type="text"/>
+          type="text"
+          required/>
 
         <label htmlFor="cityInput">City</label>
         <input 
           onChange={(e) => setCity(e.target.value)} 
           id="cityInput" 
-          type="text"/>
+          type="text"
+          required/>
 
         <label htmlFor="stateInput">State</label>
         <input 
           onChange={(e) => setState(e.target.value)} 
           id="stateInput" 
-          type="text"/>
+          type="text"
+          required/>
 
         <label htmlFor="zipcodeInput">zipcode</label>
         <input 
           onChange={(e) => setZipcode(e.target.value)} 
           id="zipcodeInput" 
-          ype="text"/>
+          type="text"
+          required/>
 
         <input type="submit" value="Create Account" />
       </form>
