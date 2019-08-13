@@ -103,7 +103,7 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="firstNameInput"
-          value={savedData.first_name}
+          value={savedData ? savedData.first_name : ''}
           onChange={(e) => setFirstName(e.target.value)}/>
 
         <label htmlFor="lastNameInput">Last Name</label>
@@ -111,7 +111,7 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="lastNameInput"
-          value={savedData.last_name}
+          value={savedData ? savedData.last_name : ''}
           onChange={(e) => setLastName(e.target.value)} />
 
         <label htmlFor="emailInput">Email</label>
@@ -119,7 +119,7 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="emailInput"
-          value={savedData.email}
+          value={savedData ? savedData.email : ''}
           onChange={(e) => setEmail(e.target.value)} />
 
         <label htmlFor="phoneInput">Phone</label>
@@ -127,7 +127,7 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="phoneInput"
-          value={savedData.phone}
+          value={savedData ? savedData.phone : ''}
           onChange={(e) => setPhone(e.target.value)} />
 
         <label htmlFor="streetAddressInput">Street Address</label>
@@ -135,7 +135,7 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="streetAddressInput"
-          value={savedData.street_address}
+          value={savedData ? savedData.street_address : ''}
           onChange={(e) => setStreet_Address(e.target.value)} />
 
         <label htmlFor="cityInput">City</label>
@@ -143,14 +143,14 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="cityInput"
-          value={savedData.city}
+          value={savedData ? savedData.city : ''}
           onChange={(e) => setCity(e.target.value)} />
 
         <label htmlFor="stateInput">State</label>
         <select 
           required
           id="stateInput"
-          value={savedData.state}
+          value={savedData ? savedData.state : ''}
           onChange={(e) => setState(e.target.value)}>
             <option value="">Please select a state...</option>
             <option value="AL">Alabama</option>
@@ -211,7 +211,7 @@ export default function Payment({ match, history }) {
           required
           type="text" 
           id="zipcodeInput"
-          value={savedData.zipcode}
+          value={savedData ? savedData.zipcode : ''}
           onChange={(e) => setZipcode(e.target.value)} />
         {validationErr
           ? <input type="submit" value="Place Order" disabled />
