@@ -21,6 +21,7 @@ export default function CreateAccount(props) {
   let [restaurantName, setRestaurantName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
+  let [passwordMatch, setPasswordMatch] = useState('');
   let [phone, setPhone] = useState('');
   let [streetAddress, setStreetAddress] = useState('');
   let [city, setCity] = useState('');
@@ -39,6 +40,7 @@ export default function CreateAccount(props) {
     let pwIsRegexMatch = passwordRegex.test(password);
     let usernameIsRegexMatch = usernameRegex.test(email);
     let phoneIsRegexMatch = phoneRegex.test(phone);
+    let passwordsMatch = password === passwordMatch;
 
     if(!pwIsRegexMatch) {
       setValidationErr((
@@ -64,6 +66,11 @@ export default function CreateAccount(props) {
         'Invalid Phone number, did you include the area code?'
       );
     }
+    if(!passwordsMatch) {
+      setValidationErr(
+        'Passwords do not match'
+      );
+    }
 
 
     FetchServices._submitCreateAccount({
@@ -79,6 +86,9 @@ export default function CreateAccount(props) {
     .then(res => {
       if(res.status === 201) {
         return res.json()
+      }
+      else if(res.status === 400) {
+        setValidationErr('Email already in use.');
       }
       throw new Error(res);
     })
@@ -135,6 +145,13 @@ export default function CreateAccount(props) {
           id="passwordInput" 
           type="text"
           required/>
+
+        <label htmlFor="passwordMatchInput">Confirm password</label>
+        <input
+          onChange={(e) => setPasswordMatch(e.target.value)}  
+          id="passwordMatchInput" 
+          type="text"
+          required/>  
 
         <label htmlFor="phoneInput">Phone</label>
         <input 
