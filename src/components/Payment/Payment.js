@@ -202,7 +202,9 @@ export default function Payment({ match, history }) {
           type="text" 
           id="zipcodeInput"
           onChange={(e) => setZipcode(e.target.value)} />
-        <input type="submit" value="Place Order" />
+        {validationErr
+          ? <input type="submit" value="Place Order" disabled />
+          : <input type="submit" value="Place Order" />}
       </form>
     </div>
   )
