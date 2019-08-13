@@ -1,17 +1,10 @@
 import React from 'react';
 import GlobalContext from './contexts/GlobalContext';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Home from './components/Home/Home';
-import CreateAccount from './components/CreateAccount/CreateAccount';
-import StoreFront from './components/StoreFront/StoreFront';
-import OrderOnline from './components/OrderOnline/OrderOnline';
-import OrderStatus from './components/OrderStatus/OrderStatus';
-import Payment from './components/Payment/Payment.js'
-import AdminDash from './components/AdminDash/AdminDash';
-import RestaurantDash from './components/RestaurantDash/RestaurantDash';
-import RestaurantAnalytics from './components/RestaurantAnalytics/RestaurantAnalytics';
-import NotFound from './components/NotFound/NotFound';
+import styled from 'styled-components';
+import Routes from './routes/Routes';
+
 
 class App extends React.Component {
 
@@ -63,6 +56,7 @@ class App extends React.Component {
   }
 
   render() {
+
     let context = {
       setRestaurantData: this.setRestaurantData,
       setPizzaData: this.setPizzaData,
@@ -77,18 +71,7 @@ class App extends React.Component {
         <GlobalContext.Provider value={context}>
           <BrowserRouter>
             <Route path='/' component={Header}/>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/create-account' component={CreateAccount} />
-              <Route exact path='/restaurant/:restaurantId' component={StoreFront} />
-              <Route exact path='/restaurant/:restaurantId/order-online' component={OrderOnline} />
-              <Route exact path='/restaurant/:restaurantId/payment' component={Payment} />
-              <Route exact path='/restaurant/:restaurantId/order-status/:orderId' component={OrderStatus} />
-              <Route exact path='/dashboard/admin' component={AdminDash} />
-              <Route exact path='/dashboard/restaurant/:restaurantId' component={RestaurantDash} />
-              <Route exact path='/dashboard/restaurant/:restaurantId/analytics' component={RestaurantAnalytics} />
-              <Route component={NotFound} />
-            </Switch>
+            <Routes />
           </BrowserRouter>
         </GlobalContext.Provider>
       </main>
