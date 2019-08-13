@@ -1,6 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
+import CardForm from '../CardForm/CardForm';
+import config from '../../config';
 
 export default function Payment({ match, history }) {
   const formStyle = {
@@ -47,7 +50,6 @@ export default function Payment({ match, history }) {
         throw new Error(res)
       })
       .then(json => {
-        //set customer id in global state
         return context.setCustomerData({...json})
       })
       .then(updatedState => {
@@ -56,7 +58,6 @@ export default function Payment({ match, history }) {
           pizza_id: updatedState.pizzaData.id,
           customer_id: updatedState.customerData.id,
           order_status: 'Ordered',
-          // order_total: Number(updatedState.pizzaData.price)
         }
 
         console.log('orderData',orderData);
@@ -79,58 +80,65 @@ export default function Payment({ match, history }) {
   }
 
   return (
-    <div style={pageStyle}>
-      <h1>Payment</h1>
-      <form style={formStyle} onSubmit={handleSubmit}>
-        <label htmlFor="firstNameInput">First Name</label>
-        <input 
-          type="text" 
-          id="firstNameInput" 
-          onChange={(e) => setFirstName(e.target.value)}/>
+      <div style={pageStyle}>
+        <h1>Payment</h1>
+        <StripeProvider apiKey={`${config.stripeKey}`}>
+          <Elements>
+            <CardForm />
+          </Elements>
+        </StripeProvider>
+        <form style={formStyle} onSubmit={handleSubmit}>
+          <label htmlFor="firstNameInput">First Name</label>
+          <input 
+            type="text" 
+            id="firstNameInput" 
+            onChange={(e) => setFirstName(e.target.value)}/>
 
-        <label htmlFor="lastNameInput">Last Name</label>
-        <input 
-          type="text" 
-          id="lastNameInput"
-          onChange={(e) => setLastName(e.target.value)} />
+          <label htmlFor="lastNameInput">Last Name</label>
+          <input 
+            type="text" 
+            id="lastNameInput"
+            onChange={(e) => setLastName(e.target.value)} />
 
-        <label htmlFor="emailInput">Email</label>
-        <input 
-          type="text" 
-          id="emailInput"
-          onChange={(e) => setEmail(e.target.value)} />
+          <label htmlFor="emailInput">Email</label>
+          <input 
+            type="text" 
+            id="emailInput"
+            onChange={(e) => setEmail(e.target.value)} />
 
-        <label htmlFor="phoneInput">Phone</label>
-        <input 
-          type="text" 
-          id="phoneInput"
-          onChange={(e) => setPhone(e.target.value)} />
+          <label htmlFor="phoneInput">Phone</label>
+          <input 
+            type="text" 
+            id="phoneInput"
+            onChange={(e) => setPhone(e.target.value)} />
 
-        <label htmlFor="streetAddressInput">Street Address</label>
-        <input 
-          type="text" 
-          id="streetAddressInput"
-          onChange={(e) => setStreet_Address(e.target.value)} />
+          <label htmlFor="streetAddressInput">Street Address</label>
+          <input 
+            type="text" 
+            id="streetAddressInput"
+            onChange={(e) => setStreet_Address(e.target.value)} />
 
-        <label htmlFor="cityInput">City</label>
-        <input 
-          type="text" 
-          id="cityInput"
-          onChange={(e) => setCity(e.target.value)} />
+          <label htmlFor="cityInput">City</label>
+          <input 
+            type="text" 
+            id="cityInput"
+            onChange={(e) => setCity(e.target.value)} />
 
-        <label htmlFor="stateInput">State</label>
-        <input 
-          type="text" 
-          id="stateInput"
-          onChange={(e) => setState(e.target.value)} />
+          <label htmlFor="stateInput">State</label>
+          <input 
+            type="text" 
+            id="stateInput"
+            onChange={(e) => setState(e.target.value)} />
 
-        <label htmlFor="zipcodeInput">Zipcode</label>
-        <input 
-          type="text" 
-          id="zipcodeInput"
-          onChange={(e) => setZipcode(e.target.value)} />
-        <input type="submit" value="Place Order" />
-      </form>
-    </div>
+          <label htmlFor="zipcodeInput">Zipcode</label>
+          <input 
+            type="text" 
+            id="zipcodeInput"
+            onChange={(e) => setZipcode(e.target.value)} />
+          <input type="submit" value="Place Order" />
+        </form>
+      </div>
   )
 }
+
+// export default injectStripe(Payment);
