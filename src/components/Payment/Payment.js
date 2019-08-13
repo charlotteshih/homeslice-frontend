@@ -26,6 +26,12 @@ export default function Payment({ match, history }) {
 
   const context = useContext(GlobalContext);
 
+  // useEffect(() => {
+  //   if (localStorage) {
+  //     localStorage.getItem(customerData);
+  //   }
+  // });
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -62,7 +68,8 @@ export default function Payment({ match, history }) {
         throw new Error(res)
       })
       .then(json => {
-        return context.setCustomerData({...json})
+        localStorage.setItem('customerData', JSON.stringify(json));
+        return context.setCustomerData({ ...json });
       })
       .then(updatedState => {
         const orderData = {
