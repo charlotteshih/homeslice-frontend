@@ -22,11 +22,24 @@ export default function Payment({ match, history }) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
+  let [validationErr, setValidationErr] = useState('');
 
   const context = useContext(GlobalContext);
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    let phoneRegex = /^\d{10}$/;
+    let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailIsRegexMatch = emailRegex.test(email);
+    let phoneIsRegexMatch = phoneRegex.test(phone);
+
+    if (!emailIsRegexMatch) {
+      setValidationErr('Please provide a valid email.');
+    }
+    if (!phoneIsRegexMatch) {
+      setValidationErr('Invalid phone number. Did you include the area code?');
+    }
 
     const customerData = {
       first_name: firstName,
@@ -43,6 +56,8 @@ export default function Payment({ match, history }) {
       .then(res => {
         if(res.status === 201) {
           return res.json();
+        } else if (res.status === 400) {
+          setValidationErr('Email is already in use.');
         }
         throw new Error(res)
       })
@@ -76,6 +91,9 @@ export default function Payment({ match, history }) {
   return (
     <div style={pageStyle}>
       <h1>Payment</h1>
+      {validationErr
+        ? <div style={{color: 'red'}}>{validationErr}</div>
+        : ''}
       <form style={formStyle} onSubmit={handleSubmit}>
         <label htmlFor="firstNameInput">First Name</label>
         <input 
@@ -124,6 +142,7 @@ export default function Payment({ match, history }) {
           required
           id="stateInput"
           onChange={(e) => setState(e.target.value)}>
+            <option value="">Please select a state...</option>
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>

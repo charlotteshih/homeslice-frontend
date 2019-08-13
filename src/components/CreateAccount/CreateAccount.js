@@ -58,12 +58,12 @@ export default function CreateAccount(props) {
     }
     if(!usernameIsRegexMatch) {
       setValidationErr(
-        `Please provide a valid email`
+        `Please provide a valid email.`
       );
     }
     if(!phoneIsRegexMatch) {
       setValidationErr(
-        'Invalid Phone number, did you include the area code?'
+        'Invalid phone number. Did you include the area code?'
       );
     }
     if(!passwordsMatch) {
@@ -179,6 +179,7 @@ export default function CreateAccount(props) {
           required
           id="stateInput"
           onChange={(e) => setState(e.target.value)}>
+            <option value="">Please select a state...</option>
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>

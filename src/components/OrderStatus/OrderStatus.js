@@ -66,11 +66,11 @@ export default function OrderStatus({ match }) {
 
   if (!isLoadingRestaurant) {
     var restaurantLocation =
-      context.RestaurantData.street_address +
+      context.restaurantData.street_address +
       ", " +
-      context.RestaurantData.city +
+      context.restaurantData.city +
       ", " +
-      context.RestaurantData.state;
+      context.restaurantData.state;
   }
 
   function checkOrderStatus(orderId) {
@@ -95,8 +95,9 @@ export default function OrderStatus({ match }) {
     return (
       <div style={pageStyle}>
         <h1>Order Summary</h1>
-        <p>Order Status: {context.orderData.order_status}</p>
-        <p>Order Total: {context.orderData.order_total}</p>
+        <p>Order Number: {context.orderData.id}<br />
+        Order Status: {context.orderData.order_status}</p>
+        <p>Order Total: ${context.orderData.order_total}</p>
         <p>Pickup Location: {restaurantLocation}</p>
         <p>
           <b>
