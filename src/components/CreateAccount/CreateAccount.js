@@ -41,7 +41,20 @@ export default function CreateAccount(props) {
     let usernameIsRegexMatch = usernameRegex.test(email);
     let phoneIsRegexMatch = phoneRegex.test(phone);
     let passwordsMatch = password === passwordMatch;
-
+    console.log('pwIsRegexMatch', pwIsRegexMatch);
+    console.log('passwordsMatch', passwordsMatch);
+    if(!usernameIsRegexMatch) {
+      setValidationErr(`Please provide a valid email.`);
+      return;
+    }
+    if(!phoneIsRegexMatch) {
+      setValidationErr('Invalid phone number. Did you include the area code?');
+      return;
+    }
+    if(!passwordsMatch) {
+      setValidationErr('Passwords do not match');
+      return;
+    }
     if(!pwIsRegexMatch) {
       setValidationErr((
         <>
@@ -55,21 +68,7 @@ export default function CreateAccount(props) {
         </ul>
         </>
       ));
-    }
-    if(!usernameIsRegexMatch) {
-      setValidationErr(
-        `Please provide a valid email.`
-      );
-    }
-    if(!phoneIsRegexMatch) {
-      setValidationErr(
-        'Invalid phone number. Did you include the area code?'
-      );
-    }
-    if(!passwordsMatch) {
-      setValidationErr(
-        'Passwords do not match'
-      );
+      return;
     }
 
 
