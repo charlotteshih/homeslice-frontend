@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RestaurantOrderList from "./RestaurantOrderList";
+import CancelOrderLightBox from "./CancelOrderLightBox";
 import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
 
@@ -16,6 +17,8 @@ export default function RestaurantDash({ match }) {
   const [currentTab, setCurrentTab] = useState("New Orders / In Progress");
   const [orders, setOrders] = useState([]);
   const [customers, setCustomers] = useState([]);
+  const [cancelConfirmVisible, setCancelConfirmVisible] = useState(false);
+  const [orderToCancel, setOrderToCancel] = useState({});
   const checkOrdersAndCustomersInterval = 1000 * 10;
 
   useEffect(() => {
@@ -36,6 +39,28 @@ export default function RestaurantDash({ match }) {
       });
   }, checkOrdersAndCustomersInterval);
 
+  const updateOrderStatus = (order_id, status) => {
+    FetchServices._updateOrderStatusById(order_id, status)
+      .then(res => {
+        if (res.status === 204) {
+          return;
+        }
+        throw new Error(res);
+      })
+      .then(() => {
+        return orders.filter(order => {
+          if (order.id === order_id) {
+            order.order_status = status;
+          }
+          return order;
+        });
+      })
+      .then(updatedOrdersList => {
+        setOrders(updatedOrdersList);
+      })
+      .catch(err => console.error(err));
+  };
+
   return (
     <div style={pageStyle}>
       <section>
@@ -47,6 +72,16 @@ export default function RestaurantDash({ match }) {
         </button>
         <button onClick={() => setCurrentTab("Completed")}>Completed</button>
       </section>
+      {cancelConfirmVisible ? (
+        <CancelOrderLightBox
+          updateOrderStatus={updateOrderStatus}
+          orderToCancel={orderToCancel}
+          setOrderToCancel={setOrderToCancel}
+          setCancelConfirmVisible={setCancelConfirmVisible}
+        />
+      ) : (
+        ""
+      )}
 
       <>
         <section
@@ -60,6 +95,8 @@ export default function RestaurantDash({ match }) {
             orders={orders}
             setOrders={setOrders}
             customers={customers}
+            setOrderToCancel={setOrderToCancel}
+            setCancelConfirmVisible={setCancelConfirmVisible}
           />
         </section>
         <section
@@ -73,6 +110,8 @@ export default function RestaurantDash({ match }) {
             orders={orders}
             setOrders={setOrders}
             customers={customers}
+            setOrderToCancel={setOrderToCancel}
+            setCancelConfirmVisible={setCancelConfirmVisible}
           />
         </section>
       </>
@@ -86,6 +125,8 @@ export default function RestaurantDash({ match }) {
           orders={orders}
           setOrders={setOrders}
           customers={customers}
+          setOrderToCancel={setOrderToCancel}
+          setCancelConfirmVisible={setCancelConfirmVisible}
         />
       </section>
 
@@ -96,6 +137,8 @@ export default function RestaurantDash({ match }) {
           orders={orders}
           setOrders={setOrders}
           customers={customers}
+          setOrderToCancel={setOrderToCancel}
+          setCancelConfirmVisible={setCancelConfirmVisible}
         />
       </section>
     </div>
