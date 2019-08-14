@@ -5,23 +5,31 @@ import FetchServices from "../../services/FetchServices";
 function CardForm(props) {
   let [paymentSuccessful, setPaymentSuccessful] = useState("");
 
-  const _submitStripe = e => {
+  function _submitStripe(e) {
     e.preventDefault();
-    let { token } = props.stripe.createToken({ name: "Name" });
-    console.log("token", token);
-    let response = FetchServices._makeStripePayment(token);
-    if (response.ok) {
-      setPaymentSuccessful("Payment Successful!");
-      console.log("Purchase Complete!");
-    }
-  };
+    props.stripe.createToken({ name: "Name" }).then(res => {
+      console.log("res.token", res.token);
+      if (res.error) {
+        console.log("res.error", res.error);
+        throw new Error(res.error);
+      }
+      let response = FetchServices._makeStripePayment(res.token.id);
+      if (response.ok) {
+        setPaymentSuccessful("Payment Successful!");
+        console.log("Purchase Complete!");
+      }
+    });
+  }
 
   return (
     <div className="checkout">
-      <p>Please enter your payment information to complete your purchase.</p>
       <CardElement />
-      <button onClick={e => _submitStripe(e)}>Next</button>
-      {paymentSuccessful}
+      {/* <button onClick={e => _submitStripe(e)}>Submit Payment</button> */}
+      {/* {paymentSuccessful ? (
+        <div style={{ color: "green" }}>{paymentSuccessful}</div>
+      ) : (
+        ""
+      )} */}
     </div>
   );
 }

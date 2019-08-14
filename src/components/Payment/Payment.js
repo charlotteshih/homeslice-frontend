@@ -134,6 +134,10 @@ export default function Payment({ match, history }) {
   return (
     <div style={pageStyle}>
       <h1>Payment</h1>
+      <p>
+        Please enter your payment & contact information to complete your
+        purchase.
+      </p>
       <StripeProvider apiKey={`${config.stripeKey}`}>
         <Elements>
           <CardForm />

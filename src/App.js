@@ -1,13 +1,11 @@
-import React from 'react';
-import GlobalContext from './contexts/GlobalContext';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
-import styled from 'styled-components';
-import Routes from './routes/Routes';
-
+import React from "react";
+import GlobalContext from "./contexts/GlobalContext";
+import { BrowserRouter, Route } from "react-router-dom";
+import Header from "./components/Header/Header";
+// import styled from "styled-components";
+import Routes from "./routes/Routes";
 
 class App extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -16,61 +14,60 @@ class App extends React.Component {
       customerData: {},
       orderData: {},
       userIsSignedIn: false,
-      userIsAdmin: false,
-    }
+      userIsAdmin: false
+    };
   }
-  setRestaurantData = (obj) => {
+  setRestaurantData = obj => {
     return new Promise(resolve => {
       this.setState({ restaurantData: obj }, () => resolve(this.state));
     });
-  }
+  };
 
-  setPizzaData = (obj) => {
+  setPizzaData = obj => {
     return new Promise(resolve => {
       this.setState({ pizzaData: obj }, () => resolve(this.state));
     });
-  }
+  };
 
-  setCustomerData = (obj) => {
+  setCustomerData = obj => {
     return new Promise(resolve => {
       this.setState({ customerData: obj }, () => resolve(this.state));
     });
-  }
+  };
 
-  setOrderData = (obj) => {
+  setOrderData = obj => {
     return new Promise(resolve => {
-      this.setState({ orderData: obj}, () => resolve(this.state));
+      this.setState({ orderData: obj }, () => resolve(this.state));
     });
-  }
+  };
 
-  setUserIsSignedIn = (bool) => {
+  setUserIsSignedIn = bool => {
     return new Promise(resolve => {
       this.setState({ userIsSignedIn: bool }, resolve);
     });
-  }
+  };
 
-  setUserIsAdmin = (bool) => {
+  setUserIsAdmin = bool => {
     return new Promise(resolve => {
       this.setState({ userIsAdmin: bool }, resolve);
     });
-  }
+  };
 
   render() {
-
     let context = {
       setRestaurantData: this.setRestaurantData,
       setPizzaData: this.setPizzaData,
       setCustomerData: this.setCustomerData,
-      setUserIsSignedIn: this.setUserIsSignedIn, 
+      setUserIsSignedIn: this.setUserIsSignedIn,
       setUserIsAdmin: this.setUserIsAdmin,
       setOrderData: this.setOrderData,
       ...this.state
-    }
+    };
     return (
-      <main className='App'>
+      <main className="App">
         <GlobalContext.Provider value={context}>
           <BrowserRouter>
-            <Route path='/' component={Header}/>
+            <Route path="/" component={Header} />
             <Routes />
           </BrowserRouter>
         </GlobalContext.Provider>
