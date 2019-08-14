@@ -25,11 +25,18 @@ export default function OrderOnline({ match, history }) {
   const [pizzaType, setPizzaType] = useState('');
   const [pizzaBasePrice, setPizzaBasePrice] = useState(0);
   const [pizzaAddlPrice, setPizzaAddlPrice] = useState(0);
+  let [sizeErr, setSizeErr] = useState('');
+  let [typeErr, setTypeErr] = useState('');
 
   const _handlePizzaSizeChange = e => {
     e.preventDefault();
 
     let pizzaSize = e.target.value;
+    if (!pizzaSize) {
+      setSizeErr('Please select a pizza size.');
+    } else {
+      setSizeErr('');
+    }
     let basePrice = 0;
 
     switch (pizzaSize) {
@@ -57,6 +64,11 @@ export default function OrderOnline({ match, history }) {
     e.preventDefault();
 
     let pizzaType = e.target.value;
+    if (!pizzaType) {
+      setTypeErr('Please select a type of pizza.');
+    } else {
+      setTypeErr('');
+    }
     let addlPrice = 0;
 
     switch (pizzaType) {
@@ -117,6 +129,12 @@ export default function OrderOnline({ match, history }) {
         :
         <img style={imageStyle} src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
       }
+      {sizeErr
+        ? <div style={{color: 'red'}}>{sizeErr}</div>
+        : ''}
+      {typeErr
+        ? <div style={{color: 'red'}}>{typeErr}</div>
+        : ''}
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
         <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
@@ -140,7 +158,9 @@ export default function OrderOnline({ match, history }) {
 
         <span>Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b></span>
 
-        <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
+        {pizzaSize && pizzaType
+          ? <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
+          : <input type="submit" value="Next: Submit Payment &amp; Delivery Info" disabled />}
       </form>
     </div>
   )
