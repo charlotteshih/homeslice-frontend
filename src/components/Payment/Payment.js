@@ -27,7 +27,6 @@ export default function Payment({ match, history }) {
   const context = useContext(GlobalContext);
 
   let savedData = JSON.parse(localStorage.getItem("customerData"));
-  console.log(savedData);
 
   function handleSubmit(e) {
     e.preventDefault();
