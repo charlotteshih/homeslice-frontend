@@ -22,27 +22,59 @@ export default function Payment({ match, history }) {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
-  let [validationErr, setValidationErr] = useState("");
+  let [emailErr, setEmailErr] = useState("");
+  let [phoneErr, setPhoneErr] = useState("");
+  let [stateErr, setStateErr] = useState("");
+  let [zipcodeErr, setZipcodeErr] = useState("");
 
   const context = useContext(GlobalContext);
 
   let savedData = JSON.parse(localStorage.getItem("customerData"));
-  console.log(savedData);
+
+  function _handleEmailChange(e) {
+    const email = e.target.value;
+    let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailIsRegexMatch = emailRegex.test(email);
+
+    !emailIsRegexMatch
+      ? setEmailErr("Please provide a valid email.")
+      : setEmailErr("");
+
+    setEmail(email);
+  }
+
+  function _handlePhoneChange(e) {
+    const phone = e.target.value;
+    let phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    let phoneIsRegexMatch = phoneRegex.test(phone);
+
+    !phoneIsRegexMatch
+      ? setPhoneErr("Invalid phone number. Did you include the area code?")
+      : setPhoneErr("");
+
+    setPhone(phone);
+  }
+
+  function _handleStateChange(e) {
+    const state = e.target.value;
+    !state ? setStateErr("Please select a state.") : setStateErr("");
+    setState(state);
+  }
+
+  function _handleZipcodeChange(e) {
+    const zipcode = e.target.value;
+    let zipcodeRegex = /^\d{5}(?:[-\s]\d{4})?$/;
+    let zipcodeIsRegexMatch = zipcodeRegex.test(zipcode);
+
+    !zipcodeIsRegexMatch
+      ? setZipcodeErr("Please enter a 5-digit zipcode.")
+      : setZipcodeErr("");
+
+    setZipcode(zipcode);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    let phoneRegex = /^\d{10}$/;
-    let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailIsRegexMatch = emailRegex.test(email);
-    let phoneIsRegexMatch = phoneRegex.test(phone);
-
-    if (!emailIsRegexMatch) {
-      setValidationErr("Please provide a valid email.");
-    }
-    if (!phoneIsRegexMatch) {
-      setValidationErr("Invalid phone number. Did you include the area code?");
-    }
 
     const customerData = {
       first_name: firstName,
@@ -60,7 +92,7 @@ export default function Payment({ match, history }) {
         if (res.status === 201) {
           return res.json();
         } else if (res.status === 400) {
-          setValidationErr("Email is already in use.");
+          setEmailErr("Email is already in use.");
         }
         throw new Error(res);
       })
@@ -99,7 +131,6 @@ export default function Payment({ match, history }) {
   return (
     <div style={pageStyle}>
       <h1>Payment</h1>
-      {validationErr ? <div style={{ color: "red" }}>{validationErr}</div> : ""}
       <form style={formStyle} onSubmit={handleSubmit}>
         <label htmlFor="firstNameInput">First Name</label>
         <input
@@ -125,8 +156,9 @@ export default function Payment({ match, history }) {
           type="text"
           id="emailInput"
           defaultValue={savedData ? savedData.email : ""}
-          onChange={e => setEmail(e.target.value)}
+          onChange={e => _handleEmailChange(e)}
         />
+        {emailErr ? <div style={{ color: "red" }}>{emailErr}</div> : ""}
 
         <label htmlFor="phoneInput">Phone</label>
         <input
@@ -134,8 +166,9 @@ export default function Payment({ match, history }) {
           type="text"
           id="phoneInput"
           defaultValue={savedData ? savedData.phone : ""}
-          onChange={e => setPhone(e.target.value)}
+          onChange={e => _handlePhoneChange(e)}
         />
+        {phoneErr ? <div style={{ color: "red" }}>{phoneErr}</div> : ""}
 
         <label htmlFor="streetAddressInput">Street Address</label>
         <input
@@ -160,7 +193,7 @@ export default function Payment({ match, history }) {
           required
           id="stateInput"
           defaultValue={savedData ? savedData.state : ""}
-          onChange={e => setState(e.target.value)}
+          onChange={e => _handleStateChange(e)}
         >
           <option value="">Please select a state...</option>
           <option value="AL">Alabama</option>
@@ -215,6 +248,7 @@ export default function Payment({ match, history }) {
           <option value="WI">Wisconsin</option>
           <option value="WY">Wyoming</option>
         </select>
+        {stateErr ? <div style={{ color: "red" }}>{stateErr}</div> : ""}
 
         <label htmlFor="zipcodeInput">Zipcode</label>
         <input
@@ -222,12 +256,14 @@ export default function Payment({ match, history }) {
           type="text"
           id="zipcodeInput"
           defaultValue={savedData ? savedData.zipcode : ""}
-          onChange={e => setZipcode(e.target.value)}
+          onChange={e => _handleZipcodeChange(e)}
         />
-        {validationErr ? (
-          <input type="submit" value="Place Order" disabled />
-        ) : (
+        {zipcodeErr ? <div style={{ color: "red" }}>{zipcodeErr}</div> : ""}
+
+        {!emailErr && !phoneErr && !stateErr && !zipcodeErr ? (
           <input type="submit" value="Place Order" />
+        ) : (
+          <input type="submit" value="Place Order" disabled />
         )}
       </form>
     </div>
