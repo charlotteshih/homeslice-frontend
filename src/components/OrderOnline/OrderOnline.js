@@ -1,12 +1,12 @@
-import React, {useState, useContext} from 'react';
-import GlobalContext from '../../contexts/GlobalContext';
-import FetchServices from '../../services/FetchServices';
+import React, { useState, useContext } from "react";
+import GlobalContext from "../../contexts/GlobalContext";
+import FetchServices from "../../services/FetchServices";
 
 export default function OrderOnline({ match, history }) {
   const formStyle = {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   };
 
   const pageStyle = {
@@ -21,21 +21,21 @@ export default function OrderOnline({ match, history }) {
   };
 
   const context = useContext(GlobalContext);
-  const [pizzaSize, setPizzaSize] = useState('');
-  const [pizzaType, setPizzaType] = useState('');
+  const [pizzaSize, setPizzaSize] = useState("");
+  const [pizzaType, setPizzaType] = useState("");
   const [pizzaBasePrice, setPizzaBasePrice] = useState(0);
   const [pizzaAddlPrice, setPizzaAddlPrice] = useState(0);
-  let [sizeErr, setSizeErr] = useState('');
-  let [typeErr, setTypeErr] = useState('');
+  let [sizeErr, setSizeErr] = useState("");
+  let [typeErr, setTypeErr] = useState("");
 
   const _handlePizzaSizeChange = e => {
     e.preventDefault();
 
     let pizzaSize = e.target.value;
     if (!pizzaSize) {
-      setSizeErr('Please select a pizza size.');
+      setSizeErr("Please select a pizza size.");
     } else {
-      setSizeErr('');
+      setSizeErr("");
     }
     let basePrice = 0;
 
@@ -58,16 +58,16 @@ export default function OrderOnline({ match, history }) {
 
     setPizzaSize(pizzaSize);
     setPizzaBasePrice(basePrice);
-  }
+  };
 
   const _handlePizzaTypeChange = e => {
     e.preventDefault();
 
     let pizzaType = e.target.value;
     if (!pizzaType) {
-      setTypeErr('Please select a type of pizza.');
+      setTypeErr("Please select a type of pizza.");
     } else {
-      setTypeErr('');
+      setTypeErr("");
     }
     let addlPrice = 0;
 
@@ -96,45 +96,50 @@ export default function OrderOnline({ match, history }) {
 
     setPizzaType(pizzaType);
     setPizzaAddlPrice(addlPrice);
-  }
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     FetchServices._submitCreatePizza({
       size: pizzaSize,
       type: pizzaType
     })
-    .then(res => {
-      if (res.status === 201) {
-        return res.json();
-      } else {
-        throw new Error(res);
-      }
-    })
-    .then(json => {
-      return context.setPizzaData({...json});
-    })
-    .then(() => {
-      history.push(`/restaurant/${match.params.restaurantId}/payment`)
-    })
-    .catch(err => console.error(err));
-  }
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          throw new Error(res);
+        }
+      })
+      .then(json => {
+        return context.setPizzaData({ ...json });
+      })
+      .then(() => {
+        history.push(`/restaurant/${match.params.restaurantId}/payment`);
+      })
+      .catch(err => console.error(err));
+  };
 
   return (
     <div style={pageStyle}>
       <h3>Place an Order!</h3>
-      {
-        pizzaType.length ?
-        <img style={imageStyle} src={require(`../../images/${pizzaType.toLowerCase().replace(/\s+/g, "-")}.png`)} alt={`${pizzaType} pizza`} />
-        :
-        <img style={imageStyle} src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
-      }
-      {sizeErr
-        ? <div style={{color: 'red'}}>{sizeErr}</div>
-        : ''}
-      {typeErr
-        ? <div style={{color: 'red'}}>{typeErr}</div>
-        : ''}
+      {pizzaType.length ? (
+        <img
+          style={imageStyle}
+          src={require(`../../images/${pizzaType
+            .toLowerCase()
+            .replace(/\s+/g, "-")}.png`)}
+          alt={`${pizzaType} pizza`}
+        />
+      ) : (
+        <img
+          style={imageStyle}
+          src={require(`../../images/base.png`)}
+          alt={`${pizzaType} pizza`}
+        />
+      )}
+      {sizeErr ? <div style={{ color: "red" }}>{sizeErr}</div> : ""}
+      {typeErr ? <div style={{ color: "red" }}>{typeErr}</div> : ""}
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="pizzaSize">Size</label>
         <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
@@ -156,12 +161,24 @@ export default function OrderOnline({ match, history }) {
           <option value="BBQ Chicken">BBQ Chicken</option>
         </select>
 
-        <span>Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b></span>
+        <span>
+          Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b>
+        </span>
 
-        {pizzaSize && pizzaType
-          ? <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
-          : <input type="submit" value="Next: Submit Payment &amp; Delivery Info" disabled />}
+        {pizzaSize && pizzaType ? (
+          <input
+            type="submit"
+            value="Next: Submit Payment &amp; Delivery Info"
+          />
+        ) : (
+          <input
+            type="submit"
+            value="Next: Submit Payment &amp; Delivery Info"
+            disabled
+          />
+        )}
+        <p>Step 1 of 2</p>
       </form>
     </div>
-  )
+  );
 }

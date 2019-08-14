@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 
@@ -14,6 +14,15 @@ export default function Payment({ match, history }) {
     width: "800px"
   };
 
+  const imageStyle = {
+    margin: "0 auto",
+    width: "300px",
+    marginBottom: "30px"
+  };
+
+  const context = useContext(GlobalContext);
+  let savedData = JSON.parse(localStorage.getItem("customerData"));
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,14 +31,21 @@ export default function Payment({ match, history }) {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [pizzaSize, setPizzaSize] = useState(context.pizzaData.size);
+  const [pizzaType, setPizzaType] = useState(context.pizzaData.type);
+  const [pizzaBasePrice, setPizzaBasePrice] = useState(
+    context.pizzaData.basePrice
+  );
+  const [pizzaAddlPrice, setPizzaAddlPrice] = useState(
+    context.pizzaData.addlPrice
+  );
   let [emailErr, setEmailErr] = useState("");
   let [phoneErr, setPhoneErr] = useState("");
   let [stateErr, setStateErr] = useState("");
   let [zipcodeErr, setZipcodeErr] = useState("");
-
-  const context = useContext(GlobalContext);
-
-  let savedData = JSON.parse(localStorage.getItem("customerData"));
+  let [changeErr, setchangeErr] = useState("");
+  let [sizeErr, setSizeErr] = useState("");
+  let [typeErr, setTypeErr] = useState("");
 
   function _handleEmailChange(e) {
     const email = e.target.value;
@@ -71,6 +87,98 @@ export default function Payment({ match, history }) {
       : setZipcodeErr("");
 
     setZipcode(zipcode);
+  }
+
+  const _handlePizzaSizeChange = e => {
+    e.preventDefault();
+
+    let pizzaSize = e.target.value;
+    if (!pizzaSize) {
+      setSizeErr("Please select a pizza size.");
+    } else {
+      setSizeErr("");
+    }
+    let basePrice = 0;
+
+    switch (pizzaSize) {
+      case "Small":
+        basePrice = 9;
+        break;
+      case "Medium":
+        basePrice = 10;
+        break;
+      case "Large":
+        basePrice = 11;
+        break;
+      case "X-Large":
+        basePrice = 12;
+        break;
+      default:
+        basePrice = 0;
+    }
+
+    setPizzaSize(pizzaSize);
+    setPizzaBasePrice(basePrice);
+  };
+
+  const _handlePizzaTypeChange = e => {
+    e.preventDefault();
+
+    let pizzaType = e.target.value;
+    if (!pizzaType) {
+      setTypeErr("Please select a type of pizza.");
+    } else {
+      setTypeErr("");
+    }
+    let addlPrice = 0;
+
+    switch (pizzaType) {
+      case "Cheese":
+        addlPrice = 0;
+        break;
+      case "Pepperoni":
+        addlPrice = 2;
+        break;
+      case "Supreme":
+        addlPrice = 3;
+        break;
+      case "Veggie":
+        addlPrice = 1;
+        break;
+      case "Hawaiian":
+        addlPrice = 2;
+        break;
+      case "BBQ Chicken":
+        addlPrice = 2;
+        break;
+      default:
+        addlPrice = 0;
+    }
+
+    setPizzaType(pizzaType);
+    setPizzaAddlPrice(addlPrice);
+  };
+
+  function handleUpdatePizza(e) {
+    e.preventDefault();
+
+    const pizzaData = {
+      size: pizzaSize,
+      type: pizzaType
+    };
+
+    FetchServices._updatePizzaById(context.pizzaData.id, pizzaData)
+      .then(res => {
+        if (res.status === 204) {
+          return res.json();
+        } else if (res.status === 304) {
+          setchangeErr("No change to order.");
+        }
+        throw new Error(res);
+      })
+      .then(json => {
+        return context.setPizzaData({ ...json });
+      });
   }
 
   function handleSubmit(e) {
@@ -130,6 +238,57 @@ export default function Payment({ match, history }) {
 
   return (
     <div style={pageStyle}>
+      <h1>Review Your Order</h1>
+      <form style={formStyle} onSubmit={handleUpdatePizza}>
+        {pizzaType.length ? (
+          <img
+            style={imageStyle}
+            src={require(`../../images/${pizzaType
+              .toLowerCase()
+              .replace(/\s+/g, "-")}.png`)}
+            alt={`${pizzaType} pizza`}
+          />
+        ) : (
+          <img
+            style={imageStyle}
+            src={require(`../../images/base.png`)}
+            alt={`${pizzaType} pizza`}
+          />
+        )}
+        {changeErr ? <div style={{ color: "red" }}>{changeErr}</div> : ""}
+        {sizeErr ? <div style={{ color: "red" }}>{sizeErr}</div> : ""}
+        {typeErr ? <div style={{ color: "red" }}>{typeErr}</div> : ""}
+        <label htmlFor="pizzaSize">Size</label>
+        <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
+          <option value="">Please select a size...</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+          <option value="X-Large">X-Large</option>
+        </select>
+
+        <label htmlFor="pizzaType">Type</label>
+        <select id="pizzaType" onChange={e => _handlePizzaTypeChange(e)}>
+          <option value="">Please select a type...</option>
+          <option value="Cheese">Cheese</option>
+          <option value="Pepperoni">Pepperoni</option>
+          <option value="Supreme">Supreme</option>
+          <option value="Veggie">Veggie</option>
+          <option value="Hawaiian">Hawaiian</option>
+          <option value="BBQ Chicken">BBQ Chicken</option>
+        </select>
+
+        <span>
+          Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b>
+        </span>
+
+        {pizzaSize && pizzaType ? (
+          <input type="submit" value="Edit Order" />
+        ) : (
+          <input type="submit" value="Edit Order" disabled />
+        )}
+      </form>
+      <hr />
       <h1>Payment</h1>
       <form style={formStyle} onSubmit={handleSubmit}>
         <label htmlFor="firstNameInput">First Name</label>
@@ -265,6 +424,7 @@ export default function Payment({ match, history }) {
         ) : (
           <input type="submit" value="Place Order" disabled />
         )}
+        <p>Step 2 of 2</p>
       </form>
     </div>
   );
