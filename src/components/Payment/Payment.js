@@ -34,16 +34,20 @@ export default function Payment({ match, history }) {
   const [pizzaSize, setPizzaSize] = useState(context.pizzaData.size);
   const [pizzaType, setPizzaType] = useState(context.pizzaData.type);
   const [pizzaBasePrice, setPizzaBasePrice] = useState(
-    context.pizzaData.basePrice
+    Number(context.pizzaData.basePrice)
   );
   const [pizzaAddlPrice, setPizzaAddlPrice] = useState(
-    context.pizzaData.addlPrice
+    Number(context.pizzaData.addlPrice)
   );
+  let [sizeChanged, setSizeChanged] = useState(false);
+  let [typeChanged, setTypeChanged] = useState(false);
+  let [pizzaChanged, setPizzaChanged] = useState("");
+
   let [emailErr, setEmailErr] = useState("");
   let [phoneErr, setPhoneErr] = useState("");
   let [stateErr, setStateErr] = useState("");
   let [zipcodeErr, setZipcodeErr] = useState("");
-  let [changeErr, setchangeErr] = useState("");
+  let [changeErr, setChangeErr] = useState("");
   let [sizeErr, setSizeErr] = useState("");
   let [typeErr, setTypeErr] = useState("");
 
@@ -93,11 +97,8 @@ export default function Payment({ match, history }) {
     e.preventDefault();
 
     let pizzaSize = e.target.value;
-    if (!pizzaSize) {
-      setSizeErr("Please select a pizza size.");
-    } else {
-      setSizeErr("");
-    }
+    !pizzaSize ? setSizeErr("Please select a pizza size.") : setSizeErr("");
+
     let basePrice = 0;
 
     switch (pizzaSize) {
@@ -119,17 +120,15 @@ export default function Payment({ match, history }) {
 
     setPizzaSize(pizzaSize);
     setPizzaBasePrice(basePrice);
+    setSizeChanged(true);
   };
 
   const _handlePizzaTypeChange = e => {
     e.preventDefault();
 
     let pizzaType = e.target.value;
-    if (!pizzaType) {
-      setTypeErr("Please select a type of pizza.");
-    } else {
-      setTypeErr("");
-    }
+    !pizzaType ? setTypeErr("Please select a type of pizza.") : setTypeErr("");
+
     let addlPrice = 0;
 
     switch (pizzaType) {
@@ -157,6 +156,7 @@ export default function Payment({ match, history }) {
 
     setPizzaType(pizzaType);
     setPizzaAddlPrice(addlPrice);
+    setTypeChanged(true);
   };
 
   function handleUpdatePizza(e) {
@@ -170,9 +170,10 @@ export default function Payment({ match, history }) {
     FetchServices._updatePizzaById(context.pizzaData.id, pizzaData)
       .then(res => {
         if (res.status === 204) {
+          setPizzaChanged("Order updated!");
           return res.json();
-        } else if (res.status === 304) {
-          setchangeErr("No change to order.");
+        } else {
+          setChangeErr("No change to order.");
         }
         throw new Error(res);
       })
@@ -259,7 +260,11 @@ export default function Payment({ match, history }) {
         {sizeErr ? <div style={{ color: "red" }}>{sizeErr}</div> : ""}
         {typeErr ? <div style={{ color: "red" }}>{typeErr}</div> : ""}
         <label htmlFor="pizzaSize">Size</label>
-        <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
+        <select
+          id="pizzaSize"
+          value={pizzaSize}
+          onChange={e => _handlePizzaSizeChange(e)}
+        >
           <option value="">Please select a size...</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
@@ -268,7 +273,11 @@ export default function Payment({ match, history }) {
         </select>
 
         <label htmlFor="pizzaType">Type</label>
-        <select id="pizzaType" onChange={e => _handlePizzaTypeChange(e)}>
+        <select
+          id="pizzaType"
+          value={pizzaType}
+          onChange={e => _handlePizzaTypeChange(e)}
+        >
           <option value="">Please select a type...</option>
           <option value="Cheese">Cheese</option>
           <option value="Pepperoni">Pepperoni</option>
@@ -282,10 +291,15 @@ export default function Payment({ match, history }) {
           Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b>
         </span>
 
-        {pizzaSize && pizzaType ? (
+        {sizeChanged || typeChanged ? (
           <input type="submit" value="Edit Order" />
         ) : (
           <input type="submit" value="Edit Order" disabled />
+        )}
+        {pizzaChanged ? (
+          <div style={{ color: "green" }}>{pizzaChanged}</div>
+        ) : (
+          ""
         )}
       </form>
       <hr />

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
@@ -9,16 +9,7 @@ export default function OrderStatus({ match }) {
     width: "800px"
   };
 
-  const imageStyle = {
-    margin: "0 auto",
-    width: "300px",
-    marginBottom: "30px"
-  };
-
   const context = useContext(GlobalContext);
-
-  const [pizzaSize, setPizzaSize] = useState(context.pizzaData.pizzaSize);
-  const [pizzaType, setPizzaType] = useState(context.pizzaData.pizzaType);
   const [isLoading, setIsLoading] = useState({ isLoading: true });
   const [isLoadingRestaurant, setIsLoadingRestaurant] = useState({
     isLoadingRestaurant: true
@@ -74,7 +65,6 @@ export default function OrderStatus({ match }) {
   }, [isLoadingRestaurant, isLoadingOrder]);
 
   if (!isLoadingRestaurant) {
-    var restaurantName = context.restaurantData.restaurantName;
     var restaurantLocation =
       context.restaurantData.street_address +
       ", " +
@@ -106,31 +96,12 @@ export default function OrderStatus({ match }) {
       <div style={pageStyle}>
         <h1>Order Summary</h1>
         <p>
-          <img
-            style={imageStyle}
-            src={require(`../../images/${pizzaType
-              .toLowerCase()
-              .replace(/\s+/g, "-")}.png`)}
-            alt={`${pizzaType} pizza`}
-          />
+          Order Number: {context.orderData.id}
           <br />
-          {pizzaSize} {pizzaType}
+          Order Status: {context.orderData.order_status}
         </p>
-        <p>
-          <b>Order Number:</b> {context.orderData.id}
-          <br />
-          <b>Order Status:</b> {context.orderData.order_status}
-        </p>
-        <p>
-          <b>Order Total:</b> ${context.orderData.order_total}
-        </p>
-        <p>
-          <b>Pickup Location:</b>
-          <br />
-          {restaurantName}
-          <br />
-          {restaurantLocation}
-        </p>
+        <p>Order Total: ${context.orderData.order_total}</p>
+        <p>Pickup Location: {restaurantLocation}</p>
         <p>
           <b>
             Please keep this tab open so that you can view your order status in

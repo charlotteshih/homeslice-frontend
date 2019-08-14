@@ -88,15 +88,16 @@ const FetchServices = {
       })
     });
   },
+  _getPizzaById(pizzaId) {
+    return fetch(`${Config.apiBaseUrl}/pizzas/${pizzaId}`);
+  },
   _updatePizzaById(pizzaId, pizzaToUpdate) {
     return fetch(`${Config.apiBaseUrl}/pizzas/${pizzaId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/JSON"
       },
-      body: JSON.stringify({
-        pizzaToUpdate
-      })
+      body: JSON.stringify(pizzaToUpdate)
     });
   },
   _deleteRestaurantById(restaurantId) {
