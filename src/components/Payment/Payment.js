@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 import React, { useContext, useState, useEffect } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
+=======
+import React, { useContext, useState, useEffect } from 'react';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import GlobalContext from '../../contexts/GlobalContext';
+import FetchServices from '../../services/FetchServices';
+import CardForm from '../CardForm/CardForm';
+import config from '../../config';
+>>>>>>> 09bfca25b4ab41d742d2b6f3193935d6e0c1f9af
 
 export default function Payment({ match, history }) {
   const formStyle = {
@@ -97,16 +106,27 @@ export default function Payment({ match, history }) {
         throw new Error(res);
       })
       .then(json => {
+<<<<<<< HEAD
         localStorage.setItem("customerData", JSON.stringify(json));
         return context.setCustomerData({ ...json });
+=======
+        return context.setCustomerData({...json})
+>>>>>>> 09bfca25b4ab41d742d2b6f3193935d6e0c1f9af
       })
       .then(updatedState => {
         const orderData = {
           restaurant_id: match.params.restaurantId,
           pizza_id: updatedState.pizzaData.id,
           customer_id: updatedState.customerData.id,
+<<<<<<< HEAD
           order_status: "Ordered"
         };
+=======
+          order_status: 'Ordered',
+        }
+
+        console.log('orderData',orderData);
+>>>>>>> 09bfca25b4ab41d742d2b6f3193935d6e0c1f9af
         return FetchServices._submitCreateOrder(orderData);
       })
       .then(res => {
@@ -129,6 +149,7 @@ export default function Payment({ match, history }) {
   }
 
   return (
+<<<<<<< HEAD
     <div style={pageStyle}>
       <h1>Payment</h1>
       <form style={formStyle} onSubmit={handleSubmit}>
@@ -268,4 +289,67 @@ export default function Payment({ match, history }) {
       </form>
     </div>
   );
+=======
+      <div style={pageStyle}>
+        <h1>Payment</h1>
+        <StripeProvider apiKey={`${config.stripeKey}`}>
+          <Elements>
+            <CardForm />
+          </Elements>
+        </StripeProvider>
+        <form style={formStyle} onSubmit={handleSubmit}>
+          <label htmlFor="firstNameInput">First Name</label>
+          <input 
+            type="text" 
+            id="firstNameInput" 
+            onChange={(e) => setFirstName(e.target.value)}/>
+
+          <label htmlFor="lastNameInput">Last Name</label>
+          <input 
+            type="text" 
+            id="lastNameInput"
+            onChange={(e) => setLastName(e.target.value)} />
+
+          <label htmlFor="emailInput">Email</label>
+          <input 
+            type="text" 
+            id="emailInput"
+            onChange={(e) => setEmail(e.target.value)} />
+
+          <label htmlFor="phoneInput">Phone</label>
+          <input 
+            type="text" 
+            id="phoneInput"
+            onChange={(e) => setPhone(e.target.value)} />
+
+          <label htmlFor="streetAddressInput">Street Address</label>
+          <input 
+            type="text" 
+            id="streetAddressInput"
+            onChange={(e) => setStreet_Address(e.target.value)} />
+
+          <label htmlFor="cityInput">City</label>
+          <input 
+            type="text" 
+            id="cityInput"
+            onChange={(e) => setCity(e.target.value)} />
+
+          <label htmlFor="stateInput">State</label>
+          <input 
+            type="text" 
+            id="stateInput"
+            onChange={(e) => setState(e.target.value)} />
+
+          <label htmlFor="zipcodeInput">Zipcode</label>
+          <input 
+            type="text" 
+            id="zipcodeInput"
+            onChange={(e) => setZipcode(e.target.value)} />
+          <input type="submit" value="Place Order" />
+        </form>
+      </div>
+  )
+>>>>>>> 09bfca25b4ab41d742d2b6f3193935d6e0c1f9af
 }
+
+// export default injectStripe(Payment);

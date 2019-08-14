@@ -101,7 +101,14 @@ const FetchServices = {
         "Authorization": `Bearer ${auth}`
       }
     })
-  }
+  },
+  _makeStripePayment(token) {
+    return fetch(`${Config.apiBaseUrl}/stripe/`, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain"},
+      body: token.id
+    })
+  },
 }
 
 export default FetchServices
