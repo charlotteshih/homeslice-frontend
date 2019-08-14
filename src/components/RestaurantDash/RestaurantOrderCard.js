@@ -95,7 +95,21 @@ export default function RestaurantOrderCard(props) {
       >
         <div style={pizzaAndCustomerStyle}>
           <div>
-            <div style={pizzaIconStyle}>{props.order.pizza_size}</div>
+            {props.order.pizza_type ? (
+              <img
+                style={pizzaIconStyle}
+                src={require(`../../images/${props.order.pizza_type
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}.png`)}
+                alt={`${props.order.pizza_type} pizza`}
+              />
+            ) : (
+              <img
+                style={pizzaIconStyle}
+                src={require(`../../images/base.png`)}
+                alt={`${props.order.pizza_type} pizza`}
+              />
+            )}
             <p>{props.order.pizza_type}</p>
           </div>
           {props.customerInfo ? (
