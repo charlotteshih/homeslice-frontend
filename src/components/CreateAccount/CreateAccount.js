@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
-
+import InputMask from 'react-input-mask';
+ 
 export default function CreateAccount(props) {
   const formStyle = {
     display: "flex",
@@ -135,28 +136,29 @@ export default function CreateAccount(props) {
         <input 
           onChange={(e) => setEmail(e.target.value)} 
           id="emailInput" 
-          type="text"
+          type="email"
           required/>
 
         <label htmlFor="passwordInput">Password</label>
         <input
           onChange={(e) => setPassword(e.target.value)}  
           id="passwordInput" 
-          type="text"
+          type="password"
           required/>
 
         <label htmlFor="passwordMatchInput">Confirm password</label>
         <input
           onChange={(e) => setPasswordMatch(e.target.value)}  
           id="passwordMatchInput" 
-          type="text"
+          type="password"
           required/>  
 
         <label htmlFor="phoneInput">Phone</label>
-        <input 
+        <InputMask 
           onChange={(e) => setPhone(e.target.value)} 
+          mask="(999) 999-9999"
           id="phoneInput" 
-          type="text"
+          type="tel"
           required/>
 
         <label htmlFor="streetAddressInput">Street Address</label>
@@ -236,7 +238,7 @@ export default function CreateAccount(props) {
         <input 
           onChange={(e) => setZipcode(e.target.value)} 
           id="zipcodeInput" 
-          type="text"
+          type="number"
           required/>
 
         <input type="submit" value="Create Account" />

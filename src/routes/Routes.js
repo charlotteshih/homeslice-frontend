@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import styled from "styled-components";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Home from "../components/Home/Home";
 import CreateAccount from "../components/CreateAccount/CreateAccount";
@@ -10,7 +9,6 @@ import OrderStatus from "../components/OrderStatus/OrderStatus";
 import Payment from "../components/Payment/Payment.js";
 import AdminDash from "../components/AdminDash/AdminDash";
 import RestaurantDash from "../components/RestaurantDash/RestaurantDash";
-import RestaurantAnalytics from "../components/RestaurantAnalytics/RestaurantAnalytics";
 import NotFound from "../components/NotFound/NotFound";
 
 import "./style.css";
@@ -53,11 +51,6 @@ function Routes({ location }) {
               exact
               path="/dashboard/restaurant/:restaurantId"
               component={RestaurantDash}
-            />
-            <Route
-              exact
-              path="/dashboard/restaurant/:restaurantId/analytics"
-              component={RestaurantAnalytics}
             />
             <Route component={NotFound} />
           </Switch>
