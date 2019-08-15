@@ -17,6 +17,8 @@ export default function Payment({ match, history }) {
     width: "800px"
   };
 
+  let [showCustomerForm, setShowCustomerForm] = useState(false);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +27,7 @@ export default function Payment({ match, history }) {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+
   let [emailErr, setEmailErr] = useState("");
   let [phoneErr, setPhoneErr] = useState("");
   let [stateErr, setStateErr] = useState("");
@@ -134,150 +137,156 @@ export default function Payment({ match, history }) {
   return (
     <div style={pageStyle}>
       <h1>Payment</h1>
-      <p>
-        Please enter your payment & contact information to complete your
-        purchase.
-      </p>
+      <p>Please enter your payment information below.</p>
       <StripeProvider apiKey={`${config.stripeKey}`}>
         <Elements>
-          <CardForm />
+          <CardForm setShowCustomerForm={setShowCustomerForm} />
         </Elements>
       </StripeProvider>
-      <form style={formStyle} onSubmit={handleSubmit}>
-        <label htmlFor="firstNameInput">First Name</label>
-        <input
-          required
-          type="text"
-          id="firstNameInput"
-          defaultValue={savedData ? savedData.first_name : ""}
-          onChange={e => setFirstName(e.target.value)}
-        />
+      {showCustomerForm ? (
+        <>
+          <p>
+            Please enter your contact information to complete your purchase.
+          </p>
+          <form style={formStyle} onSubmit={handleSubmit}>
+            <label htmlFor="firstNameInput">First Name</label>
+            <input
+              required
+              type="text"
+              id="firstNameInput"
+              defaultValue={savedData ? savedData.first_name : ""}
+              onChange={e => setFirstName(e.target.value)}
+            />
 
-        <label htmlFor="lastNameInput">Last Name</label>
-        <input
-          required
-          type="text"
-          id="lastNameInput"
-          defaultValue={savedData ? savedData.last_name : ""}
-          onChange={e => setLastName(e.target.value)}
-        />
+            <label htmlFor="lastNameInput">Last Name</label>
+            <input
+              required
+              type="text"
+              id="lastNameInput"
+              defaultValue={savedData ? savedData.last_name : ""}
+              onChange={e => setLastName(e.target.value)}
+            />
 
-        <label htmlFor="emailInput">Email</label>
-        <input
-          required
-          type="text"
-          id="emailInput"
-          defaultValue={savedData ? savedData.email : ""}
-          onChange={e => _handleEmailChange(e)}
-        />
-        {emailErr ? <div style={{ color: "red" }}>{emailErr}</div> : ""}
+            <label htmlFor="emailInput">Email</label>
+            <input
+              required
+              type="text"
+              id="emailInput"
+              defaultValue={savedData ? savedData.email : ""}
+              onChange={e => _handleEmailChange(e)}
+            />
+            {emailErr ? <div style={{ color: "red" }}>{emailErr}</div> : ""}
 
-        <label htmlFor="phoneInput">Phone</label>
-        <input
-          required
-          type="text"
-          id="phoneInput"
-          defaultValue={savedData ? savedData.phone : ""}
-          onChange={e => _handlePhoneChange(e)}
-        />
-        {phoneErr ? <div style={{ color: "red" }}>{phoneErr}</div> : ""}
+            <label htmlFor="phoneInput">Phone</label>
+            <input
+              required
+              type="text"
+              id="phoneInput"
+              defaultValue={savedData ? savedData.phone : ""}
+              onChange={e => _handlePhoneChange(e)}
+            />
+            {phoneErr ? <div style={{ color: "red" }}>{phoneErr}</div> : ""}
 
-        <label htmlFor="streetAddressInput">Street Address</label>
-        <input
-          required
-          type="text"
-          id="streetAddressInput"
-          defaultValue={savedData ? savedData.street_address : ""}
-          onChange={e => setStreet_Address(e.target.value)}
-        />
+            <label htmlFor="streetAddressInput">Street Address</label>
+            <input
+              required
+              type="text"
+              id="streetAddressInput"
+              defaultValue={savedData ? savedData.street_address : ""}
+              onChange={e => setStreet_Address(e.target.value)}
+            />
 
-        <label htmlFor="cityInput">City</label>
-        <input
-          required
-          type="text"
-          id="cityInput"
-          defaultValue={savedData ? savedData.city : ""}
-          onChange={e => setCity(e.target.value)}
-        />
+            <label htmlFor="cityInput">City</label>
+            <input
+              required
+              type="text"
+              id="cityInput"
+              defaultValue={savedData ? savedData.city : ""}
+              onChange={e => setCity(e.target.value)}
+            />
 
-        <label htmlFor="stateInput">State</label>
-        <select
-          required
-          id="stateInput"
-          defaultValue={savedData ? savedData.state : ""}
-          onChange={e => _handleStateChange(e)}
-        >
-          <option value="">Please select a state...</option>
-          <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
-          <option value="AZ">Arizona</option>
-          <option value="AR">Arkansas</option>
-          <option value="CA">California</option>
-          <option value="CO">Colorado</option>
-          <option value="CT">Connecticut</option>
-          <option value="DE">Delaware</option>
-          <option value="DC">District Of Columbia</option>
-          <option value="FL">Florida</option>
-          <option value="GA">Georgia</option>
-          <option value="HI">Hawaii</option>
-          <option value="ID">Idaho</option>
-          <option value="IL">Illinois</option>
-          <option value="IN">Indiana</option>
-          <option value="IA">Iowa</option>
-          <option value="KS">Kansas</option>
-          <option value="KY">Kentucky</option>
-          <option value="LA">Louisiana</option>
-          <option value="ME">Maine</option>
-          <option value="MD">Maryland</option>
-          <option value="MA">Massachusetts</option>
-          <option value="MI">Michigan</option>
-          <option value="MN">Minnesota</option>
-          <option value="MS">Mississippi</option>
-          <option value="MO">Missouri</option>
-          <option value="MT">Montana</option>
-          <option value="NE">Nebraska</option>
-          <option value="NV">Nevada</option>
-          <option value="NH">New Hampshire</option>
-          <option value="NJ">New Jersey</option>
-          <option value="NM">New Mexico</option>
-          <option value="NY">New York</option>
-          <option value="NC">North Carolina</option>
-          <option value="ND">North Dakota</option>
-          <option value="OH">Ohio</option>
-          <option value="OK">Oklahoma</option>
-          <option value="OR">Oregon</option>
-          <option value="PA">Pennsylvania</option>
-          <option value="RI">Rhode Island</option>
-          <option value="SC">South Carolina</option>
-          <option value="SD">South Dakota</option>
-          <option value="TN">Tennessee</option>
-          <option value="TX">Texas</option>
-          <option value="UT">Utah</option>
-          <option value="VT">Vermont</option>
-          <option value="VA">Virginia</option>
-          <option value="WA">Washington</option>
-          <option value="WV">West Virginia</option>
-          <option value="WI">Wisconsin</option>
-          <option value="WY">Wyoming</option>
-        </select>
-        {stateErr ? <div style={{ color: "red" }}>{stateErr}</div> : ""}
+            <label htmlFor="stateInput">State</label>
+            <select
+              required
+              id="stateInput"
+              defaultValue={savedData ? savedData.state : ""}
+              onChange={e => _handleStateChange(e)}
+            >
+              <option value="">Please select a state...</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="DC">District Of Columbia</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+            </select>
+            {stateErr ? <div style={{ color: "red" }}>{stateErr}</div> : ""}
 
-        <label htmlFor="zipcodeInput">Zipcode</label>
-        <input
-          required
-          type="text"
-          id="zipcodeInput"
-          defaultValue={savedData ? savedData.zipcode : ""}
-          onChange={e => _handleZipcodeChange(e)}
-        />
-        {zipcodeErr ? <div style={{ color: "red" }}>{zipcodeErr}</div> : ""}
+            <label htmlFor="zipcodeInput">Zipcode</label>
+            <input
+              required
+              type="text"
+              id="zipcodeInput"
+              defaultValue={savedData ? savedData.zipcode : ""}
+              onChange={e => _handleZipcodeChange(e)}
+            />
+            {zipcodeErr ? <div style={{ color: "red" }}>{zipcodeErr}</div> : ""}
 
-        {!emailErr && !phoneErr && !stateErr && !zipcodeErr ? (
-          <input type="submit" value="Place Order" />
-        ) : (
-          <input type="submit" value="Place Order" disabled />
-        )}
-      </form>
+            {!emailErr && !phoneErr && !stateErr && !zipcodeErr ? (
+              <input type="submit" value="Place Order" />
+            ) : (
+              <input type="submit" value="Place Order" disabled />
+            )}
+          </form>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

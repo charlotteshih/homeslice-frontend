@@ -7,19 +7,18 @@ function CardForm(props) {
 
   function _submitStripe(e) {
     e.preventDefault();
+    console.log(props);
     props.stripe.createToken({ name: "Name" }).then(res => {
-      // console.log("res.token", res.token);
       if (res.error) {
-        // console.log("res.error", res.error);
         throw new Error(res.error);
       }
-      let response = FetchServices._makeStripePayment(res.token).then(() =>
-        setPaymentSuccessful("Payment Successful!")
-      );
-      // if (response.ok) {
-      //   setPaymentSuccessful("Payment Successful!");
-      //   console.log("Purchase Complete!");
-      // }
+      let response = FetchServices._makeStripePayment(res.token).then(res => {
+        if (res.status === 204) {
+          props.setShowCustomerForm(true);
+          setPaymentSuccessful("Payment Successful!");
+          // console.log(res);
+        }
+      });
     });
   }
 
