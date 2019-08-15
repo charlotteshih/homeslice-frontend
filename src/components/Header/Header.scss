@@ -1,0 +1,87 @@
+.DashboardNav__container {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / -1;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.DashboardNav__item {
+  border-top: 1px solid $primary-font-color;
+  padding: 10px 0px 10px 10px;
+}
+
+.DashboardNav__link {
+  text-decoration: none;
+  color: $primary-font-color;
+}
+
+.Header__container {
+  background-color: $primary-color;
+  font-size: $l-font-size;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+  padding-bottom: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.Header__form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Header__home-link {
+  font-size: $xl-font-size;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.Header__menu-toggle {
+  background-color: $primary-color;
+  border: none;
+  color: $primary-font-color;
+  font-size: $l-font-size;
+  justify-self: end;
+  outline: none;
+}
+
+.Header__nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.Header--top-border {
+  border-top: 3px solid $primary-font-color;
+  padding-top: 10px;
+}
+
+.Header__sign-in {
+  grid-column: 1 / -1;
+}
+
+.Header__sign-in__heading {
+  font-size: $l-font-size;
+  margin: 20px 0 0 0;
+}
+
+.Header__sign-in__input {
+  font-size: $l-font-size;
+  padding: 10px;
+  outline: none;
+}
+
+.Header__sign-in__label {
+  margin-top: 10px;
+}
+
+.Header__sign-in__submit {
+  margin-top: 10px;
+}
+
+

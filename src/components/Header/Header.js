@@ -8,10 +8,6 @@ import jwt from 'jsonwebtoken';
 import FetchServices from '../../services/FetchServices';
 
 export default function Header({ history }) {
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
   let [signInFormsShowing, setSignInFormsShowing] = useState(false);
   let context = useContext(GlobalContext);
 
@@ -45,28 +41,42 @@ export default function Header({ history }) {
             context.setUserIsAdmin(true);
           }
         })
-
       console.dir(decoded);
-
-
     }
   }, []);
 
 
 
   return (
-    <header style={pageStyle}>
-      <nav>
-        <Link to="/">Home</Link>
+    <header className="Header__container">
+      <nav className={"Header__nav"}>
+        <Link className="Header__home-link link" to="/">HomeSlice</Link>
         {context.userIsSignedIn? (
-          <DashBoardNav />
+          <>
+          <button
+            className={`Header__menu-toggle`}
+            onClick={() => setSignInFormsShowing(!signInFormsShowing)}
+            >{signInFormsShowing
+              ? 'Close' 
+              : 'Menu'}
+          </button>
+          {signInFormsShowing
+            ? <DashBoardNav setSignInFormsShowing={setSignInFormsShowing}/>
+            : ""}
+          </>
         )
         :
         (
           <>
-          <button onClick={() => setSignInFormsShowing(!signInFormsShowing)}>Sign In</button>
+          <button
+            className={`Header__menu-toggle`}
+            onClick={() => setSignInFormsShowing(!signInFormsShowing)}
+            >{signInFormsShowing
+              ? 'Close' 
+              : 'Menu'}
+          </button>
           {signInFormsShowing?
-            <> 
+            <>
             <SignInForm
               setSignInFormsShowing={setSignInFormsShowing} 
               history={history}/>

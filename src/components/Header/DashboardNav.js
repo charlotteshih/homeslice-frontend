@@ -3,29 +3,55 @@ import { NavLink } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import GlobalContext from '../../contexts/GlobalContext';
 
-export default function DashboardNav() {
+export default function DashboardNav(props) {
 
   let context = useContext(GlobalContext);
 
   const logOutUser = () => {
     localStorage.removeItem('jwt');
-    context.setUserIsAdmin(false);
+    context.setUserIsAdmin(false)
     context.setUserIsSignedIn(false);
+    props.setSignInFormsShowing(false);
   };
 
   let { restaurant_id } = jwt.decode(localStorage.getItem('jwt'));
   return (
-    <ul>
+    <ul className="DashboardNav__container">
       {context.userIsAdmin?
       <>
-        <li><NavLink to='/dashboard/admin/' >Admin Dashboard</NavLink></li>
-        <li><NavLink to={`/`} onClick={logOutUser}>Logout</NavLink></li>
+        <li className="DashboardNav__item">
+          <NavLink 
+            className="DashboardNav__link"
+            onClick={() => props.setSignInFormsShowing(false)} 
+            to='/dashboard/admin/' >Admin Dashboard</NavLink>
+        </li>
+        <li className="DashboardNav__item">
+          <NavLink 
+            className="DashboardNav__link"
+            onClick={logOutUser}
+            to={`/`} >Logout</NavLink>
+        </li>
       </>
       :
       <>
-        <li><NavLink to={`/restaurant/${restaurant_id}`}>View Storefront</NavLink></li>
-        <li><NavLink to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</NavLink></li>
-        <li><NavLink to={`/`} onClick={logOutUser}>Logout</NavLink></li>
+        <li className="DashboardNav__item">
+          <NavLink 
+            className="DashboardNav__link"
+            onClick={() => props.setSignInFormsShowing(false)} 
+            to={`/restaurant/${restaurant_id}`}>View Storefront</NavLink>
+        </li>
+        <li className="DashboardNav__item">
+          <NavLink 
+            className="DashboardNav__link"
+            onClick={() => props.setSignInFormsShowing(false)}
+            to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</NavLink>
+        </li>
+        <li className="DashboardNav__item">
+          <NavLink 
+            className="DashboardNav__link" 
+            to={`/`} 
+            onClick={logOutUser}>Logout</NavLink>
+        </li>
       </>
     }
     </ul>

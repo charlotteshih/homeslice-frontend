@@ -4,10 +4,6 @@ import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
 
 export default function StoreFront({ match }) {
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
   const { restaurantData, setRestaurantData } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
   //const [localRestaurantData, setLocalRestaurantData] = useState(context.restaurantData);
@@ -34,24 +30,26 @@ export default function StoreFront({ match }) {
 
   if(isLoading) {
     return (
-      <div style={pageStyle}>
+      <div className="padding-top-60px">
         <h1>Loading...</h1>
       </div>
     );
   }
   else {
     return (
-      <div style={pageStyle}>
-        <section className="restaurant-info">
+      <div className="StoreFront__container padding-top-60px">
+        <section className="StoreFront__restaurant-info">
           <h3>{restaurantData.name}</h3>
-          <span>
-            {restaurantData.street_address}<br />
-            {restaurantData.city}, {restaurantData.state} {restaurantData.zipcode}<br />
-            {restaurantData.phone}<br />
-            {restaurantData.email}
-          </span>
+          <div>{restaurantData.street_address}</div>
+          <div>{`${restaurantData.city}, ${restaurantData.state} ${restaurantData.zipcode}`}</div>
+          <div>{restaurantData.phone}</div>
+          <div>{restaurantData.email}</div>
         </section>
-        <Link to={`/restaurant/${restaurantData.id}/order-online`}>Place An Order!</Link>
+        <button className="StoreFront__order-button btn">
+          <Link
+            className="link" 
+            to={`/restaurant/${restaurantData.id}/order-online`}>Order Online</Link>
+        </button>
       </div>
     )
   }

@@ -3,22 +3,6 @@ import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
 
 export default function OrderOnline({ match, history }) {
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  };
-
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
-
-  const imageStyle = {
-    margin: "0 auto",
-    width: "300px",
-    marginBottom: "30px"
-  };
 
   const context = useContext(GlobalContext);
   const [pizzaSize, setPizzaSize] = useState('');
@@ -121,13 +105,13 @@ export default function OrderOnline({ match, history }) {
   }
 
   return (
-    <div style={pageStyle}>
-      <h3>Place an Order!</h3>
+    <div className="OrderOnline__container padding-top-60px">
+      <h3 className="OrderOnline__heading">Place an Order!</h3>
       {
         pizzaType.length ?
-        <img style={imageStyle} src={require(`../../images/${pizzaType.toLowerCase().replace(/\s+/g, "-")}.png`)} alt={`${pizzaType} pizza`} />
+        <img className="OrderOnline__pizza-img" src={require(`../../images/${pizzaType.toLowerCase().replace(/\s+/g, "-")}.png`)} alt={`${pizzaType} pizza`} />
         :
-        <img style={imageStyle} src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
+        <img className="OrderOnline__pizza-img" src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
       }
       {sizeErr
         ? <div style={{color: 'red'}}>{sizeErr}</div>
@@ -135,9 +119,16 @@ export default function OrderOnline({ match, history }) {
       {typeErr
         ? <div style={{color: 'red'}}>{typeErr}</div>
         : ''}
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <label htmlFor="pizzaSize">Size</label>
-        <select id="pizzaSize" onChange={e => _handlePizzaSizeChange(e)}>
+      <form 
+        className="OrderOnline__form"
+        onSubmit={handleSubmit}>
+        <label 
+          className="OrderOnline__form__label"
+          htmlFor="pizzaSize">Pizza Size</label>
+        <select
+          className="OrderOnline__form__select" 
+          id="pizzaSize" 
+          onChange={e => _handlePizzaSizeChange(e)}>
           <option value="">Please select a size...</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
@@ -145,8 +136,13 @@ export default function OrderOnline({ match, history }) {
           <option value="X-Large">X-Large</option>
         </select>
 
-        <label htmlFor="pizzaType">Type</label>
-        <select id="pizzaType" onChange={e => _handlePizzaTypeChange(e)}>
+        <label
+          className="OrderOnline__form__label" 
+          htmlFor="pizzaType">Pizza Type</label>
+        <select
+          className="OrderOnline__form__select" 
+          id="pizzaType" 
+          onChange={e => _handlePizzaTypeChange(e)}>
           <option value="">Please select a type...</option>
           <option value="Cheese">Cheese</option>
           <option value="Pepperoni">Pepperoni</option>
@@ -156,11 +152,17 @@ export default function OrderOnline({ match, history }) {
           <option value="BBQ Chicken">BBQ Chicken</option>
         </select>
 
-        <span>Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b></span>
+        <div className="OrderOnline__subtotal">Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b></div>
 
         {pizzaSize && pizzaType
-          ? <input type="submit" value="Next: Submit Payment &amp; Delivery Info" />
-          : <input type="submit" value="Next: Submit Payment &amp; Delivery Info" disabled />}
+          ? <input 
+              className="btn"
+              type="submit" 
+              value="Next: Submit Payment &amp; Delivery Info" />
+          : <input 
+              className="btn disabled"
+              type="submit" 
+              value="Next: Submit Payment &amp; Delivery Info" disabled />}
       </form>
     </div>
   )

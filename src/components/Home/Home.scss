@@ -1,0 +1,23 @@
+.Home__container {
+  display: flex;
+  flex-direction: column;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+.Home__heading {
+  align-self: center;
+}
+
+.Home__info {
+  background-color: $secondary-bg-color;
+  color: $secondary-font-color;
+  padding: 0px 15px;
+  margin: 20px 0;
+}
+
+.Home__buttons {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
