@@ -25,7 +25,6 @@ export default function DashboardNav() {
       <>
         <li><NavLink to={`/restaurant/${restaurant_id}`}>View Storefront</NavLink></li>
         <li><NavLink to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</NavLink></li>
-        <li><NavLink to={`/restaurant/${restaurant_id}/dashboard/analytics`}>View Analytics</NavLink></li>
         <li><NavLink to={`/`} onClick={logOutUser}>Logout</NavLink></li>
       </>
     }

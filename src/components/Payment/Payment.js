@@ -2,8 +2,9 @@ import React, { useContext, useState } from "react";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
-import CardForm from "../CardForm/CardForm";
+import CardForm from "./CardForm";
 import config from "../../config";
+import InputMask from 'react-input-mask';
 
 export default function Payment({ match, history }) {
   const formStyle = {
@@ -172,7 +173,7 @@ export default function Payment({ match, history }) {
             <label htmlFor="emailInput">Email</label>
             <input
               required
-              type="text"
+              type="email"
               id="emailInput"
               defaultValue={savedData ? savedData.email : ""}
               onChange={e => _handleEmailChange(e)}
@@ -180,12 +181,13 @@ export default function Payment({ match, history }) {
             {emailErr ? <div style={{ color: "red" }}>{emailErr}</div> : ""}
 
             <label htmlFor="phoneInput">Phone</label>
-            <input
+            <InputMask
               required
-              type="text"
+              type="tel"
               id="phoneInput"
               defaultValue={savedData ? savedData.phone : ""}
               onChange={e => _handlePhoneChange(e)}
+              mask="(999) 999-9999"
             />
             {phoneErr ? <div style={{ color: "red" }}>{phoneErr}</div> : ""}
 
