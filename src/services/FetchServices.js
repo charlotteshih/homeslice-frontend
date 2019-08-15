@@ -77,6 +77,9 @@ const FetchServices = {
   _getRestaurantById(restaurantId) {
     return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`);
   },
+  _getPizzaById(pizzaId) {
+    return fetch(`${Config.apiBaseUrl}/pizzas/${pizzaId}`);
+  },
   _updateOrderStatusById(orderId, status) {
     return fetch(`${Config.apiBaseUrl}/orders/${orderId}`, {
       method: "PATCH",
