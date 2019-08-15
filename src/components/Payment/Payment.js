@@ -28,6 +28,8 @@ export default function Payment({ match, history }) {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [rememberIsChecked, setRememberIsChecked] = useState(false);
+
 
   let [emailErr, setEmailErr] = useState("");
   let [phoneErr, setPhoneErr] = useState("");
@@ -106,7 +108,9 @@ export default function Payment({ match, history }) {
         throw new Error(res);
       })
       .then(json => {
-        localStorage.setItem("customerData", JSON.stringify(json));
+        if(rememberIsChecked) {
+          localStorage.setItem("customerData", JSON.stringify(json));
+        }
         return context.setCustomerData({ ...json });
       })
       .then(updatedState => {
@@ -279,6 +283,11 @@ export default function Payment({ match, history }) {
               defaultValue={savedData ? savedData.zipcode : ""}
               onChange={e => _handleZipcodeChange(e)}
             />
+            <label htmlFor="rememberMeCheckbox">Remember me</label>
+            <input 
+              type="checkbox"
+              id="rememberMeCheckbox" 
+              onChange={() => setRememberIsChecked(!rememberIsChecked)}/>
             {zipcodeErr ? <div style={{ color: "red" }}>{zipcodeErr}</div> : ""}
 
             {!emailErr && !phoneErr && !stateErr && !zipcodeErr ? (
