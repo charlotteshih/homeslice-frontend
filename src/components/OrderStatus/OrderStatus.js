@@ -14,6 +14,7 @@ export default function OrderStatus({ match }) {
   const [isLoadingRestaurant, setIsLoadingRestaurant] = useState({
     isLoadingRestaurant: true
   });
+  const [isLoadingPizza, setIsLoadingPizza] = useState({ isLoading: true });
   const [isLoadingOrder, setIsLoadingOrder] = useState({
     isLoadingOrder: true
   });
@@ -41,7 +42,7 @@ export default function OrderStatus({ match }) {
       setIsLoadingRestaurant(false);
     }
 
-    if (!context.OrderData || context.OrderData.id !== match.params.orderId) {
+    if (!context.orderData || context.orderData.id !== match.params.orderId) {
       FetchServices._getOrderById(match.params.orderId)
         .then(res => {
           if (res.status === 200) {
@@ -52,25 +53,42 @@ export default function OrderStatus({ match }) {
         .then(resJson => {
           return context.setOrderData({ ...resJson });
         })
-        .then(() => {
-          setIsLoadingOrder(false);
+        .then(newState => {
+          if (!context.pizzaData.hasOwnProperty("size")) {
+            FetchServices._getPizzaById(newState.orderData.pizza_id)
+              .then(res => {
+                if (res.status === 200) {
+                  return res.json();
+                }
+                throw new Error(res);
+              })
+              .then(resJson => {
+                return context.setPizzaData({ ...resJson });
+              })
+              .then(() => setIsLoadingPizza(false));
+          } else {
+            setIsLoadingOrder(false);
+            setIsLoadingPizza(false);
+          }
         });
     } else {
       setIsLoadingOrder(false);
     }
-
     if (!isLoadingRestaurant && !isLoadingOrder) {
       setIsLoading(false);
     }
   }, [isLoadingRestaurant, isLoadingOrder]);
 
   if (!isLoadingRestaurant) {
-    var restaurantLocation =
-      context.restaurantData.street_address +
-      ", " +
-      context.restaurantData.city +
-      ", " +
-      context.restaurantData.state;
+    var restaurantLocation = (
+      <>
+        <div>{`${context.restaurantData.name}`}</div>
+        <div>{`${context.restaurantData.street_address}`}</div>
+        <div>{`${context.restaurantData.city}, ${
+          context.restaurantData.state
+        } ${context.restaurantData.zipcode}`}</div>
+      </>
+    );
   }
 
   function checkOrderStatus(orderId) {
@@ -95,10 +113,28 @@ export default function OrderStatus({ match }) {
     return (
       <div style={pageStyle}>
         <h1>Order Summary</h1>
-        <p>Order Number: {context.orderData.id}<br />
-        Order Status: {context.orderData.order_status}</p>
-        <p>Order Total: ${context.orderData.order_total}</p>
-        <p>Pickup Location: {restaurantLocation}</p>
+        <p>
+          <span>Order Number:</span> {context.orderData.id}
+          <br />
+          <span>Order Status:</span> {context.orderData.order_status}
+        </p>
+        <p>
+          <img
+            src={require(`../../images/${context.pizzaData.type
+              .toLowerCase()
+              .replace(/\s+/g, "-")}.png`)}
+            alt={`${context.pizzaData.type} pizza`}
+          />
+        </p>
+        <p>
+          {context.pizzaData.size} {context.pizzaData.type}
+        </p>
+        <p>
+          <span>Order Total:</span> ${context.orderData.order_total}
+        </p>
+        <p>
+          <span>Pickup Location:</span> {restaurantLocation}
+        </p>
         <p>
           <b>
             Please keep this tab open so that you can view your order status in

@@ -292,5 +292,3 @@ export default function Payment({ match, history }) {
     </div>
   );
 }
-
-// export default injectStripe(Payment);
