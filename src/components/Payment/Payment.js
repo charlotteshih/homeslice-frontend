@@ -83,14 +83,16 @@ export default function Payment({ match, history }) {
     e.preventDefault();
 
     const customerData = {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      phone,
-      street_address,
-      city,
-      state,
-      zipcode
+      first_name: firstName ? firstName : savedData.first_name,
+      last_name: lastName ? lastName : savedData.last_name,
+      email: email ? email : savedData.email,
+      phone: phone ? phone : savedData.phone,
+      street_address: street_address
+        ? street_address
+        : savedData.street_address,
+      city: city ? city : savedData.city,
+      state: state ? state : savedData.state,
+      zipcode: zipcode ? zipcode : savedData.zipcode
     };
 
     FetchServices._submitCreateCustomer(customerData)
