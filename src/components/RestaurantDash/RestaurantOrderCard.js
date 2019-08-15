@@ -95,7 +95,21 @@ export default function RestaurantOrderCard(props) {
       >
         <div style={pizzaAndCustomerStyle}>
           <div>
-            <div style={pizzaIconStyle}>{props.order.pizza_size}</div>
+            {props.order.pizza_type ? (
+              <img
+                style={pizzaIconStyle}
+                src={require(`../../images/${props.order.pizza_type
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}.png`)}
+                alt={`${props.order.pizza_type} pizza`}
+              />
+            ) : (
+              <img
+                style={pizzaIconStyle}
+                src={require(`../../images/base.png`)}
+                alt={`${props.order.pizza_type} pizza`}
+              />
+            )}
             <p>{props.order.pizza_type}</p>
           </div>
           {props.customerInfo ? (
@@ -127,52 +141,45 @@ export default function RestaurantOrderCard(props) {
             </div>
           ) : null}
         </div>
+        {props.displayButtons ? (
+          <div style={optionButtonsStyle}>
+            <button
+              onClick={() => updateOrderStatus(props.order.id, "In Progress")}
+            >
+              In Progress
+            </button>
+            <button
+              onClick={() =>
+                updateOrderStatus(props.order.id, "Ready For Pickup")
+              }
+            >
+              Ready For Pickup
+            </button>
 
-        <div style={optionButtonsStyle}>
-          <button
-            onClick={() => updateOrderStatus(props.order.id, "In Progress")}
-          >
-            In Progress
-          </button>
-          <button
-            onClick={() =>
-              updateOrderStatus(props.order.id, "Ready For Pickup")
-            }
-          >
-            Ready For Pickup
-          </button>
+            <button
+              onClick={() => {
+                updateOrderStatus(props.order.id, "Completed");
+              }}
+            >
+              Completed
+            </button>
 
-          <button
-            onClick={() => {
-              // CHECK THIS CODE - an unrelated bug is preventing me from testing whether this works as intended
-              updateOrderStatus(props.order.id, "Completed");
-            }}
-          >
-            Completed
-          </button>
-          <label htmlFor="cancel-select">
-            Need to cancel? Choose a reason:
-          </label>
-          <select
-            id="cancel-select"
-            onChange={e => {
-              // CHECK THIS CODE - an unrelated bug is preventing me from testing whether this works as intended
-              updateOrderStatus(props.order.id, e.target.value);
-              console.log(e.target.value);
-            }}
-          >
-            <option value="Please choose an option:">
-              Please choose an option:
-            </option>
-            <option value="Canceled: Out of stock">
-              Canceled: Out of stock
-            </option>
-            <option value="Canceled: Customer request">
-              Canceled: Customer request
-            </option>
-            <option value="Canceled: Other">Canceled: Other</option>
-          </select>
-        </div>
+            <button
+              onClick={() => {
+                props.setOrderToCancel({
+                  order: props.order,
+                  customerInfo: props.customerInfo
+                });
+                props.setCancelConfirmVisible(true);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+
         {isOverdue ? (
           <div>
             It has been over 20 minutes since this order was marked Ready For
