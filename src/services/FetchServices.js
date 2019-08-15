@@ -101,11 +101,11 @@ const FetchServices = {
       }
     });
   },
-  _makeStripePayment(tokenId) {
+  _makeStripePayment(token) {
     return fetch(`${Config.apiBaseUrl}/stripe/charge`, {
       method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: tokenId
+      headers: { "Content-Type": "Application/JSON" },
+      body: JSON.stringify(token)
     });
   }
 };

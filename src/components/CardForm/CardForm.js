@@ -8,28 +8,30 @@ function CardForm(props) {
   function _submitStripe(e) {
     e.preventDefault();
     props.stripe.createToken({ name: "Name" }).then(res => {
-      console.log("res.token", res.token);
+      // console.log("res.token", res.token);
       if (res.error) {
-        console.log("res.error", res.error);
+        // console.log("res.error", res.error);
         throw new Error(res.error);
       }
-      let response = FetchServices._makeStripePayment(res.token.id);
-      if (response.ok) {
-        setPaymentSuccessful("Payment Successful!");
-        console.log("Purchase Complete!");
-      }
+      let response = FetchServices._makeStripePayment(res.token).then(() =>
+        setPaymentSuccessful("Payment Successful!")
+      );
+      // if (response.ok) {
+      //   setPaymentSuccessful("Payment Successful!");
+      //   console.log("Purchase Complete!");
+      // }
     });
   }
 
   return (
     <div className="checkout">
       <CardElement />
-      {/* <button onClick={e => _submitStripe(e)}>Submit Payment</button> */}
-      {/* {paymentSuccessful ? (
+      <button onClick={e => _submitStripe(e)}>Submit Payment</button>
+      {paymentSuccessful ? (
         <div style={{ color: "green" }}>{paymentSuccessful}</div>
       ) : (
         ""
-      )} */}
+      )}
     </div>
   );
 }
