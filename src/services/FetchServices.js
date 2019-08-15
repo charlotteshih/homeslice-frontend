@@ -1,65 +1,64 @@
-import Config from '../config';
+import Config from "../config";
 
 const FetchServices = {
   _submitCreateAccount(formData) {
     return fetch(`${Config.apiBaseUrl}/restaurants`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(formData),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     });
   },
   _submitRestaurantLogin(dataToSubmit) {
     return fetch(`${Config.apiBaseUrl}/authorization/login`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(dataToSubmit),
       headers: {
-        'Content-Type': 'Application/Json'
-      } 
+        "Content-Type": "Application/Json"
+      }
     });
   },
   _submitAdminLogin(dataToSubmit) {
     return fetch(`${Config.apiBaseUrl}/admin/login`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(dataToSubmit),
       headers: {
-        'Content-Type': 'Application/Json'
+        "Content-Type": "Application/Json"
       }
     });
   },
   _submitCreatePizza(formData) {
     return fetch(`${Config.apiBaseUrl}/pizzas`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(formData),
       headers: {
-        'Content-Type': 'Application/json'
+        "Content-Type": "Application/json"
       }
     });
   },
   _submitCreateOrder(orderData) {
     return fetch(`${Config.apiBaseUrl}/orders`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(orderData),
       headers: {
-        'Content-Type': 'Application/Json',
+        "Content-Type": "Application/Json"
       }
     });
   },
   _submitCreateCustomer(customerData) {
     return fetch(`${Config.apiBaseUrl}/customers`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(customerData),
       headers: {
-        'Content-Type' : 'Application/Json'
-      },
+        "Content-Type": "Application/Json"
+      }
     });
   },
   _getOrderById(orderId) {
     return fetch(`${Config.apiBaseUrl}/orders/${orderId}`);
   },
   _getOrdersAndCustomersById(restaurantId) {
-    
     if (!restaurantId) {
       throw new Error("restaurant_id is missing. You shouldn't be here.");
     }
@@ -73,8 +72,8 @@ const FetchServices = {
     });
   },
   _getAllRestaurants() {
-    return fetch(`${Config.apiBaseUrl}/restaurants/`)
-  }, 
+    return fetch(`${Config.apiBaseUrl}/restaurants/`);
+  },
   _getRestaurantById(restaurantId) {
     return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`);
   },
@@ -91,17 +90,24 @@ const FetchServices = {
   },
   _deleteRestaurantById(restaurantId) {
     return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`, {
-      method: "DELETE",
+      method: "DELETE"
     });
   },
   _adminDeleteRestaurantById(restaurantId, auth) {
     return fetch(`${Config.apiBaseUrl}/admin/restaurant/${restaurantId}`, {
       method: "DELETE",
       headers: {
-        "Authorization": `Bearer ${auth}`
+        Authorization: `Bearer ${auth}`
       }
-    })
+    });
+  },
+  _makeStripePayment(token) {
+    return fetch(`${Config.apiBaseUrl}/stripe/charge`, {
+      method: "POST",
+      headers: { "Content-Type": "Application/JSON" },
+      body: JSON.stringify(token)
+    });
   }
-}
+};
 
-export default FetchServices
+export default FetchServices;
