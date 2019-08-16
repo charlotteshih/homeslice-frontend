@@ -3,6 +3,38 @@
   padding-right: $container-padding;
 }
 
+.StoreFront__secondary-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .StoreFront__restaurant-info {
   margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.StoreFront__order-button {
+  margin-top: 20px;
+}
+
+.StoreFront__menu {
+  margin-top: 20px;
+}
+
+.StoreFront__menu-image {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+@media (max-width: 600px) {
+  .StoreFront__restaurant-image {
+    max-width: 125px;
+    align-self: flex-start;
+  }
+
+  .StoreFront__restaurant-info div,
+  .StoreFront__restaurant-info h3 {
+    font-size: $m-font-size;
+  }
 }
