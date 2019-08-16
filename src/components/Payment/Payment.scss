@@ -1,7 +1,14 @@
 .Payment__container {
+  max-width: 1000px;
+  margin: 0 auto;
   padding-left: $container-padding;
   padding-right: $container-padding;
   padding-bottom: 10px;
+}
+
+.Payment__header {
+  text-align: center;
+  flex-basis: 100%;
 }
 
 .Payment__form {

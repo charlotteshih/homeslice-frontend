@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
 
@@ -88,46 +88,47 @@ export default function OrderOnline({ match, history }) {
       size: pizzaSize,
       type: pizzaType
     })
-    .then(res => {
-      if (res.status === 201) {
-        return res.json();
-      } else {
-        throw new Error(res);
-      }
-    })
-    .then(json => {
-      return context.setPizzaData({...json});
-    })
-    .then(() => {
-      history.push(`/restaurant/${match.params.restaurantId}/payment`)
-    })
-    .catch(err => console.error(err));
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          throw new Error(res);
+        }
+      })
+      .then(json => {
+        return context.setPizzaData({ ...json });
+      })
+      .then(() => {
+        history.push(`/restaurant/${match.params.restaurantId}/payment`)
+      })
+      .catch(err => console.error(err));
   }
 
   return (
     <div className="OrderOnline__container padding-top-60px">
-      <h3 className="OrderOnline__heading">Place an Order!</h3>
-      {
-        pizzaType.length ?
-        <img className="OrderOnline__pizza-img" src={require(`../../images/${pizzaType.toLowerCase().replace(/\s+/g, "-")}.png`)} alt={`${pizzaType} pizza`} />
-        :
-        <img className="OrderOnline__pizza-img" src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
-      }
-      {sizeErr
-        ? <div style={{color: 'red'}}>{sizeErr}</div>
-        : ''}
-      {typeErr
-        ? <div style={{color: 'red'}}>{typeErr}</div>
-        : ''}
-      <form 
+      <h1 className="OrderOnline__heading">Place an Order!</h1>
+      <div className="OrderOnline__image">
+        {pizzaType.length ?
+          <img className="OrderOnline__pizza-img" src={require(`../../images/${pizzaType.toLowerCase().replace(/\s+/g, "-")}.png`)} alt={`${pizzaType} pizza`} />
+          :
+          <img className="OrderOnline__pizza-img" src={require(`../../images/base.png`)} alt={`${pizzaType} pizza`} />
+        }
+        {sizeErr
+          ? <div style={{ color: 'red' }}>{sizeErr}</div>
+          : ''}
+        {typeErr
+          ? <div style={{ color: 'red' }}>{typeErr}</div>
+          : ''}
+      </div>
+      <form
         className="OrderOnline__form"
         onSubmit={handleSubmit}>
-        <label 
+        <label
           className="OrderOnline__form__label"
           htmlFor="pizzaSize">Pizza Size</label>
         <select
-          className="OrderOnline__form__select" 
-          id="pizzaSize" 
+          className="OrderOnline__form__select"
+          id="pizzaSize"
           onChange={e => _handlePizzaSizeChange(e)}>
           <option value="">Please select a size...</option>
           <option value="Small">Small</option>
@@ -137,11 +138,11 @@ export default function OrderOnline({ match, history }) {
         </select>
 
         <label
-          className="OrderOnline__form__label" 
+          className="OrderOnline__form__label"
           htmlFor="pizzaType">Pizza Type</label>
         <select
-          className="OrderOnline__form__select" 
-          id="pizzaType" 
+          className="OrderOnline__form__select"
+          id="pizzaType"
           onChange={e => _handlePizzaTypeChange(e)}>
           <option value="">Please select a type...</option>
           <option value="Cheese">Cheese</option>
@@ -155,14 +156,14 @@ export default function OrderOnline({ match, history }) {
         <div className="OrderOnline__subtotal">Subtotal: <b>${pizzaBasePrice + pizzaAddlPrice}.00</b></div>
 
         {pizzaSize && pizzaType
-          ? <input 
-              className="btn"
-              type="submit" 
-              value="Next: Submit Payment &amp; Delivery Info" />
-          : <input 
-              className="btn disabled"
-              type="submit" 
-              value="Next: Submit Payment &amp; Delivery Info" disabled />}
+          ? <input
+            className="btn"
+            type="submit"
+            value="Continue" />
+          : <input
+            className="btn disabled"
+            type="submit"
+            value="Continue" disabled />}
       </form>
     </div>
   )
