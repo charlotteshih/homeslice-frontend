@@ -2,20 +2,34 @@
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: flex-end;
   padding-left: $container-padding;
   padding-right: $container-padding;
   height: 100%;
 }
 
-.OrderStatus__header {
+.OrderStatus__header,
+.OrderStatus__order-info {
   text-align: center;
   flex-basis: 100%;
+}
+
+.OrderStatus__left,
+.OrderStatus__right {
+  text-align: center;
+  width: 50%;
+  padding: 30px;
 }
 
 .OrderStatus__pizza-img {
   width: 100%;
   max-width: 250px;
+}
+
+@media only screen and (max-width: 720px) {
+  .OrderStatus__left,
+  .OrderStatus__right {
+    width: 100%;
+  }
 }
