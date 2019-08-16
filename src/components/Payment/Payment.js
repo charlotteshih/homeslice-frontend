@@ -97,7 +97,7 @@ export default function Payment({ match, history }) {
         throw new Error(res);
       })
       .then(json => {
-        if(rememberIsChecked) {
+        if (rememberIsChecked) {
           localStorage.setItem("customerData", JSON.stringify(json));
         }
         return context.setCustomerData({ ...json });
@@ -123,7 +123,7 @@ export default function Payment({ match, history }) {
       .then(updatedState => {
         history.push(
           `/restaurant/${match.params.restaurantId}/order-status/${
-            updatedState.orderData.id
+          updatedState.orderData.id
           }`
         );
       })
@@ -132,7 +132,7 @@ export default function Payment({ match, history }) {
 
   return (
     <div className="Payment__container padding-top-60px">
-      <h1>Payment</h1>
+      <h1 className="Payment__heading">Payment &amp; Delivery Information</h1>
       <p>Please enter your payment information below.</p>
       <StripeProvider apiKey={`${config.stripeKey}`}>
         <Elements>
@@ -147,7 +147,7 @@ export default function Payment({ match, history }) {
           <form
             className="Payment__form"
             onSubmit={handleSubmit}>
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="firstNameInput">First Name</label>
             <input
@@ -159,7 +159,7 @@ export default function Payment({ match, history }) {
               onChange={e => setFirstName(e.target.value)}
             />
 
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="lastNameInput">Last Name</label>
             <input
@@ -171,11 +171,11 @@ export default function Payment({ match, history }) {
               onChange={e => setLastName(e.target.value)}
             />
 
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="emailInput">Email</label>
             <input
-              className="Payment__form__input"  
+              className="Payment__form__input"
               required
               type="email"
               id="emailInput"
@@ -184,7 +184,7 @@ export default function Payment({ match, history }) {
             />
             {emailErr ? <div style={{ color: "red" }}>{emailErr}</div> : ""}
 
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="phoneInput">Phone</label>
             <InputMask
@@ -198,7 +198,7 @@ export default function Payment({ match, history }) {
             />
             {phoneErr ? <div style={{ color: "red" }}>{phoneErr}</div> : ""}
 
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="streetAddressInput">Street Address</label>
             <input
@@ -210,7 +210,7 @@ export default function Payment({ match, history }) {
               onChange={e => setStreet_Address(e.target.value)}
             />
 
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="cityInput">City</label>
             <input
@@ -223,7 +223,7 @@ export default function Payment({ match, history }) {
             />
 
             <label
-              className="Payment__form__label" 
+              className="Payment__form__label"
               htmlFor="stateInput">State</label>
             <select
               className="Payment__form__input"
@@ -287,7 +287,7 @@ export default function Payment({ match, history }) {
             </select>
             {stateErr ? <div style={{ color: "red" }}>{stateErr}</div> : ""}
 
-            <label 
+            <label
               className="Payment__form__label"
               htmlFor="zipcodeInput">Zipcode</label>
             <input
@@ -301,32 +301,32 @@ export default function Payment({ match, history }) {
             {zipcodeErr ? <div style={{ color: "red" }}>{zipcodeErr}</div> : ""}
             <div>
               <input
-                className="Payment__form__remember-me" 
+                className="Payment__form__remember-me"
                 type="checkbox"
-                id="rememberMeCheckbox" 
-                onChange={() => setRememberIsChecked(!rememberIsChecked)}/>
+                id="rememberMeCheckbox"
+                onChange={() => setRememberIsChecked(!rememberIsChecked)} />
               <label
-              className="Payment__form__label" 
-              htmlFor="rememberMeCheckbox">Remember me</label>
+                className="Payment__form__label"
+                htmlFor="rememberMeCheckbox">Remember me</label>
             </div>
 
             {!emailErr && !phoneErr && !stateErr && !zipcodeErr ? (
-              <input 
+              <input
                 className="btn"
-                type="submit" 
+                type="submit"
                 value="Place Order" />
             ) : (
-              <input 
-                className="btn"
-                type="submit" 
-                value="Place Order" 
-                disabled />
-            )}
+                <input
+                  className="btn"
+                  type="submit"
+                  value="Place Order"
+                  disabled />
+              )}
           </form>
         </>
       ) : (
-        ""
-      )}
+          ""
+        )}
     </div>
   );
 }

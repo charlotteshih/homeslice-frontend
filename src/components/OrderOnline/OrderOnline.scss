@@ -1,7 +1,9 @@
 .OrderOnline__container {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-left: $container-padding;
   padding-right: $container-padding;
   height: 100%;
@@ -9,15 +11,21 @@
 
 .OrderOnline__heading {
   text-align: center;
+  flex-basis: 100%;
+}
+
+.OrderOnline__image {
+  text-align: center;
+  padding: 30px;
 }
 
 .OrderOnline__pizza-img {
-  width: 50%;
-  height: auto;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 250px;
 }
 
 .OrderOnline__form {
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -25,14 +33,18 @@
 
 .OrderOnline__form__select {
   font-size: $l-font-size;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .OrderOnline__form__label {
   margin-top: 20px;
-  font-size: $xl-font-size;
+  font-size: $l-font-size;
+  padding: 10px;
 }
 
 .OrderOnline__subtotal {
+  font-size: $l-font-size;
   margin-top: 20px;
   margin-bottom: 20px;
 }
