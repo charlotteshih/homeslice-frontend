@@ -1,0 +1,19 @@
+.CreateAccount__container {
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+  padding-bottom: 10px;
+}
+
+.CreateAccount__heading {
+  text-align: center;
+}
+
+.CreateAccount__form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.CreateAccount__submit-btn {
+  margin-top: 20px;
+}

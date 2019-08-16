@@ -1,0 +1,14 @@
+.RestDash__container {
+  padding-right: $container-padding;
+  padding-left: $container-padding;
+}
+
+.RestDash__list-toggle {
+  display: flex;
+}
+
+.RestDash__list-toggle__btn {
+  font-size: $m-font-size;
+  transition: background-color 0.3s ease-in;
+}
+

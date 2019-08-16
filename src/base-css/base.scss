@@ -28,17 +28,42 @@ body {
   width: 100%;
 }
 
+.error-text {
+  color: $primary-color;
+  font-size: $l-font-size;
+}
+
 .disabled {
   background-color: $secondary-bg-color;
   color: $secondary-font-color;
 }
 
+.form-input {
+  font-size: $l-font-size;
+  padding: $text-input-padding;
+}
+
+.form-label {
+  margin-top: $input-label-margin-top;
+  margin-bottom: 5px;
+}
+
+.hidden {
+  display: none;
+}
 .margin-bottom-10px {
   margin-bottom: 10px;
 }
 
+
+
 .padding-top-60px {
   padding-top: 60px;
+}
+
+.selected {
+  transition: background-color 0.3s ease-in;
+  background-color: $accent-color-dark;
 }
 
 .link {

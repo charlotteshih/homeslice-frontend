@@ -92,6 +92,7 @@ export default function RestaurantOrderCard(props) {
             ? readyForPickupCardStyle
             : cardStyle
         }
+        className="RestDash__card__container"
       >
         <div style={pizzaAndCustomerStyle}>
           <div>

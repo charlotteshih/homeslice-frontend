@@ -72,12 +72,12 @@
 
 .Header__sign-in__input {
   font-size: $l-font-size;
-  padding: 10px;
+  padding: $text-input-padding;
   outline: none;
 }
 
 .Header__sign-in__label {
-  margin-top: 10px;
+  margin-top: $input-label-margin-top;
 }
 
 .Header__sign-in__submit {

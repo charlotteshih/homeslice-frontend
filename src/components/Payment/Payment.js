@@ -7,17 +7,6 @@ import config from "../../config";
 import InputMask from 'react-input-mask';
 
 export default function Payment({ match, history }) {
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start"
-  };
-
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
-
   let [showCustomerForm, setShowCustomerForm] = useState(false);
 
   const [firstName, setFirstName] = useState("");
@@ -142,7 +131,7 @@ export default function Payment({ match, history }) {
   }
 
   return (
-    <div style={pageStyle}>
+    <div className="Payment__container padding-top-60px">
       <h1>Payment</h1>
       <p>Please enter your payment information below.</p>
       <StripeProvider apiKey={`${config.stripeKey}`}>
@@ -155,9 +144,14 @@ export default function Payment({ match, history }) {
           <p>
             Please enter your contact information to complete your purchase.
           </p>
-          <form style={formStyle} onSubmit={handleSubmit}>
-            <label htmlFor="firstNameInput">First Name</label>
+          <form
+            className="Payment__form"
+            onSubmit={handleSubmit}>
+            <label 
+              className="Payment__form__label"
+              htmlFor="firstNameInput">First Name</label>
             <input
+              className="Payment__form__input"
               required
               type="text"
               id="firstNameInput"
@@ -165,8 +159,11 @@ export default function Payment({ match, history }) {
               onChange={e => setFirstName(e.target.value)}
             />
 
-            <label htmlFor="lastNameInput">Last Name</label>
+            <label 
+              className="Payment__form__label"
+              htmlFor="lastNameInput">Last Name</label>
             <input
+              className="Payment__form__input"
               required
               type="text"
               id="lastNameInput"
@@ -174,8 +171,11 @@ export default function Payment({ match, history }) {
               onChange={e => setLastName(e.target.value)}
             />
 
-            <label htmlFor="emailInput">Email</label>
+            <label 
+              className="Payment__form__label"
+              htmlFor="emailInput">Email</label>
             <input
+              className="Payment__form__input"  
               required
               type="email"
               id="emailInput"
@@ -184,8 +184,11 @@ export default function Payment({ match, history }) {
             />
             {emailErr ? <div style={{ color: "red" }}>{emailErr}</div> : ""}
 
-            <label htmlFor="phoneInput">Phone</label>
+            <label 
+              className="Payment__form__label"
+              htmlFor="phoneInput">Phone</label>
             <InputMask
+              className="Payment__form__input"
               required
               type="tel"
               id="phoneInput"
@@ -195,8 +198,11 @@ export default function Payment({ match, history }) {
             />
             {phoneErr ? <div style={{ color: "red" }}>{phoneErr}</div> : ""}
 
-            <label htmlFor="streetAddressInput">Street Address</label>
+            <label 
+              className="Payment__form__label"
+              htmlFor="streetAddressInput">Street Address</label>
             <input
+              className="Payment__form__input"
               required
               type="text"
               id="streetAddressInput"
@@ -204,8 +210,11 @@ export default function Payment({ match, history }) {
               onChange={e => setStreet_Address(e.target.value)}
             />
 
-            <label htmlFor="cityInput">City</label>
+            <label 
+              className="Payment__form__label"
+              htmlFor="cityInput">City</label>
             <input
+              className="Payment__form__input"
               required
               type="text"
               id="cityInput"
@@ -213,8 +222,11 @@ export default function Payment({ match, history }) {
               onChange={e => setCity(e.target.value)}
             />
 
-            <label htmlFor="stateInput">State</label>
+            <label
+              className="Payment__form__label" 
+              htmlFor="stateInput">State</label>
             <select
+              className="Payment__form__input"
               required
               id="stateInput"
               defaultValue={savedData ? savedData.state : ""}
@@ -275,25 +287,40 @@ export default function Payment({ match, history }) {
             </select>
             {stateErr ? <div style={{ color: "red" }}>{stateErr}</div> : ""}
 
-            <label htmlFor="zipcodeInput">Zipcode</label>
+            <label 
+              className="Payment__form__label"
+              htmlFor="zipcodeInput">Zipcode</label>
             <input
+              className="Payment__form__input"
               required
               type="text"
               id="zipcodeInput"
               defaultValue={savedData ? savedData.zipcode : ""}
               onChange={e => _handleZipcodeChange(e)}
             />
-            <label htmlFor="rememberMeCheckbox">Remember me</label>
-            <input 
-              type="checkbox"
-              id="rememberMeCheckbox" 
-              onChange={() => setRememberIsChecked(!rememberIsChecked)}/>
             {zipcodeErr ? <div style={{ color: "red" }}>{zipcodeErr}</div> : ""}
+            <div>
+              <input
+                className="Payment__form__remember-me" 
+                type="checkbox"
+                id="rememberMeCheckbox" 
+                onChange={() => setRememberIsChecked(!rememberIsChecked)}/>
+              <label
+              className="Payment__form__label" 
+              htmlFor="rememberMeCheckbox">Remember me</label>
+            </div>
 
             {!emailErr && !phoneErr && !stateErr && !zipcodeErr ? (
-              <input type="submit" value="Place Order" />
+              <input 
+                className="btn"
+                type="submit" 
+                value="Place Order" />
             ) : (
-              <input type="submit" value="Place Order" disabled />
+              <input 
+                className="btn"
+                type="submit" 
+                value="Place Order" 
+                disabled />
             )}
           </form>
         </>

@@ -4,10 +4,6 @@ import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
 
 export default function OrderStatus({ match }) {
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
 
   const context = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState({ isLoading: true });
@@ -25,6 +21,7 @@ export default function OrderStatus({ match }) {
       !context.RestaurantData ||
       context.RestaurantData.id !== match.params.restaurantId
     ) {
+      console.log('no RestaurantData');
       FetchServices._getRestaurantById(match.params.restaurantId)
         .then(res => {
           if (res.status === 200) {
@@ -43,6 +40,7 @@ export default function OrderStatus({ match }) {
     }
 
     if (!context.orderData || context.orderData.id !== match.params.orderId) {
+      console.log('no OrderData');
       FetchServices._getOrderById(match.params.orderId)
         .then(res => {
           if (res.status === 200) {
@@ -77,7 +75,13 @@ export default function OrderStatus({ match }) {
     if (!isLoadingRestaurant && !isLoadingOrder) {
       setIsLoading(false);
     }
-  }, [isLoadingRestaurant, isLoadingOrder]);
+  }, [
+      isLoadingRestaurant,
+      isLoadingOrder, 
+      context,
+      match.params.orderId,
+      match.params.restaurantId
+    ]);
 
   if (!isLoadingRestaurant) {
     var restaurantLocation = (
@@ -105,13 +109,15 @@ export default function OrderStatus({ match }) {
 
   if (isLoading) {
     return (
-      <div style={pageStyle}>
+      <div
+        className="padding-top-60px" >
         <h1>Loading...</h1>
       </div>
     );
   } else {
     return (
-      <div style={pageStyle}>
+      <div 
+        className="OrderStatus__container" >
         <h1>Order Summary</h1>
         <p>
           <span>Order Number:</span> {context.orderData.id}
