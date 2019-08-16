@@ -37,7 +37,7 @@
 }
 
 .Home__rest-features__list-item {
-  flex: 1 1 0;
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,6 +65,10 @@
   .Home__buttons {
     width: 50%;
     margin: 0 auto;
+  }
+
+  .Home__rest-features__list-item {
+    flex: 1 1 0;
   }
 
   // .Home__rest-features__icons {
