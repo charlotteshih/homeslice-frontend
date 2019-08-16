@@ -82,13 +82,6 @@ export default function OrderStatus({ match }) {
       setIsLoading(false);
     }
   },[isLoadingRestaurant, isLoadingOrder]);
-    // [
-    //   isLoadingRestaurant,
-    //   isLoadingOrder, 
-    //   context.restaurantData,
-    //   match.params.orderId,
-    //   match.params.restaurantId
-    // ]
 
   if (!isLoadingRestaurant) {
     var restaurantLocation = (
@@ -97,7 +90,7 @@ export default function OrderStatus({ match }) {
         <div>{`${context.restaurantData.street_address}`}</div>
         <div>{`${context.restaurantData.city}, ${
           context.restaurantData.state
-        } ${context.restaurantData.zipcode}`}</div>
+          } ${context.restaurantData.zipcode}`}</div>
       </>
     );
   }
@@ -118,14 +111,14 @@ export default function OrderStatus({ match }) {
     return (
       <div
         className="padding-top-60px" >
-        <h1>Loading...</h1>
+        <h1 className="OrderStatus__header">Loading...</h1>
       </div>
     );
   } else {
     return (
-      <div 
+      <div
         className="OrderStatus__container" >
-        <h1>Order Summary</h1>
+        <h1 className="OrderStatus__header">Order Summary</h1>
         <p>
           <span>Order Number:</span> {context.orderData.id}
           <br />
@@ -133,6 +126,7 @@ export default function OrderStatus({ match }) {
         </p>
         <p>
           <img
+            className="OrderStatus__pizza-img"
             src={require(`../../images/${context.pizzaData.type
               .toLowerCase()
               .replace(/\s+/g, "-")}.png`)}
