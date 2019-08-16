@@ -81,16 +81,19 @@ export default function OrderStatus({ match }) {
     if (!isLoadingRestaurant && !isLoadingOrder) {
       setIsLoading(false);
     }
-  },[isLoadingRestaurant, isLoadingOrder]);
+  }, [isLoadingRestaurant, isLoadingOrder]);
 
   if (!isLoadingRestaurant) {
     var restaurantLocation = (
       <>
-        <div>{`${context.restaurantData.name}`}</div>
-        <div>{`${context.restaurantData.street_address}`}</div>
-        <div>{`${context.restaurantData.city}, ${
-          context.restaurantData.state
-          } ${context.restaurantData.zipcode}`}</div>
+        <span>{`${context.restaurantData.name}`}<br />
+          {`${context.restaurantData.street_address}`}<br />
+          {`${context.restaurantData.city}, ${
+            context.restaurantData.state
+            } ${context.restaurantData.zipcode}`}<br />
+          <a href={`mailto:${context.restaurantData.email}`}>{`${context.restaurantData.email}`}</a><br />
+          <a href={`tel:${context.restaurantData.phone}`}>{`${context.restaurantData.phone}`}</a></span>
+
       </>
     );
   }
@@ -117,37 +120,43 @@ export default function OrderStatus({ match }) {
   } else {
     return (
       <div
-        className="OrderStatus__container" >
+        className="OrderStatus__container padding-top-60px" >
         <h1 className="OrderStatus__header">Order Summary</h1>
-        <p>
-          <span>Order Number:</span> {context.orderData.id}
-          <br />
-          <span>Order Status:</span> {context.orderData.order_status}
-        </p>
-        <p>
-          <img
-            className="OrderStatus__pizza-img"
-            src={require(`../../images/${context.pizzaData.type
-              .toLowerCase()
-              .replace(/\s+/g, "-")}.png`)}
-            alt={`${context.pizzaData.type} pizza`}
-          />
-        </p>
-        <p>
-          {context.pizzaData.size} {context.pizzaData.type}
-        </p>
-        <p>
-          <span>Order Total:</span> ${context.orderData.order_total}
-        </p>
-        <p>
-          <span>Pickup Location:</span> {restaurantLocation}
-        </p>
-        <p>
-          <b>
-            Please keep this tab open so that you can view your order status in
-            real time!
-          </b>
-        </p>
+        <div className="OrderStatus__order-info">
+          <p>
+            <b>Order Number: {context.orderData.id}</b>
+            <br />
+            <b>Order Status: {context.orderData.order_status}</b>
+          </p>
+        </div>
+        <div className="OrderStatus__left">
+          <p>
+            <img
+              className="OrderStatus__pizza-img"
+              src={require(`../../images/${context.pizzaData.type
+                .toLowerCase()
+                .replace(/\s+/g, "-")}.png`)}
+              alt={`${context.pizzaData.type} pizza`}
+            />
+          </p>
+          <p>
+            <b>{context.pizzaData.size} {context.pizzaData.type}</b>
+          </p>
+        </div>
+        <div className="OrderStatus__right">
+          <p><b>Ordered On:</b><br />
+            {context.orderData.date_created}</p>
+          <p>
+            <b>Pickup Location:</b><br />
+            {restaurantLocation}
+          </p>
+          <p>
+            <b>Order Total: ${context.orderData.order_total}</b>
+          </p>
+        </div>
+        <div className="OrderStatus__please-note">
+          <p><b>PLEASE NOTE:</b> For sanitary reasons, pizzas that are not picked up within 60 minutes of completion will be discarded.</p>
+        </div>
       </div>
     );
   }
