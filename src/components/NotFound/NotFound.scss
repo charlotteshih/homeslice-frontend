@@ -1,0 +1,15 @@
+.NotFound__container {
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.NotFound__heading {
+  text-align: center;
+}
+
+.NotFound__image {
+  width: 100%
+}
