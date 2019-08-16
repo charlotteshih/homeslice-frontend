@@ -52,9 +52,12 @@ export default function OrderStatus({ match }) {
           return context.setOrderData({ ...resJson });
         })
         .then(newState => {
-          if (!context.pizzaData.hasOwnProperty("size")) {
+          console.log('pizza_id', newState.orderData.pizza_id);
+          if (newState.orderData.hasOwnProperty("pizza_id")) {
+            console.log('inside if');
             FetchServices._getPizzaById(newState.orderData.pizza_id)
               .then(res => {
+                console.log('res', res);
                 if (res.status === 200) {
                   return res.json();
                 }
@@ -63,7 +66,10 @@ export default function OrderStatus({ match }) {
               .then(resJson => {
                 return context.setPizzaData({ ...resJson });
               })
-              .then(() => setIsLoadingPizza(false));
+              .then(() => {
+                setIsLoadingPizza(false)
+                setIsLoadingOrder(false);
+              });
           } else {
             setIsLoadingOrder(false);
             setIsLoadingPizza(false);
@@ -75,13 +81,14 @@ export default function OrderStatus({ match }) {
     if (!isLoadingRestaurant && !isLoadingOrder) {
       setIsLoading(false);
     }
-  }, [
-      isLoadingRestaurant,
-      isLoadingOrder, 
-      context,
-      match.params.orderId,
-      match.params.restaurantId
-    ]);
+  },[isLoadingRestaurant, isLoadingOrder]);
+    // [
+    //   isLoadingRestaurant,
+    //   isLoadingOrder, 
+    //   context.restaurantData,
+    //   match.params.orderId,
+    //   match.params.restaurantId
+    // ]
 
   if (!isLoadingRestaurant) {
     var restaurantLocation = (
