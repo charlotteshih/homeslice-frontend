@@ -12,3 +12,66 @@
   transition: background-color 0.3s ease-in;
 }
 
+.RestCard__btn {
+  margin-top: 20px;
+}
+
+.RestCard__container {
+  background-color: $secondary-bg-color;
+  border: 2px black solid;
+  color: $secondary-font-color;
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.RestCard__cust-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.RestCard__cust-data__item {
+  margin-top: 20px;
+}
+
+.RestCard__link {
+  color: $secondary-font-color;
+}
+
+.RestCard__pizza-img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.RestCard__Heading {
+  text-align: center;
+}
+
+.RestLightBox__container {
+}
+
+.RestLightBox__heading {
+  text-align: center;
+  color: $secondary-font-color;
+}
+
+.RestLightBox__overlay {
+  background-color: $overlay-bg-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.RestLightBox__btn-group {
+  display: flex;
+  overflow: scroll;
+}
+
+.RestLightBox__btn {
+  margin: 0 5px;
+}
+
