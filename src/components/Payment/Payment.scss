@@ -1,0 +1,35 @@
+.Payment__container {
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+  padding-bottom: 10px;
+}
+
+.Payment__form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: $l-font-size;
+}
+
+.Payment__form__input {
+  font-size: $l-font-size;
+  padding: $text-input-padding;
+}
+
+.Payment__form__label {
+  margin-top: $input-label-margin-top;
+  margin-bottom: 5px;
+}
+
+.Payment__form__remember-me {
+  font-size: $m-font-size;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  transform: scale(2);
+}
+
+.Payment__stripe__btn {
+  margin-top: 30px;
+}

@@ -2,7 +2,6 @@ import React from "react";
 import GlobalContext from "./contexts/GlobalContext";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
-// import styled from "styled-components";
 import Routes from "./routes/Routes";
 
 class App extends React.Component {
@@ -64,7 +63,7 @@ class App extends React.Component {
       ...this.state
     };
     return (
-      <main className="App">
+      <main>
         <GlobalContext.Provider value={context}>
           <BrowserRouter>
             <Route path="/" component={Header} />

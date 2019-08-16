@@ -4,12 +4,6 @@ import FetchServices from '../../services/FetchServices';
 import jwt from 'jsonwebtoken';
 
 export default function SignInForm(props) {
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  };
-
   let context = useContext(GlobalContext);
 
   let [emailSignIn, setEmailSignIn] = useState('');
@@ -53,27 +47,38 @@ export default function SignInForm(props) {
 
 
   return (
-    <div>
-      <h3>Restaurant Sign In</h3>
+    <div className="Header__sign-in">
+      <h3 className="Header__sign-in__heading">Restaurant Sign In</h3>
       {validationErr
-      ?<div style={{color: 'red'}}>{validationErr}</div>
+      ?<span>{validationErr}</span>
       :""
       }
-      <form  style={formStyle} onSubmit={(e) => handleRestaurantSubmit(e, emailSignIn, passwordSignIn)}>
-        <label htmlFor="emailSignIn">Email</label>
+      <form
+        className="Header__form"
+        onSubmit={(e) => handleRestaurantSubmit(e, emailSignIn, passwordSignIn)}>
+        <label
+          className="Header__sign-in__label"
+          htmlFor="emailSignIn">Email</label>
         <input 
-          id="emailSignIn" 
+          id="emailSignIn"
+          className="Header__sign-in__input"
           onChange={(e) => setEmailSignIn(e.target.value)}
           type="email"
           required/>
-        <label htmlFor="passwordSignIn">Password</label>
+        <label 
+          className="Header__sign-in__label"
+          htmlFor="passwordSignIn">Password</label>
         <input 
-          id="passwordSignIn" 
+          id="passwordSignIn"
+          className="Header__sign-in__input"
           onChange={(e) => setPasswordSignIn(e.target.value)}
           type="password"
           required
           />
-        <input type="submit" value="Sign In" />
+        <input 
+          className="Header__sign-in__submit btn"
+          type="submit" 
+          value="Sign In" />
       </form>
     </div>
   )

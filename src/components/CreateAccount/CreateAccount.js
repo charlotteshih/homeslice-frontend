@@ -1,23 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import GlobalContext from '../../contexts/GlobalContext';
 import FetchServices from '../../services/FetchServices';
 import InputMask from 'react-input-mask';
  
 export default function CreateAccount(props) {
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  }
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  }
-  const errorStyle = {
-    color: 'red',
-    border: '2px solid #f44336'
-  }
-  
 
   let [restaurantName, setRestaurantName] = useState('');
   let [email, setEmail] = useState('');
@@ -34,16 +20,18 @@ export default function CreateAccount(props) {
 
 
   const handleSubmit = (e) => {
+    console.log('phone', phone.length);
     e.preventDefault();
     let passwordRegex = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/
     let usernameRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    let phoneRegex = /^\d{10}$/
+    let phoneRegex = 	/^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/
     let pwIsRegexMatch = passwordRegex.test(password);
     let usernameIsRegexMatch = usernameRegex.test(email);
     let phoneIsRegexMatch = phoneRegex.test(phone);
     let passwordsMatch = password === passwordMatch;
     console.log('pwIsRegexMatch', pwIsRegexMatch);
     console.log('passwordsMatch', passwordsMatch);
+    console.log('phoneIsMatch', phoneIsRegexMatch)
     if(!usernameIsRegexMatch) {
       setValidationErr(`Please provide a valid email.`);
       return;
@@ -117,66 +105,92 @@ export default function CreateAccount(props) {
 
 
   return (
-    <div style={pageStyle}>
-      <h1>Create Account</h1>
+    <div className="CreateAccount__container padding-top-60px">
+      <h1 className="CreateAccount__heading">Create Account</h1>
       <hr />
       {validationErr
-      ? <div style={{color: 'red'}}>{validationErr}</div>
+      ? <div className="error-text">{validationErr}</div>
       : ''
       }
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <label htmlFor="restaurantNameInput">Restaurant name</label>
+      <form 
+        className="CreateAccount__form"
+        onSubmit={handleSubmit}>
+        <label 
+          className="form-label"
+          htmlFor="restaurantNameInput">Restaurant name</label>
         <input 
+          className="form-input"
           onChange={(e) => setRestaurantName(e.target.value)} 
           id="restaurantNameInput" 
           type="text"
           required/>
 
-        <label htmlFor="emailInput">Email</label>
+        <label 
+          className="form-label"
+          htmlFor="emailInput">Email</label>
         <input 
+          className="form-input"
           onChange={(e) => setEmail(e.target.value)} 
           id="emailInput" 
           type="email"
           required/>
 
-        <label htmlFor="passwordInput">Password</label>
+        <label 
+          className="form-label"
+          htmlFor="passwordInput">Password</label>
         <input
+          className="form-input"
           onChange={(e) => setPassword(e.target.value)}  
           id="passwordInput" 
           type="password"
           required/>
 
-        <label htmlFor="passwordMatchInput">Confirm password</label>
+        <label 
+          className="form-label"
+          htmlFor="passwordMatchInput">Confirm password</label>
         <input
+          className="form-input"
           onChange={(e) => setPasswordMatch(e.target.value)}  
           id="passwordMatchInput" 
           type="password"
           required/>  
 
-        <label htmlFor="phoneInput">Phone</label>
+        <label 
+          className="form-label"
+          htmlFor="phoneInput">Phone</label>
         <InputMask 
+          className="form-input"
           onChange={(e) => setPhone(e.target.value)} 
           mask="(999) 999-9999"
           id="phoneInput" 
           type="tel"
           required/>
 
-        <label htmlFor="streetAddressInput">Street Address</label>
+        <label 
+          className="form-label"
+          htmlFor="streetAddressInput">Street Address</label>
         <input 
+          className="form-input"
           onChange={(e) => setStreetAddress(e.target.value)} 
           id="streetAddressInput" 
           type="text"
           required/>
 
-        <label htmlFor="cityInput">City</label>
+        <label 
+          className="form-label"
+          htmlFor="cityInput">City</label>
         <input 
+          className="form-input"
           onChange={(e) => setCity(e.target.value)} 
           id="cityInput" 
           type="text"
           required/>
 
-        <label htmlFor="stateInput">State</label>
+        <label 
+          className="form-label"
+          htmlFor="stateInput">State</label>
         <select 
+          className="form-input"
           required
           id="stateInput"
           onChange={(e) => setState(e.target.value)}>
@@ -234,14 +248,19 @@ export default function CreateAccount(props) {
             <option value="WY">Wyoming</option>
         </select>
 
-        <label htmlFor="zipcodeInput">zipcode</label>
+        <label 
+          className="form-label"
+          htmlFor="zipcodeInput">zipcode</label>
         <input 
+          className="form-input"
           onChange={(e) => setZipcode(e.target.value)} 
           id="zipcodeInput" 
           type="number"
           required/>
 
-        <input type="submit" value="Create Account" />
+        <input 
+          className="CreateAccount__submit-btn btn"
+          type="submit" value="Create Account" />
       </form>
     </div>
   )

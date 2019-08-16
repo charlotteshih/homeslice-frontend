@@ -25,12 +25,12 @@ function CardForm(props) {
   return (
     <div className="checkout">
       <CardElement />
-      <button onClick={e => _submitStripe(e)}>Submit Payment</button>
-      {paymentSuccessful ? (
-        <div style={{ color: "green" }}>{paymentSuccessful}</div>
-      ) : (
-        ""
-      )}
+      {!paymentSuccessful 
+        ? <button
+        className="Payment__stripe__btn btn" 
+        onClick={e => _submitStripe(e)}>Submit Payment</button>
+        : <h3 style={{ color: "green" }}>{paymentSuccessful}</h3>
+      }
     </div>
   );
 }

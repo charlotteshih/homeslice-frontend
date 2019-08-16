@@ -5,10 +5,6 @@ import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
 
 export default function RestaurantDash({ match }) {
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
 
   const hiddenTabStyle = {
     display: "none"
@@ -62,15 +58,21 @@ export default function RestaurantDash({ match }) {
   };
 
   return (
-    <div style={pageStyle}>
-      <section>
-        <button onClick={() => setCurrentTab("New Orders / In Progress")}>
+    <div className="RestDash__container padding-top-60px">
+      <section className="RestDash__list-toggle">
+        <button 
+          className={`RestDash__list-toggle__btn btn ${currentTab === "New Orders / In Progress"? "selected": ""}`}
+          onClick={() => setCurrentTab("New Orders / In Progress")}>
           New Orders / In Progress
         </button>
-        <button onClick={() => setCurrentTab("Ready For Pickup")}>
+        <button 
+          className={`RestDash__list-toggle__btn btn ${currentTab === "Ready For Pickup"? "selected": ""}`}
+          onClick={() => setCurrentTab("Ready For Pickup")}>
           Ready For Pickup
         </button>
-        <button onClick={() => setCurrentTab("Completed")}>Completed</button>
+        <button 
+          className={`RestDash__list-toggle__btn btn ${currentTab === "Completed"? "selected": ""}`}
+          onClick={() => setCurrentTab("Completed")}>Completed</button>
       </section>
       {cancelConfirmVisible ? (
         <CancelOrderLightBox
@@ -84,11 +86,10 @@ export default function RestaurantDash({ match }) {
       )}
 
       <>
-        <section
-          style={
-            currentTab === "New Orders / In Progress" ? null : hiddenTabStyle
-          }
-        >
+        <section 
+          className={
+            currentTab === "New Orders / In Progress" ? "" : 'hidden'
+          }>
           <h2>New Orders</h2>
           <RestaurantOrderList
             orderListCategory={"Ordered"}
@@ -100,8 +101,8 @@ export default function RestaurantDash({ match }) {
           />
         </section>
         <section
-          style={
-            currentTab === "New Orders / In Progress" ? null : hiddenTabStyle
+          className={
+            currentTab === "New Orders / In Progress" ? "" : 'hidden'
           }
         >
           <h2>In Progress</h2>
@@ -117,8 +118,9 @@ export default function RestaurantDash({ match }) {
       </>
 
       <section
-        style={currentTab === "Ready For Pickup" ? null : hiddenTabStyle}
-      >
+        className={
+          currentTab === "Ready For Pickup" ? "" : 'hidden'
+        }>
         <h2>Ready For Pickup</h2>
         <RestaurantOrderList
           orderListCategory={"Ready For Pickup"}

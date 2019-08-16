@@ -4,11 +4,6 @@ import config from '../../config';
 import FetchServices from '../../services/FetchServices';
 
 export default function SignInForm(props) {
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-  };
 
   let context = useContext(GlobalContext);
 
@@ -53,26 +48,37 @@ export default function SignInForm(props) {
 
 
   return (
-    <div>
-      <h3>Admin Sign In</h3>
+    <div className="Header__sign-in">
+      <h3 className="Header__sign-in__heading Header--top-border">Admin Sign In</h3>
       {validationErr
       ?<div style={{color: 'red'}}>{validationErr}</div>
       :""
       }
-      <form  style={formStyle} onSubmit={(e) => handleAdminSubmit(e, emailSignIn, passwordSignIn)}>
-        <label htmlFor="adminEmailSignIn">Admin Username</label>
-        <input 
+      <form 
+        className="Header__form"
+        onSubmit={(e) => handleAdminSubmit(e, emailSignIn, passwordSignIn)}>
+        <label 
+          className="Header__sign-in__label"
+          htmlFor="adminEmailSignIn">Admin Username</label>
+        <input
+          className="Header__sign-in__input"
           id="adminEmailSignIn" 
           onChange={(e) => setEmailSignIn(e.target.value)}
           required
         />
-        <label htmlFor="adminPasswordSignIn">Password</label>
-        <input 
+        <label 
+          className="Header__sign-in__label"
+          htmlFor="adminPasswordSignIn">Password</label>
+        <input
+          className="Header__sign-in__input"
           id="adminPasswordSignIn" 
           onChange={(e) => setPasswordSignIn(e.target.value)}
           type="password"
           required />
-        <input type="submit" value="Sign In" />
+        <input 
+          className="Header__sign-in__submit btn margin-bottom-10px"
+          type="submit" 
+          value="Admin Sign In" />
       </form>
     </div>
   )
