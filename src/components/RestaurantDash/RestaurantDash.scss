@@ -12,3 +12,38 @@
   transition: background-color 0.3s ease-in;
 }
 
+.RestCard__btn {
+  margin-top: 20px;
+}
+
+.RestCard__container {
+  background-color: $secondary-bg-color;
+  border: 2px black solid;
+  color: $secondary-font-color;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.RestCard__cust-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.RestCard__cust-data__item {
+  margin-top: 20px;
+}
+
+.RestCard__link {
+  color: $secondary-font-color;
+}
+
+.RestCard__pizza-img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.RestCard__Heading {
+  text-align: center;
+}
+

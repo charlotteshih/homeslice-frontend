@@ -2,44 +2,7 @@ import React, { useState, useEffect } from "react";
 import FetchServices from "../../services/FetchServices";
 
 export default function RestaurantOrderCard(props) {
-  const cardStyle = {
-    border: "2px black solid",
-    padding: "10px"
-  };
-
-  const pizzaAndCustomerStyle = {
-    display: "flex",
-    alignItems: "center"
-  };
-
-  const readyForPickupCardStyle = {
-    border: "2px black solid",
-    padding: "10px",
-    backgroundColor: "red"
-  };
-
-  const pizzaIconStyle = {
-    height: "75px",
-    width: "75px",
-    borderRadius: "50%",
-    backgroundColor: "gray",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center"
-  };
-
-  const customerInformation = {
-    height: "100px",
-    width: "200px",
-    border: "2px black solid",
-    margin: "0 10px 0 10px",
-    fontSize: "10px"
-  };
-
-  const optionButtonsStyle = {
-    display: "flex"
-  };
+  
 
   const [seconds, setSeconds] = useState(0);
   const [isOverdue, setIsOverdue] = useState(false);
@@ -86,107 +49,92 @@ export default function RestaurantOrderCard(props) {
 
   return (
     <>
-      <div
-        style={
-          props.order.order_status === "Ready For Pickup" && isOverdue
-            ? readyForPickupCardStyle
-            : cardStyle
+      <div className="RestCard__container">
+        {props.order.pizza_type 
+        ? <img
+            className="RestCard__pizza-img"
+            src={require(`../../images/${props.order.pizza_type
+              .toLowerCase()
+              .replace(/\s+/g, "-")}.png`)}
+            alt={`${props.order.pizza_type} pizza`}/>
+         : <img
+            className="RestCard__pizza-img"
+            src={require(`../../images/base.png`)}
+            alt={`${props.order.pizza_type} pizza`}/>
         }
-        className="RestDash__card__container"
-      >
-        <div style={pizzaAndCustomerStyle}>
-          <div>
-            {props.order.pizza_type ? (
-              <img
-                style={pizzaIconStyle}
-                src={require(`../../images/${props.order.pizza_type
-                  .toLowerCase()
-                  .replace(/\s+/g, "-")}.png`)}
-                alt={`${props.order.pizza_type} pizza`}
-              />
-            ) : (
-              <img
-                style={pizzaIconStyle}
-                src={require(`../../images/base.png`)}
-                alt={`${props.order.pizza_type} pizza`}
-              />
-            )}
-            <p>{props.order.pizza_type}</p>
-          </div>
-          {props.customerInfo ? (
-            <div style={customerInformation}>
-              Ordered on: {props.order.date_created}
-              <br />
-              Ordered by: <br />
-              <ul>
-                <li>
-                  {`${props.customerInfo.first_name} ${
-                    props.customerInfo.last_name
-                  }`}
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${props.customerInfo.email}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {props.customerInfo.email}
-                  </a>
-                </li>
-                <li>
-                  <a href={`tel:${props.customerInfo.phone}`}>
-                    {props.customerInfo.phone}
-                  </a>
-                </li>
-              </ul>
+        <h4 className="RestCard__Heading">{props.order.pizza_type}</h4>
+        {props.customerInfo ? (
+          <div className="RestCard__cust-data">
+            <div className="RestCard__cust-data__item">{`Ordered on: ${props.order.date_created}`}</div>
+            <div className="RestCard__cust-data__item">{`Ordered by: ${props.customerInfo.first_name} ${props.customerInfo.last_name}`}</div>
+            <div className="RestCard__cust-data__item">
+              <a
+                className="RestCard__link" 
+                href={`mailto:${props.customerInfo.email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {props.customerInfo.email}
+              </a>
             </div>
-          ) : null}
-        </div>
-        {props.displayButtons ? (
-          <div style={optionButtonsStyle}>
-            <button
-              onClick={() => updateOrderStatus(props.order.id, "In Progress")}
-            >
-              In Progress
-            </button>
-            <button
-              onClick={() =>
-                updateOrderStatus(props.order.id, "Ready For Pickup")
-              }
-            >
-              Ready For Pickup
-            </button>
-
-            <button
-              onClick={() => {
-                updateOrderStatus(props.order.id, "Completed");
-              }}
-            >
-              Completed
-            </button>
-
-            <button
-              onClick={() => {
-                props.setOrderToCancel({
-                  order: props.order,
-                  customerInfo: props.customerInfo
-                });
-                props.setCancelConfirmVisible(true);
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        ) : (
-          ""
-        )}
-
-        {isOverdue ? (
-          <div>
-            It has been over 20 minutes since this order was marked Ready For
-            Pickup! <br />
+            <div className="RestCard__cust-data__item">
+              <a
+                className="RestCard__link"
+                href={`tel:${props.customerInfo.phone}`}>
+                {props.customerInfo.phone}
+              </a>
+            </div>
           </div>
         ) : null}
+      {props.displayButtons ? (
+        <div>
+          <button
+            className="RestCard__btn btn"
+            onClick={() => updateOrderStatus(props.order.id, "In Progress")}
+          >
+            In Progress
+          </button>
+          <button
+            className="RestCard__btn btn"
+            onClick={() =>
+              updateOrderStatus(props.order.id, "Ready For Pickup")
+            }
+          >
+            Ready For Pickup
+          </button>
+
+          <button
+            className="RestCard__btn btn"
+            onClick={() => {
+              updateOrderStatus(props.order.id, "Completed");
+            }}
+          >
+            Completed
+          </button>
+
+          <button
+            className="RestCard__btn btn"
+            onClick={() => {
+              props.setOrderToCancel({
+                order: props.order,
+                customerInfo: props.customerInfo
+              });
+              props.setCancelConfirmVisible(true);
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
+
+      {isOverdue ? (
+        <div>
+          It has been over 20 minutes since this order was marked Ready For
+          Pickup! <br />
+        </div>
+      ) : null}
       </div>
     </>
   );
