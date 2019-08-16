@@ -73,7 +73,7 @@ export default function Header({ history }) {
               {signInFormsShowing ? "Close" : "Sign In"}
             </button>
             {signInFormsShowing ? (
-              <>
+              <div className="Header__sign-in-forms__container">
                 <SignInForm
                   setSignInFormsShowing={setSignInFormsShowing}
                   history={history}
@@ -82,7 +82,7 @@ export default function Header({ history }) {
                   setSignInFormsShowing={setSignInFormsShowing}
                   history={history}
                 />
-              </>
+              </div>
             ) : (
               ""
             )}
