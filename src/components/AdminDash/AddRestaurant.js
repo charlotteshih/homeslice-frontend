@@ -8,7 +8,9 @@ export default function AddRestaurant(props) {
   if(isExpanded) {
     return (
       <div>
-        <button onClick={() => setIsExpanded(false)}>Collapse</button>
+        <button 
+          className="btn"
+          onClick={() => setIsExpanded(false)}>Collapse</button>
         <CreateAccount 
           setIsExpanded={setIsExpanded}
           setRestaurants={props.setRestaurants}
@@ -19,7 +21,9 @@ export default function AddRestaurant(props) {
   else {
     return (
       <div>
-        <button onClick={() => setIsExpanded(true)}>Add Restaurant</button>
+        <button 
+          className="btn"
+          onClick={() => setIsExpanded(true)}>Add Restaurant</button>
       </div>
     )
   }

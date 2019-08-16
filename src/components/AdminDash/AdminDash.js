@@ -6,10 +6,7 @@ import DeleteRestaurantLightBox from './DeleteRestaurantLightBox';
 import jwt from 'jsonwebtoken';
 
 export default function AdminDash({ history }) {
-  const pageStyle = {
-    margin: "0 auto",
-    width: "800px"
-  };
+
 
   let [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   let [restaurantToRemove, setRestaurantToRemove] = useState({});
@@ -58,7 +55,7 @@ export default function AdminDash({ history }) {
   }
 
   return (
-    <div style={pageStyle}>
+    <div className="AdminDash__container padding-top-60px">
     {restaurants.length === 0?
       <>
         <h1>Loading...</h1>
@@ -75,7 +72,7 @@ export default function AdminDash({ history }) {
           setRestaurants={setRestaurants}
           restaurants={restaurants}
         />
-        <h1>Restaurants</h1>
+        <h1 className="AdminDash__heading">Restaurants</h1>
         {restaurants.map((restaurant) => {
           console.log('rest', restaurant);
           return (

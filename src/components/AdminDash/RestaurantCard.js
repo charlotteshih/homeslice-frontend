@@ -15,13 +15,15 @@ export default function RestaurantCard(props) {
 
 
   return (
-    <div>
+    <div className="RestCard__container">
       <h2>{details.name}</h2>
       <p>Address: {details.street_address}</p>
       <p>Phone: {details.phone}</p>
       {props.displayMode
       ?""
-      :<button onClick={() => handleDeleteButtonClick()}>Delete User</button>
+      :<button 
+        className="RestCard__btn btn"
+        onClick={() => handleDeleteButtonClick()}>Delete User</button>
       }
     </div>
   )
