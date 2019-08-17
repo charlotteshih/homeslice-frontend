@@ -31,16 +31,24 @@ body {
 .btn {
   background-color: $accent-color;
   border: none;
-  cursor: pointer;
+  box-shadow: 0 6px $accent-color-dark;
+  //cursor: pointer;
   font-size: $l-font-size;
   outline: none;
   padding: 15px;
+  position: relative;
   transition: ease all 0.3s;
   width: 100%;
 }
 
 .btn:hover {
-  box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px $accent-color-dark;
+  top: 2px;
+}
+
+.btn:active {
+  box-shadow: 0 0px $accent-color-dark;
+  top: 6px;
 }
 
 .error-text {
@@ -54,7 +62,10 @@ body {
 
 .disabled {
   background-color: $secondary-bg-color;
+  box-shadow: 0 0px $secondary-bg-color;
   color: $secondary-font-color;
+  pointer-events: none;
+
 }
 
 .form-input {
@@ -79,8 +90,8 @@ body {
 }
 
 .selected {
-  transition: background-color 0.3s ease-in;
   background-color: $accent-color-dark;
+  font-weight: bold;
 }
 
 .link {
