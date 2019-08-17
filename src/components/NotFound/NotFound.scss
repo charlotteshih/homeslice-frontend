@@ -1,0 +1,22 @@
+.NotFound__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 500px;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+.NotFound__heading {
+  text-align: center;
+}
+
+.NotFound__image {
+  width: 100%;
+}
+
+.NotFound__paragraph {
+  margin: 20px 0;
+  text-align: center;
+}
