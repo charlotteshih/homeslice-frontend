@@ -50,19 +50,27 @@ export default function RestaurantOrderCard(props) {
   return (
     <>
       <div className="RestOrderCard__container">
-        {props.order.pizza_type 
-        ? <img
-            className="RestOrderCard__pizza-img"
-            src={require(`../../images/${props.order.pizza_type
-              .toLowerCase()
-              .replace(/\s+/g, "-")}.png`)}
-            alt={`${props.order.pizza_type} pizza`}/>
-         : <img
-            className="RestOrderCard__pizza-img"
-            src={require(`../../images/base.png`)}
-            alt={`${props.order.pizza_type} pizza`}/>
-        }
+      {isOverdue ? (
+        <div className="RestOrderCard__overdue">
+          It has been over 20 minutes since this order was marked Ready For
+          Pickup! <br />
+        </div>
+      ) : null}
+        
         <h4 className="RestOrderCard__Heading">{props.order.pizza_type}</h4>
+          {props.order.pizza_type 
+          ? <img
+              className="RestOrderCard__pizza-img"
+              src={require(`../../images/${props.order.pizza_type
+                .toLowerCase()
+                .replace(/\s+/g, "-")}.png`)}
+              alt={`${props.order.pizza_type} pizza`}/>
+          : <img
+              className="RestOrderCard__pizza-img"
+              src={require(`../../images/base.png`)}
+              alt={`${props.order.pizza_type} pizza`}/>
+          }
+        
         {props.customerInfo ? (
           <div className="RestOrderCard__cust-data">
             <div className="RestOrderCard__cust-data__item">{`Ordered on: ${props.order.date_created}`}</div>
@@ -87,7 +95,7 @@ export default function RestaurantOrderCard(props) {
           </div>
         ) : null}
       {props.displayButtons ? (
-        <div>
+        <div className="RestOrderCard__btn-group">
           <button
             className="RestOrderCard__btn btn"
             onClick={() => updateOrderStatus(props.order.id, "In Progress")}
@@ -104,7 +112,7 @@ export default function RestaurantOrderCard(props) {
           </button>
 
           <button
-            className="RestOrderCard__btn btn"
+            className="RestOrderCard__btn RestOrderCard__btn-completed btn"
             onClick={() => {
               updateOrderStatus(props.order.id, "Completed");
             }}
@@ -113,7 +121,7 @@ export default function RestaurantOrderCard(props) {
           </button>
 
           <button
-            className="RestOrderCard__btn btn"
+            className="RestOrderCard__btn RestOrderCard__btn-cancel btn"
             onClick={() => {
               props.setOrderToCancel({
                 order: props.order,
@@ -128,13 +136,6 @@ export default function RestaurantOrderCard(props) {
       ) : (
         ""
       )}
-
-      {isOverdue ? (
-        <div>
-          It has been over 20 minutes since this order was marked Ready For
-          Pickup! <br />
-        </div>
-      ) : null}
       </div>
     </>
   );

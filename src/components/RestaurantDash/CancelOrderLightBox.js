@@ -10,8 +10,8 @@ export default function CancelOrderLightBox(props) {
   }
 
   return (
-    <div className="RestLightBox__container">
-      <div className="RestLightBox__overlay">
+    <div className="RestLightBox__overlay">
+      <div className="RestLightBox__container">
         <h2 className="RestLightBox__heading">Cancel this order?</h2>
         <RestaurantOrderCard
           order={props.orderToCancel.order}
@@ -19,32 +19,32 @@ export default function CancelOrderLightBox(props) {
           displayButtons={false}
         />
         <section className="RestLightBox__btn-group">
-        <button 
-          className="RestLightBox__btn btn"
-          onClick={() => props.setCancelConfirmVisible(false)}>
-          Go back
-        </button>
-        <button
-          className="RestLightBox__btn btn"
-          value="Canceled: Out of stock"
-          onClick={e => handleCancelConfirm(e.target.value)}
-        >
-          Cancel: Out of stock
-        </button>
-        <button
-          className="RestLightBox__btn btn"
-          value="Canceled: Customer request"
-          onClick={e => handleCancelConfirm(e.target.value)}
-        >
-          Canceled: Customer request
-        </button>
-        <button
-          className="RestLightBox__btn btn"
-          value="Canceled: Other"
-          onClick={e => handleCancelConfirm(e.target.value)}
-        >
-          Canceled: Other
-        </button>
+          <button 
+            className="RestLightBox__btn btn"
+            onClick={() => props.setCancelConfirmVisible(false)}>
+            Go back
+          </button>
+          <button
+            className="RestLightBox__btn RestOrderCard__btn-cancel btn"
+            value="Canceled: Out of stock"
+            onClick={e => handleCancelConfirm(e.target.value)}
+          >
+            Cancel: Out of stock
+          </button>
+          <button
+            className="RestLightBox__btn RestOrderCard__btn-cancel btn"
+            value="Canceled: Customer request"
+            onClick={e => handleCancelConfirm(e.target.value)}
+          >
+            Canceled: Customer request
+          </button>
+          <button
+            className="RestLightBox__btn RestOrderCard__btn-cancel btn"
+            value="Canceled: Other"
+            onClick={e => handleCancelConfirm(e.target.value)}
+          >
+            Canceled: Other
+          </button>
         </section>
       </div>
     </div>

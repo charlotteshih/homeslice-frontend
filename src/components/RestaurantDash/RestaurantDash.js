@@ -90,7 +90,7 @@ export default function RestaurantDash({ match }) {
           className={
             currentTab === "New Orders / In Progress" ? "" : 'hidden'
           }>
-          <h2>New Orders</h2>
+          <h2 className="RestDash__heading">New Orders</h2>
           <RestaurantOrderList
             orderListCategory={"Ordered"}
             orders={orders}
@@ -105,7 +105,7 @@ export default function RestaurantDash({ match }) {
             currentTab === "New Orders / In Progress" ? "" : 'hidden'
           }
         >
-          <h2>In Progress</h2>
+          <h2 className="RestDash__heading">In Progress</h2>
           <RestaurantOrderList
             orderListCategory={"In Progress"}
             orders={orders}
@@ -121,7 +121,7 @@ export default function RestaurantDash({ match }) {
         className={
           currentTab === "Ready For Pickup" ? "" : 'hidden'
         }>
-        <h2>Ready For Pickup</h2>
+        <h2 className="RestDash__heading">Ready For Pickup</h2>
         <RestaurantOrderList
           orderListCategory={"Ready For Pickup"}
           orders={orders}
@@ -133,7 +133,7 @@ export default function RestaurantDash({ match }) {
       </section>
 
       <section style={currentTab === "Completed" ? null : hiddenTabStyle}>
-        <h2>Completed</h2>
+        <h2 className="RestDash__heading">Completed</h2>
         <RestaurantOrderList
           orderListCategory={"Completed"}
           orders={orders}
