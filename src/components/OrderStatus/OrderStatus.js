@@ -91,8 +91,8 @@ export default function OrderStatus({ match }) {
           {`${context.restaurantData.city}, ${
             context.restaurantData.state
             } ${context.restaurantData.zipcode}`}<br />
-          <a href={`mailto:${context.restaurantData.email}`}>{`${context.restaurantData.email}`}</a><br />
-          <a href={`tel:${context.restaurantData.phone}`}>{`${context.restaurantData.phone}`}</a></span>
+          <a className="RestOrderCard__link" href={`mailto:${context.restaurantData.email}`}>{`${context.restaurantData.email}`}</a><br />
+          <a className="RestOrderCard__link" href={`tel:${context.restaurantData.phone}`}>{`${context.restaurantData.phone}`}</a></span>
 
       </>
     );
@@ -122,41 +122,43 @@ export default function OrderStatus({ match }) {
       <div
         className="OrderStatus__container padding-top-60px" >
         <h1 className="OrderStatus__header">Order Summary</h1>
-        <div className="OrderStatus__order-info">
-          <p>
-            <b>Order Number: {context.orderData.id}</b>
-            <br />
-            <b>Order Status: {context.orderData.order_status}</b>
-          </p>
-        </div>
-        <div className="OrderStatus__left">
-          <p>
-            <img
-              className="OrderStatus__pizza-img"
-              src={require(`../../images/${context.pizzaData.type
-                .toLowerCase()
-                .replace(/\s+/g, "-")}.png`)}
-              alt={`${context.pizzaData.type} pizza`}
-            />
-          </p>
-          <p>
-            <b>{context.pizzaData.size} {context.pizzaData.type}</b>
-          </p>
-        </div>
-        <div className="OrderStatus__right">
-          <p><b>Ordered On:</b><br />
-            {context.orderData.date_created}</p>
-          <p>
-            <b>Pickup Location:</b><br />
-            {restaurantLocation}
-          </p>
-          <p>
-            <b>Order Total: ${context.orderData.order_total}</b>
-          </p>
-        </div>
-        <div className="OrderStatus__please-note">
-          <p><b>PLEASE NOTE:</b> For sanitary reasons, pizzas that are not picked up within 60 minutes of completion will be discarded.</p>
-        </div>
+        <section className="OrderStatus__card">
+          <div className="OrderStatus__order-info">
+            <p>
+              <b>Order Number: {context.orderData.id}</b>
+              <br />
+              <b>Order Status: {context.orderData.order_status}</b>
+            </p>
+          </div>
+          <div className="OrderStatus__left">
+            <p>
+              <img
+                className="OrderStatus__pizza-img"
+                src={require(`../../images/${context.pizzaData.type
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}.png`)}
+                alt={`${context.pizzaData.type} pizza`}
+              />
+            </p>
+            <p>
+              <b>{context.pizzaData.size} {context.pizzaData.type}</b>
+            </p>
+          </div>
+          <div className="OrderStatus__right">
+            <p><b>Ordered On:</b><br />
+              {context.orderData.date_created}</p>
+            <p>
+              <b>Pickup Location:</b><br />
+              {restaurantLocation}
+            </p>
+            <p>
+              <b>Order Total: ${context.orderData.order_total}</b>
+            </p>
+          </div>
+          <div className="OrderStatus__please-note">
+            <p><b>PLEASE NOTE:</b> For sanitary reasons, pizzas that are not picked up within 60 minutes of completion will be discarded.</p>
+          </div>
+        </section>
       </div>
     );
   }
