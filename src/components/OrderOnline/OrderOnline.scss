@@ -15,16 +15,17 @@
 }
 
 .OrderOnline__image {
+  width: 100%;
   text-align: center;
   padding: 30px;
 }
 
 .OrderOnline__pizza-img {
   width: 100%;
-  max-width: 250px;
 }
 
 .OrderOnline__form {
+  width: 100%;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -47,4 +48,11 @@
   font-size: $l-font-size;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 680px) {
+  .OrderOnline__image,
+  .OrderOnline__form {
+    width: 50%;
+  }
 }
