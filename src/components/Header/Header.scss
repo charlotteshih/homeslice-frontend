@@ -21,13 +21,14 @@
 
 .Header__container {
   background-color: $primary-color;
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
   font-size: $l-font-size;
   min-width: 372px;
   padding-left: $container-padding;
   padding-right: $container-padding;
   padding-bottom: 10px;
   padding-top: 10px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -42,9 +43,9 @@
 
 .Header__home-link {
   flex: 1 0 40%;
+  font-family: $header-font;
   font-size: $xl-font-size;
-  font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin-right: auto;
   order: 1;
 }

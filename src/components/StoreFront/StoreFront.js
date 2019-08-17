@@ -2,11 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
+// import BackgroundImg from '../../images/restaurant_default.jpg';
 
 export default function StoreFront({ match }) {
+  // const bgStyle = {
+  //   backgroundImage: `url(${BackgroundImg})`,
+  //   backgroundPosition: 'center center',
+  //   backgroundRepeat: 'no-repeat',
+  //   backgroundSize: 'cover',
+  // }
+
   const { restaurantData, setRestaurantData } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
-  //const [localRestaurantData, setLocalRestaurantData] = useState(context.restaurantData);
 
   useEffect(() => {
     FetchServices._getRestaurantById(match.params.restaurantId)
@@ -40,8 +47,7 @@ export default function StoreFront({ match }) {
         <section className="StoreFront__secondary-container">
           <img
             className="StoreFront__restaurant-image"
-            src="https://via.placeholder.com/300"
-            alt="Placeholder graybox for demo"
+            src={require('../../images/restaurant_default.jpg')}
           />
 
           <section className="StoreFront__restaurant-info">
@@ -49,7 +55,7 @@ export default function StoreFront({ match }) {
             <div>{restaurantData.street_address}</div>
             <div>{`${restaurantData.city}, ${restaurantData.state} ${
               restaurantData.zipcode
-            }`}</div>
+              }`}</div>
             <div>{restaurantData.phone}</div>
             <div>{restaurantData.email}</div>
             <button className="StoreFront__order-button btn">
@@ -63,37 +69,37 @@ export default function StoreFront({ match }) {
           </section>
         </section>
 
+        <h1 className="StoreFront__menu--header">Menu</h1>
         <section className="StoreFront__menu">
-          <h1>Menu</h1>
           <img
             className="StoreFront__menu-image"
-            src="https://via.placeholder.com/150"
-            alt="Placeholder graybox for demo"
+            src={require(`../../images/cheese.png`)}
+            alt="cheese pizza"
           />
           <img
             className="StoreFront__menu-image"
-            src="https://via.placeholder.com/150"
-            alt="Placeholder graybox for demo"
+            src={require(`../../images/pepperoni.png`)}
+            alt="pepperoni pizza"
           />
           <img
             className="StoreFront__menu-image"
-            src="https://via.placeholder.com/150"
-            alt="Placeholder graybox for demo"
+            src={require(`../../images/supreme.png`)}
+            alt="supreme pizza"
           />
           <img
             className="StoreFront__menu-image"
-            src="https://via.placeholder.com/150"
-            alt="Placeholder graybox for demo"
+            src={require(`../../images/veggie.png`)}
+            alt="veggie pizza"
           />
           <img
             className="StoreFront__menu-image"
-            src="https://via.placeholder.com/150"
-            alt="Placeholder graybox for demo"
+            src={require(`../../images/hawaiian.png`)}
+            alt="hawaiian pizza"
           />
           <img
             className="StoreFront__menu-image"
-            src="https://via.placeholder.com/150"
-            alt="Placeholder graybox for demo"
+            src={require(`../../images/bbq-chicken.png`)}
+            alt="bbq chicken pizza"
           />
         </section>
       </div>
