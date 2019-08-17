@@ -31,11 +31,16 @@ body {
 .btn {
   background-color: $accent-color;
   border: none;
+  cursor: pointer;
   font-size: $l-font-size;
   outline: none;
   padding: 15px;
+  transition: ease all 0.3s;
   width: 100%;
-  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.2);
 }
 
 .error-text {
