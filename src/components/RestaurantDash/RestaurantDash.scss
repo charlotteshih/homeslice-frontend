@@ -1,6 +1,8 @@
 .RestDash__container {
   padding-right: $container-padding;
   padding-left: $container-padding;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .RestDash__list-toggle {
@@ -10,6 +12,10 @@
 .RestDash__list-toggle__btn {
   font-size: $m-font-size;
   transition: background-color 0.3s ease-in;
+}
+
+.RestDash__heading {
+  margin: 20px;
 }
 
 .RestOrderCard__btn {
@@ -26,6 +32,20 @@
   flex-direction: column;
 }
 
+.RestOrderCard__img-container {
+  flex-basis: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.RestOrderCard__btn-completed {
+  background-color: $button-success-color;
+}
+
+.RestOrderCard__btn-cancel {
+  background-color: $button-warn-color;
+}
+
 .RestOrderCard__cust-data {
   display: flex;
   flex-direction: column;
@@ -39,16 +59,28 @@
   color: $secondary-font-color;
 }
 
+.RestOrderCard__overdue {
+  background-color: $primary-color;
+  color: $primary-font-color;
+  grid-column: 1 / -1;
+  padding: 10px;
+}
+
 .RestOrderCard__pizza-img {
-  width: 50%;
+  width: 200px;
+  height: 200px;
   margin: 0 auto;
 }
 
 .RestOrderCard__Heading {
   text-align: center;
+  margin: 10px 0 20px 0;
 }
 
 .RestLightBox__container {
+  margin: auto;
+  max-width: 500px;
+  min-width: 300px;
 }
 
 .RestLightBox__heading {
@@ -59,6 +91,7 @@
 .RestLightBox__overlay {
   background-color: $overlay-bg-color;
   position: fixed;
+  display: flex;
   top: 0;
   left: 0;
   right: 0;
@@ -68,10 +101,43 @@
 
 .RestLightBox__btn-group {
   display: flex;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .RestLightBox__btn {
   margin: 0 5px;
+}
+
+@media only screen and (min-width: 600px) {
+  .RestLightBox__btn {
+    font-size: $m-font-size;
+    padding: 5px;
+  }
+
+
+  .RestOrderCard__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .RestOrderCard__Heading {
+    grid-column: 1 / -1;
+  }
+
+  .RestOrderCard__cust-data {
+    font-size: $m-font-size;
+  }
+
+  .RestOrderCard__btn-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    grid-column: 1 / -1;
+  }
+
+  .RestOrderCard__btn {
+    font-size: $m-font-size;
+    flex: 0 1 180px;
+  }
 }
 
