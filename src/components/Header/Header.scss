@@ -55,7 +55,7 @@
   border: none;
   color: $primary-font-color;
   flex: 1 0 40%;
-  font-size: $l-font-size;
+  font-size: $m-font-size;
   text-align: right;
   justify-self: end;
   outline: none;
@@ -117,6 +117,7 @@
     .Header__menu-toggle {
       flex: 1 0 20%;
       order: 3;
+      font-size: $l-font-size;
     }
 
     .Header-nav {

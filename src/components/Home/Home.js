@@ -23,8 +23,9 @@ export default function Home({ history }) {
               A one-stop pizza shop builder for restaurants and customers<br />
               Built by pizza enthusiasts for pizza enthusiasts
             </p>
+            <div className="space" />
             <p>
-              Take us for a spin!
+              Try it out for yourself on our demo account!
             </p>
             <p>
               <b>Email:</b> demo@demo.com
