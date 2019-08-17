@@ -1,0 +1,47 @@
+.AdminDash__container {
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+.AdminDash__heading {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.DelRest__btn {
+  margin-top: 10px;
+}
+
+.DelRest__container {
+  background-color: $secondary-bg-color;
+  color: $secondary-font-color;
+  margin: auto;
+  padding: 5%;
+}
+
+.DelRest__overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $overlay-bg-color;
+  z-Index: 5;
+}
+
+.RestCard__container {
+  background-color: $secondary-bg-color;
+  color: $secondary-font-color;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.RestCard__btn {
+  margin-top: 20px;
+}

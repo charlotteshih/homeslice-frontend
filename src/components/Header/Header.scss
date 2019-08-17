@@ -1,9 +1,11 @@
 .DashboardNav__container {
   display: flex;
   flex-direction: column;
-  grid-column: 1 / -1;
+  flex: 1 0 40%;
   list-style: none;
   margin-bottom: 0;
+  margin-top: 10px;
+  order: 3;
   padding-left: 0;
 }
 
@@ -20,9 +22,11 @@
 .Header__container {
   background-color: $primary-color;
   font-size: $l-font-size;
+  min-width: 372px;
   padding-left: $container-padding;
   padding-right: $container-padding;
   padding-bottom: 10px;
+  padding-top: 10px;
   position: absolute;
   top: 0;
   left: 0;
@@ -37,23 +41,29 @@
 }
 
 .Header__home-link {
+  flex: 1 0 40%;
   font-size: $xl-font-size;
   font-weight: bold;
   letter-spacing: 2px;
+  margin-right: auto;
+  order: 1;
 }
 
 .Header__menu-toggle {
   background-color: $primary-color;
   border: none;
   color: $primary-font-color;
+  flex: 1 0 40%;
   font-size: $l-font-size;
+  text-align: right;
   justify-self: end;
   outline: none;
+  order: 2;
 }
 
 .Header__nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .Header--top-border {
@@ -62,7 +72,10 @@
 }
 
 .Header__sign-in {
-  grid-column: 1 / -1;
+}
+
+.Header__sign-in-forms__container {
+  order: 3;
 }
 
 .Header__sign-in__heading {
@@ -85,3 +98,42 @@
 }
 
 
+@media only screen and (min-width: 800px) {
+
+    .DashboardNav__container {
+      flex-direction: row;
+      flex: 1 0 45%;
+      justify-content: space-between;
+      margin-top: 0;
+      margin-right: auto;
+      order: 2;
+    }
+
+    .DashboardNav__item {
+      border: none;
+    }
+
+    .Header__menu-toggle {
+      flex: 1 0 20%;
+      order: 3;
+    }
+
+    .Header-nav {
+      align-items: center;
+    }
+
+    .Header__home-link {
+      flex: 1 0 25%;
+      align-self: center;
+    }
+
+   .Header__sign-in-forms__container {
+     background-color: $primary-color;
+     flex: 1 0 33%;
+     padding: 20px;
+     position: absolute;
+     right: 0;
+     top: 57px;
+     width: 400px;
+   }
+}

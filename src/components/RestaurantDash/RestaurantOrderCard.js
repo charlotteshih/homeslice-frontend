@@ -49,27 +49,27 @@ export default function RestaurantOrderCard(props) {
 
   return (
     <>
-      <div className="RestCard__container">
+      <div className="RestOrderCard__container">
         {props.order.pizza_type 
         ? <img
-            className="RestCard__pizza-img"
+            className="RestOrderCard__pizza-img"
             src={require(`../../images/${props.order.pizza_type
               .toLowerCase()
               .replace(/\s+/g, "-")}.png`)}
             alt={`${props.order.pizza_type} pizza`}/>
          : <img
-            className="RestCard__pizza-img"
+            className="RestOrderCard__pizza-img"
             src={require(`../../images/base.png`)}
             alt={`${props.order.pizza_type} pizza`}/>
         }
-        <h4 className="RestCard__Heading">{props.order.pizza_type}</h4>
+        <h4 className="RestOrderCard__Heading">{props.order.pizza_type}</h4>
         {props.customerInfo ? (
-          <div className="RestCard__cust-data">
-            <div className="RestCard__cust-data__item">{`Ordered on: ${props.order.date_created}`}</div>
-            <div className="RestCard__cust-data__item">{`Ordered by: ${props.customerInfo.first_name} ${props.customerInfo.last_name}`}</div>
-            <div className="RestCard__cust-data__item">
+          <div className="RestOrderCard__cust-data">
+            <div className="RestOrderCard__cust-data__item">{`Ordered on: ${props.order.date_created}`}</div>
+            <div className="RestOrderCard__cust-data__item">{`Ordered by: ${props.customerInfo.first_name} ${props.customerInfo.last_name}`}</div>
+            <div className="RestOrderCard__cust-data__item">
               <a
-                className="RestCard__link" 
+                className="RestOrderCard__link" 
                 href={`mailto:${props.customerInfo.email}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,9 +77,9 @@ export default function RestaurantOrderCard(props) {
                 {props.customerInfo.email}
               </a>
             </div>
-            <div className="RestCard__cust-data__item">
+            <div className="RestOrderCard__cust-data__item">
               <a
-                className="RestCard__link"
+                className="RestOrderCard__link"
                 href={`tel:${props.customerInfo.phone}`}>
                 {props.customerInfo.phone}
               </a>
@@ -89,13 +89,13 @@ export default function RestaurantOrderCard(props) {
       {props.displayButtons ? (
         <div>
           <button
-            className="RestCard__btn btn"
+            className="RestOrderCard__btn btn"
             onClick={() => updateOrderStatus(props.order.id, "In Progress")}
           >
             In Progress
           </button>
           <button
-            className="RestCard__btn btn"
+            className="RestOrderCard__btn btn"
             onClick={() =>
               updateOrderStatus(props.order.id, "Ready For Pickup")
             }
@@ -104,7 +104,7 @@ export default function RestaurantOrderCard(props) {
           </button>
 
           <button
-            className="RestCard__btn btn"
+            className="RestOrderCard__btn btn"
             onClick={() => {
               updateOrderStatus(props.order.id, "Completed");
             }}
@@ -113,7 +113,7 @@ export default function RestaurantOrderCard(props) {
           </button>
 
           <button
-            className="RestCard__btn btn"
+            className="RestOrderCard__btn btn"
             onClick={() => {
               props.setOrderToCancel({
                 order: props.order,

@@ -43,6 +43,10 @@ body {
   font-size: $l-font-size;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .disabled {
   background-color: $secondary-bg-color;
   color: $secondary-font-color;
@@ -66,7 +70,7 @@ body {
 }
 
 .padding-top-60px {
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 .selected {
