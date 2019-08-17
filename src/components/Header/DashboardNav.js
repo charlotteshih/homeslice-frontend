@@ -25,10 +25,11 @@ export default function DashboardNav(props) {
             onClick={() => props.setSignInFormsShowing(false)} 
             to='/dashboard/admin/' >Admin Dashboard</NavLink>
         </li>
-        <li className="DashboardNav__item">
+        <li 
+          className="DashboardNav__item"
+          onClick={() => logOutUser()}>
           <NavLink 
             className="DashboardNav__link"
-            onClick={logOutUser}
             to={`/`} >Logout</NavLink>
         </li>
       </>
@@ -46,11 +47,12 @@ export default function DashboardNav(props) {
             onClick={() => props.setSignInFormsShowing(false)}
             to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</NavLink>
         </li>
-        <li className="DashboardNav__item">
+        <li 
+          className="DashboardNav__item"
+          onClick={() => logOutUser()}>
           <NavLink 
             className="DashboardNav__link" 
-            to={`/`} 
-            onClick={logOutUser}>Logout</NavLink>
+            to={`/`}>Logout</NavLink>
         </li>
       </>
     }

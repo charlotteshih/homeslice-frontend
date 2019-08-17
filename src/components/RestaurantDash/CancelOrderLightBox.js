@@ -29,9 +29,9 @@ export default function CancelOrderLightBox(props) {
             value="Canceled: Out of stock"
             onClick={e => handleCancelConfirm(e.target.value)}
           >
-            Cancel: Out of stock
+            Cancel
           </button>
-          <button
+          {/* <button
             className="RestLightBox__btn RestOrderCard__btn-cancel btn"
             value="Canceled: Customer request"
             onClick={e => handleCancelConfirm(e.target.value)}
@@ -44,7 +44,7 @@ export default function CancelOrderLightBox(props) {
             onClick={e => handleCancelConfirm(e.target.value)}
           >
             Canceled: Other
-          </button>
+          </button> */}
         </section>
       </div>
     </div>

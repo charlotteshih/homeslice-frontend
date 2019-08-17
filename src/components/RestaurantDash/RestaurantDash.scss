@@ -40,11 +40,35 @@
 
 .RestOrderCard__btn-completed {
   background-color: $button-success-color;
+  box-shadow: 0 6px $button-success-dark;
+}
+
+.RestOrderCard__btn-completed:hover {
+  box-shadow: 0 4px $button-success-dark;
+  top: 2px;
+}
+
+.RestOrderCard__btn-completed:active {
+  box-shadow: 0 0px $button-success-dark;
+  top: 6px;
 }
 
 .RestOrderCard__btn-cancel {
   background-color: $button-warn-color;
+  box-shadow: 0 6px $button-warn-dark;
 }
+
+.RestOrderCard__btn-cancel:hover {
+  box-shadow: 0 4px $button-warn-dark;
+  top: 2px;
+}
+
+.RestOrderCard__btn-cancel:active {
+  box-shadow: 0 0px $button-warn-dark;
+  top: 6px;
+}
+
+
 
 .RestOrderCard__cust-data {
   display: flex;
@@ -60,7 +84,7 @@
 }
 
 .RestOrderCard__overdue {
-  background-color: $primary-color;
+  background-color: $button-warn-color;
   color: $primary-font-color;
   grid-column: 1 / -1;
   padding: 10px;
@@ -101,7 +125,7 @@
 
 .RestLightBox__btn-group {
   display: flex;
-  overflow: auto;
+  flex-wrap: wrap;
 }
 
 .RestLightBox__btn {
@@ -112,6 +136,11 @@
   .RestLightBox__btn {
     font-size: $m-font-size;
     padding: 5px;
+  }
+
+  .RestLightBox__btn-group {
+    display: flex;
+    flex-wrap: nowrap;
   }
 
 

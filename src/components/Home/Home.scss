@@ -37,11 +37,12 @@
 }
 
 .Home__info--overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: $overlay-bg-color;
   height: 600px;
 }
 
 .Home__info--blurb {
+  //background-color: hsla(0, 0, 0, 0.2);
   max-width: $container-width;
   font-size: $m-font-size;
   margin: 0 auto;
@@ -115,3 +116,14 @@
     flex: 1 1 0;
   }
 }
+
+
+
+/////Friday-tweaks
+.Home_paragraph {
+  text-shadow: 1px 1px 2px black;
+}
+
+//	button color hsl(0, 55%, 55%)
+
+//  shadow color hsl(0, 48%, 45%)

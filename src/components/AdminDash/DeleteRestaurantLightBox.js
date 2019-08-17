@@ -21,12 +21,14 @@ export default function DeleteRestaurantLightBox(props) {
         <RestaurantCard 
           displayMode={true}
           details={restaurantToRemove} />
-        <button 
-          className="DelRest__btn btn"
-          onClick={() => setDeleteConfirmVisible(false)}>Cancel</button>
-        <button 
-          className="DelRest__btn btn"
-          onClick={() => handleDeleteConfirm()}>Yes</button>
+        <div className="DelRest__btn-group">
+          <button 
+            className="DelRest__btn btn"
+            onClick={() => setDeleteConfirmVisible(false)}>Keep</button>
+          <button 
+            className="DelRest__btn-cancel btn"
+            onClick={() => handleDeleteConfirm()}>Delete</button>
+        </div>
       </div>
     </div>
   )

@@ -150,10 +150,11 @@ export default function CreateAccount(props) {
           htmlFor="passwordMatchInput">Confirm password</label>
         <input
           className="form-input"
-          onChange={(e) => setPasswordMatch(e.target.value)}  
+          onChange={(e) => setPasswordMatch(e.target.value)}
           id="passwordMatchInput" 
           type="password"
-          required/>  
+          required
+          />  
 
         <label 
           className="form-label"
