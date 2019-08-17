@@ -7,7 +7,7 @@ export default function NotFound() {
     <div className="NotFound__container padding-top-60px">
       <h1 className="NotFound__heading">404 Not Found</h1>
       <img className="NotFound__image" src={Gif} alt="404 not found breaking bad pizza throw"/>
-      <p>Something went wrong click the button to go.</p>
+      <p className="NotFound__paragraph">Something went wrong click the button to go.</p>
       <button className="btn"><Link className="link" to='/'>Home</Link></button>
     </div>
   )
