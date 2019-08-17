@@ -2,6 +2,7 @@
   padding-left: $container-padding;
   padding-right: $container-padding;
   padding-bottom: 10px;
+  margin-top: 20px;
 }
 
 .CreateAccount__heading {
@@ -11,7 +12,8 @@
 .CreateAccount__form {
   display: flex;
   flex-direction: column;
-  
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .CreateAccount__submit-btn {
