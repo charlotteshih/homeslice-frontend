@@ -1,5 +1,6 @@
 .OrderStatus__container {
-  max-width: 1000px;
+  max-width: $container-width;
+  width: 95%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -15,11 +16,31 @@
   flex-basis: 100%;
 }
 
+.OrderStatus__header {
+  margin-bottom: 30px;
+}
+
+.OrderStatus__card {
+  background-color: $secondary-bg-color;
+  color: $secondary-font-color;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  padding: 50px;
+  width: 100%;
+}
+
 .OrderStatus__left,
 .OrderStatus__right {
+  line-height: 1.3;
+  padding: 30px;
   text-align: center;
   width: 50%;
-  padding: 30px;
+}
+
+.OrderStatus__left p,
+.OrderStatus__right p {
+  margin-bottom: 1.8rem;
 }
 
 .OrderStatus__pizza-img {
@@ -28,6 +49,10 @@
 }
 
 @media only screen and (max-width: 720px) {
+  .OrderStatus__card {
+    font-size: $m-font-size;
+    padding: 10px;
+  }
   .OrderStatus__left,
   .OrderStatus__right {
     width: 100%;

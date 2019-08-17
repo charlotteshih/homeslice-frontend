@@ -1,14 +1,30 @@
 .Payment__container {
-  max-width: 1000px;
+  max-width: $container-width;
   margin: 0 auto;
   padding-left: $container-padding;
   padding-right: $container-padding;
   padding-bottom: 10px;
 }
 
-.Payment__header {
+.StripeElement {
+  font-size: $l-font-size;
+  height: 30px;
+  margin: 20px 0px;
+  // outline: 1px solid green;
+}
+
+.CardField-number {
+  font-size: $l-font-size;
+}
+
+.StripeElement--invalid {
+  outline: 1px solid blue;
+}
+
+.Payment__heading {
   text-align: center;
   flex-basis: 100%;
+  margin-bottom: 30px;
 }
 
 .Payment__form {
@@ -16,6 +32,10 @@
   flex-direction: column;
   align-items: flex-start;
   font-size: $l-font-size;
+}
+
+.Payment__checkout h3 {
+  margin: 20px 0px;
 }
 
 .Payment__form__input {
