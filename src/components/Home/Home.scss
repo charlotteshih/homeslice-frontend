@@ -27,7 +27,7 @@
 
 .Home__info h1 {
   font-family: $header-font;
-  font-size: $xxxl-font-size;
+  font-size: $xl-font-size;
   font-weight: normal;
   letter-spacing: 3px;
   line-height: 1.2;
@@ -92,6 +92,9 @@
     height: 700px;
   }
 
+  .Home__info h1 {
+    font-size: $xxxl-font-size;
+  }
   .Home__info--overlay {
     height: 700px;
   }

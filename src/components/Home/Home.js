@@ -47,19 +47,19 @@ export default function Home({ history }) {
           <li className="Home__rest-features__list-item">
             <FontAwesomeIcon className="Home__rest-features__icons" icon={faEdit} />
             <p className="Home__rest-features__text">
-              <b>Create a menu</b> using our interactive and intuitive menu builder.
+              <b>Create a menu</b><br />using our interactive menu builder.
             </p>
           </li>
           <li className="Home__rest-features__list-item">
             <FontAwesomeIcon className="Home__rest-features__icons" icon={faListAlt} />
             <p className="Home__rest-features__text">
-              <b>View all orders</b> and update them in real time.
+              <b>View all orders</b><br />and update them in real time.
             </p>
           </li>
           <li className="Home__rest-features__list-item">
             <FontAwesomeIcon className="Home__rest-features__icons" icon={faChartBar} />
             <p className="Home__rest-features__text">
-              <b>Use our analytics tool</b> to gain insights on your bestselling items.
+              <b>Gain insights</b><br />on your bestselling products with our built-in analytics tool.
             </p>
           </li>
         </ul>

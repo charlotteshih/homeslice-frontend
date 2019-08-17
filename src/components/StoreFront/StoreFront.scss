@@ -25,7 +25,7 @@
 
 .StoreFront__restaurant-image {
   width: 100%;
-  // margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .StoreFront__order-button {
@@ -48,8 +48,8 @@
   width: 300px;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 700px) {
   .StoreFront__restaurant-image {
-    width: 500px;
+    width: 50%;
   }
 }
