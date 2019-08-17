@@ -1,39 +1,71 @@
 .Home__container {
+  width: 95%;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-left: $container-padding;
   padding-right: $container-padding;
-}
-
-.Home__heading {
-  align-self: center;
+  height: 100%;
 }
 
 .Home__info {
+  background-image: require('../../images/pizza_bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-color: $secondary-bg-color;
   color: $secondary-font-color;
-  padding: 15px 15px;
-  margin: 20px 0;
-  max-width: 800px;
-  font-size: $m-font-size;
+  height: 600px;
+  flex-basis: 100%;
+  margin-bottom: 50px;
 }
 
-.Home__info p {
+.Home__info h2 {
+  font-size: $l-font-size;
+  line-height: 1;
+}
+
+.Home__info h1 {
+  font-family: $header-font;
+  font-size: $xl-font-size;
+  font-weight: normal;
+  letter-spacing: 3px;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px $primary-color;
+}
+
+.Home__info--overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 600px;
+}
+
+.Home__info--blurb {
+  max-width: $container-width;
+  font-size: $m-font-size;
+  margin: 0 auto;
+  padding: 60px 50px;
   line-height: 1.5;
+  text-align: center;
+}
+
+.Home__info--blurb p {
+  margin-bottom: 1.2rem;
 }
 
 .Home__buttons {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin: 30px 0;
 }
 
 .Home__rest-features {
+  max-width: $container-width;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .Home__rest-features__list-item {
@@ -42,49 +74,44 @@
   flex-direction: column;
   align-items: center;
   margin: 10px;
-  width: 250px;
+  padding: 0px 50px;
 }
 
 .Home__rest-features__icons {
-  background-color: $primary-color;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 10px;
+  color: $primary-color;
+  font-size: $fa-font-size;
+  margin-bottom: 30px;
 }
 
 .Home__rest-features__text {
   text-align: center;
-  font-size: $m-font-size;
+  font-size: $l-font-size;
 }
 
 @media (min-width: 800px) {
   .Home__info {
     font-size: $l-font-size;
+    height: 700px;
+  }
+
+  .Home__info h1 {
+    font-size: $xxxl-font-size;
+  }
+  .Home__info--overlay {
+    height: 700px;
+  }
+
+  .Home__info--blurb {
+    font-size: $l-font-size;
+    padding-top: 100px;
   }
 
   .Home__buttons {
     width: 50%;
-    margin: 0 auto;
+    margin: 30px auto;
   }
 
   .Home__rest-features__list-item {
     flex: 1 1 0;
   }
-
-  // .Home__rest-features__icons {
-  //   width: 100px;
-  //   height: 100px;
-  // }
-}
-
-@media (min-width: 1100px) {
-  .Home__buttons {
-    width: 25%;
-    margin: 0 auto;
-  }
-
-  // .Home__rest-features__icons {
-  //   width: 150px;
-  //   height: 150px;
-  // }
 }

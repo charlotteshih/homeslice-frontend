@@ -1,17 +1,31 @@
 .StoreFront__container {
+  width: 95%;
+  max-width: $container-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-left: $container-padding;
   padding-right: $container-padding;
+  height: 100%;
 }
 
 .StoreFront__secondary-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-bottom: 80px;
 }
 
 .StoreFront__restaurant-info {
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 30px;
+}
+
+.StoreFront__restaurant-image {
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .StoreFront__order-button {
@@ -20,21 +34,22 @@
 
 .StoreFront__menu {
   margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.StoreFront__menu-image-container {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .StoreFront__menu-image {
-  margin-left: 3px;
-  margin-right: 3px;
+  padding: 30px;
+  width: 300px;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 700px) {
   .StoreFront__restaurant-image {
-    max-width: 125px;
-    align-self: flex-start;
-  }
-
-  .StoreFront__restaurant-info div,
-  .StoreFront__restaurant-info h3 {
-    font-size: $m-font-size;
+    width: 50%;
   }
 }
