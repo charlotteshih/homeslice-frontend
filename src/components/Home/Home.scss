@@ -1,5 +1,4 @@
 .Home__container {
-  max-width: $container-width;
   width: 95%;
   margin: 0 auto;
   display: flex;
@@ -33,12 +32,18 @@
   letter-spacing: 3px;
   line-height: 1.2;
   margin-bottom: 30px;
+  text-shadow: 2px 2px $primary-color;
+}
+
+.Home__info--overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 600px;
 }
 
 .Home__info--blurb {
+  max-width: $container-width;
+  margin: 0 auto;
   padding: 60px 50px;
-  background-color: rgba(0, 0, 0, 0.7);
-  height: 600px;
   line-height: 1.5;
   text-align: center;
 }
@@ -54,10 +59,11 @@
 }
 
 .Home__rest-features {
+  max-width: $container-width;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .Home__rest-features__list-item {
@@ -66,24 +72,32 @@
   flex-direction: column;
   align-items: center;
   margin: 10px;
-  width: 250px;
+  padding: 0px 50px;
 }
 
 .Home__rest-features__icons {
-  background-color: $primary-color;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 10px;
+  color: $primary-color;
+  font-size: $fa-font-size;
+  margin-bottom: 30px;
 }
 
 .Home__rest-features__text {
   text-align: center;
-  font-size: $m-font-size;
+  font-size: $l-font-size;
 }
 
 @media (min-width: 800px) {
   .Home__info {
     font-size: $l-font-size;
+    height: 700px;
+  }
+
+  .Home__info--overlay {
+    height: 700px;
+  }
+
+  .Home__info--blurb {
+    padding-top: 100px;
   }
 
   .Home__buttons {
