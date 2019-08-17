@@ -71,36 +71,59 @@ export default function StoreFront({ match }) {
 
         <h1 className="StoreFront__menu--header">Menu</h1>
         <section className="StoreFront__menu">
-          <img
-            className="StoreFront__menu-image"
-            src={require(`../../images/cheese.png`)}
-            alt="cheese pizza"
-          />
-          <img
-            className="StoreFront__menu-image"
-            src={require(`../../images/pepperoni.png`)}
-            alt="pepperoni pizza"
-          />
-          <img
-            className="StoreFront__menu-image"
-            src={require(`../../images/supreme.png`)}
-            alt="supreme pizza"
-          />
-          <img
-            className="StoreFront__menu-image"
-            src={require(`../../images/veggie.png`)}
-            alt="veggie pizza"
-          />
-          <img
-            className="StoreFront__menu-image"
-            src={require(`../../images/hawaiian.png`)}
-            alt="hawaiian pizza"
-          />
-          <img
-            className="StoreFront__menu-image"
-            src={require(`../../images/bbq-chicken.png`)}
-            alt="bbq chicken pizza"
-          />
+          <div className="StoreFront__menu-image-container">
+            <img
+              className="StoreFront__menu-image"
+              src={require(`../../images/cheese.png`)}
+              alt="cheese pizza"
+            />
+            <p>Cheese</p>
+          </div>
+
+          <div className="StoreFront__menu-image-container">
+            <img
+              className="StoreFront__menu-image"
+              src={require(`../../images/pepperoni.png`)}
+              alt="pepperoni pizza"
+            />
+            <p>Pepperoni</p>
+          </div>
+
+          <div className="StoreFront__menu-image-container">
+            <img
+              className="StoreFront__menu-image"
+              src={require(`../../images/supreme.png`)}
+              alt="supreme pizza"
+            />
+            <p>Supreme</p>
+          </div>
+
+          <div className="StoreFront__menu-image-container">
+            <img
+              className="StoreFront__menu-image"
+              src={require(`../../images/veggie.png`)}
+              alt="veggie pizza"
+            />
+            <p>Veggie</p>
+          </div>
+
+          <div className="StoreFront__menu-image-container">
+            <img
+              className="StoreFront__menu-image"
+              src={require(`../../images/hawaiian.png`)}
+              alt="hawaiian pizza"
+            />
+            <p>Hawaiian</p>
+          </div>
+
+          <div className="StoreFront__menu-image-container">
+            <img
+              className="StoreFront__menu-image"
+              src={require(`../../images/bbq-chicken.png`)}
+              alt="bbq chicken pizza"
+            />
+            <p>BBQ Chicken</p>
+          </div>
         </section>
       </div>
     );
