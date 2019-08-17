@@ -13,7 +13,6 @@ export default function RestaurantCard(props) {
     setDeleteConfirmVisible(true);
   }
 
-
   return (
     <div className="RestCard__container">
       <h2>{details.name}</h2>

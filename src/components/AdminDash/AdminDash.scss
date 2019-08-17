@@ -1,6 +1,8 @@
 .AdminDash__container {
   padding-left: $container-padding;
   padding-right: $container-padding;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .AdminDash__heading {
