@@ -1,36 +1,41 @@
 import React from "react";
+import BackgroundImg from '../../images/pizza_bg.jpg';
 
 export default function Home({ history }) {
+  const bgStyle = {
+    backgroundImage: `url(${BackgroundImg})`,
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }
   return (
     <div className="Home__container padding-top-60px">
-      <section className="Home__info">
-        <p>
-          Introducing <b>HomeSlice</b>: a one-stop pizza shop builder for
-          restaurants and customers. No bloatware, no nonsense -- made by pizza
-          enthusiasts, for pizza enthusiasts.
-        </p>
-        <p>
-          Setup is fast and easy for restaurants! Just provide your credentials
-          and we'll do the rest.
-        </p>
-        <p>
-          Still not sure whether to take the leap? Log in with our demo account
-          and try it out for yourself!
-        </p>
-        <br />
-        <p>
-          <b>Email:</b> demo@demo.com
-          <br />
-          <b>Password:</b> Demo123!
-        </p>
-        <br />
-        <section className="Home__buttons">
-          <button
-            className="btn"
-            onClick={() => history.push("/create-account")}
-          >
-            Get started
-          </button>
+      <section className="Home__info" style={bgStyle}>
+        <section className="Home__info--blurb">
+          <h2>
+            Introducing
+          </h2>
+          <h1>HomeSlice!</h1>
+          <p>
+            A one-stop pizza shop builder for restaurants and customers<br />
+            Built by pizza enthusiasts for pizza enthusiasts
+          </p>
+          <p>
+            Take us for a spin!
+          </p>
+          <p>
+            <b>Email:</b> demo@demo.com
+            <br />
+            <b>Password:</b> Demo123!
+          </p>
+          <section className="Home__buttons">
+            <button
+              className="btn"
+              onClick={() => history.push("/create-account")}
+            >
+              Get Started
+            </button>
+          </section>
         </section>
       </section>
       <section>
