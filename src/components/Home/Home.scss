@@ -31,21 +31,24 @@
 
 .Home__rest-features {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   list-style: none;
+  margin: 0 auto;
 }
 
 .Home__rest-features__list-item {
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px;
+  width: 250px;
 }
 
 .Home__rest-features__icons {
   background-color: $primary-color;
-  width: 50px;
-  height: 50px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 10px;
 }
 
@@ -64,10 +67,14 @@
     margin: 0 auto;
   }
 
-  .Home__rest-features__icons {
-    width: 100px;
-    height: 100px;
+  .Home__rest-features__list-item {
+    flex: 1 1 0;
   }
+
+  // .Home__rest-features__icons {
+  //   width: 100px;
+  //   height: 100px;
+  // }
 }
 
 @media (min-width: 1100px) {
@@ -76,8 +83,8 @@
     margin: 0 auto;
   }
 
-  .Home__rest-features__icons {
-    width: 150px;
-    height: 150px;
-  }
+  // .Home__rest-features__icons {
+  //   width: 150px;
+  //   height: 150px;
+  // }
 }
