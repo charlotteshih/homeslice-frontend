@@ -10,11 +10,15 @@ export default function DashboardNav(props) {
   const logOutUser = () => {
     localStorage.removeItem('jwt');
     context.setUserIsAdmin(false)
-    context.setUserIsSignedIn(false);
-    props.setSignInFormsShowing(false);
+      .then(() => {
+        return context.setUserIsSignedIn(false);
+      })
+      .then(() => {
+        props.setSignInFormsShowing(false);
+      })
   };
 
-  let { restaurant_id } = jwt.decode(localStorage.getItem('jwt'));
+  let payload = jwt.decode(localStorage.getItem('jwt'));
   return (
     <ul className="DashboardNav__container">
       {context.userIsAdmin?
@@ -39,13 +43,13 @@ export default function DashboardNav(props) {
           <NavLink 
             className="DashboardNav__link"
             onClick={() => props.setSignInFormsShowing(false)} 
-            to={`/restaurant/${restaurant_id}`}>View Storefront</NavLink>
+            to={`/restaurant/${payload.restaurant_id}`}>View Storefront</NavLink>
         </li>
         <li className="DashboardNav__item">
           <NavLink 
             className="DashboardNav__link"
             onClick={() => props.setSignInFormsShowing(false)}
-            to={`/dashboard/restaurant/${restaurant_id}`}>View Orders</NavLink>
+            to={`/dashboard/restaurant/${payload.restaurant_id}`}>View Orders</NavLink>
         </li>
         <li 
           className="DashboardNav__item"
