@@ -2,7 +2,7 @@
 
 Introducing **HomeSlice:** A one-stop pizza shop builder for restaurants and customers – built by pizza enthusiasts for pizza enthusiasts!
 
-![HomeSlice](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "HomeSlice")
+![HomeSlice](https://i.imgur.com/z1LlEI3.jpg "HomeSlice")
 
 [HomeSlice Back-End Repository](https://github.com/charlotteshih/homeslice-backend)
 
