@@ -28,6 +28,6 @@ Introducing **HomeSlice:** A one-stop pizza shop builder for restaurants and cus
 
 ## Team
 
-- Project Manager: [Ryan Cahela]()
-- QA Lead: [Felix Meyer]()
-- Design Lead: [Charlotte Shih]()
+- Project Manager: [Ryan Cahela](https://github.com/RyanCahela)
+- QA Lead: [Felix Meyer](https://github.com/felixworks)
+- Design Lead: [Charlotte Shih](https://github.com/charlotteshih)
