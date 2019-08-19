@@ -15,7 +15,6 @@ export default function AdminDash({ history }) {
   //pw: Admin123!
   let decoded = jwt.decode(localStorage.getItem('jwt'));
   if(!decoded || decoded.admin_id !== 1) {
-    console.log('inside decoded if');
     history.push('/');
   }
 
@@ -74,7 +73,6 @@ export default function AdminDash({ history }) {
         />
         <h1 className="AdminDash__heading">Restaurants</h1>
         {restaurants.map((restaurant) => {
-          console.log('rest', restaurant);
           return (
           <RestaurantCard 
             key={restaurant.id} 

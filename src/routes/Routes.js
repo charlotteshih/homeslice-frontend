@@ -14,7 +14,6 @@ import NotFound from "../components/NotFound/NotFound";
 import "./style.css";
 
 function Routes({ location }) {
-  // console.log('location', location.key);
   return (
     <TransitionGroup className="transition-group">
       <CSSTransition

@@ -20,7 +20,6 @@ export default function CreateAccount(props) {
 
 
   const handleSubmit = (e) => {
-    console.log('phone', phone.length);
     e.preventDefault();
     let passwordRegex = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/
     let usernameRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -29,9 +28,6 @@ export default function CreateAccount(props) {
     let usernameIsRegexMatch = usernameRegex.test(email);
     let phoneIsRegexMatch = phoneRegex.test(phone);
     let passwordsMatch = password === passwordMatch;
-    console.log('pwIsRegexMatch', pwIsRegexMatch);
-    console.log('passwordsMatch', passwordsMatch);
-    console.log('phoneIsMatch', phoneIsRegexMatch)
     if(!usernameIsRegexMatch) {
       setValidationErr(`Please provide a valid email.`);
       return;
@@ -82,12 +78,8 @@ export default function CreateAccount(props) {
     })
     .then(response => {
       if(context.userIsAdmin) {
-        console.log('response', response);
         let newList = props.restaurants;
-        console.log('newList', newList);
         newList.unshift({...response});
-        console.log('newList2', newList);
-
         props.setRestaurants([...newList]);
         return;
       }
