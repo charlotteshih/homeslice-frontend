@@ -18,7 +18,6 @@ export default function Header({ history }) {
     if (localStorage.getItem("jwt")) {
       context.setUserIsSignedIn(true);
       let decoded = jwt.decode(token);
-      console.log("decodedInHeader", decoded);
       let userId = 0;
       decoded.sub === "Admin"
         ? (userId = decoded.admin_id)
@@ -26,7 +25,6 @@ export default function Header({ history }) {
 
       FetchServices._getRestaurantById(userId)
         .then(res => {
-          console.log(res);
           if (res.ok) {
             return res.json();
           }

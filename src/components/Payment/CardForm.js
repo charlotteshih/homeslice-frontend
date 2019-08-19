@@ -7,7 +7,6 @@ function CardForm(props) {
 
   function _submitStripe(e) {
     e.preventDefault();
-    console.log(props);
     props.stripe.createToken({ name: "Name" }).then(res => {
       if (res.error) {
         throw new Error(res.error);
@@ -16,7 +15,6 @@ function CardForm(props) {
         if (res.status === 204) {
           props.setShowCustomerForm(true);
           setPaymentSuccessful("Payment Successful!");
-          // console.log(res);
         }
       });
     });

@@ -22,7 +22,6 @@ export default function OrderStatus({ match }) {
       !context.RestaurantData ||
       context.RestaurantData.id !== match.params.restaurantId
     ) {
-      console.log('no RestaurantData');
       FetchServices._getRestaurantById(match.params.restaurantId)
         .then(res => {
           if (res.status === 200) {
@@ -41,7 +40,6 @@ export default function OrderStatus({ match }) {
     }
 
     if (!context.orderData || context.orderData.id !== match.params.orderId) {
-      console.log('no OrderData');
       FetchServices._getOrderById(match.params.orderId)
         .then(res => {
           if (res.status === 200) {
@@ -53,12 +51,9 @@ export default function OrderStatus({ match }) {
           return context.setOrderData({ ...resJson });
         })
         .then(newState => {
-          console.log('pizza_id', newState.orderData.pizza_id);
           if (newState.orderData.hasOwnProperty("pizza_id")) {
-            console.log('inside if');
             FetchServices._getPizzaById(newState.orderData.pizza_id)
               .then(res => {
-                console.log('res', res);
                 if (res.status === 200) {
                   return res.json();
                 }

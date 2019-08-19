@@ -18,7 +18,6 @@ export default function StoreFront({ match }) {
   useEffect(() => {
     FetchServices._getRestaurantById(match.params.restaurantId)
       .then(res => {
-        console.log("storefron-res", res);
         if (res.status === 200) {
           return res.json();
         } else {
@@ -26,7 +25,6 @@ export default function StoreFront({ match }) {
         }
       })
       .then(resJson => {
-        console.log("resJson", resJson);
         return setRestaurantData({ ...resJson });
       })
       .then(() => {
