@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";

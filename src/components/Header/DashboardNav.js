@@ -4,17 +4,21 @@ import jwt from 'jsonwebtoken';
 import GlobalContext from '../../contexts/GlobalContext';
 
 export default function DashboardNav(props) {
-
+  
   let context = useContext(GlobalContext);
-
+  
   const logOutUser = () => {
     localStorage.removeItem('jwt');
     context.setUserIsAdmin(false)
-    context.setUserIsSignedIn(false);
-    props.setSignInFormsShowing(false);
+      .then(() => {
+        return context.setUserIsSignedIn(false);
+      })
+      .then(() => {
+        props.setSignInFormsShowing(false);
+      })
   };
 
-  let { restaurant_id } = jwt.decode(localStorage.getItem('jwt'));
+  let {restaurant_id} = jwt.decode(localStorage.getItem('jwt'));
   return (
     <ul className="DashboardNav__container">
       {context.userIsAdmin?
@@ -59,3 +63,7 @@ export default function DashboardNav(props) {
     </ul>
   )
 }
+
+
+  
+
