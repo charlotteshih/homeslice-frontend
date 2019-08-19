@@ -1,6 +1,7 @@
 # HomeSlice Client
 
 Introducing **HomeSlice:** A one-stop pizza shop builder for restaurants and customers – built by pizza enthusiasts for pizza enthusiasts!
+[View Live App](https://homesliceapp.now.sh/)
 
 ![HomeSlice](https://i.imgur.com/z1LlEI3.jpg "HomeSlice")
 
