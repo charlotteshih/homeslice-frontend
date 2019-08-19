@@ -25,6 +25,8 @@ Introducing **HomeSlice:** A one-stop pizza shop builder for restaurants and cus
 - [React](https://github.com/facebook/react)
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 - [Sass](https://sass-lang.com)
+- [Stripe API](https://stripe.com/)
+- [FontAwesome Icons](https://fontawesome.com/)
 
 ## Team
 
