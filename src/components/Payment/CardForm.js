@@ -7,17 +7,19 @@ function CardForm(props) {
 
   function _submitStripe(e) {
     e.preventDefault();
-    props.stripe.createToken({ name: "Name" }).then(res => {
-      if (res.error) {
-        throw new Error(res.error);
-      }
-      let response = FetchServices._makeStripePayment(res.token).then(res => {
+    props.stripe.createToken({ name: "Name" })
+      .then(res => {
+        if (res.error) {
+          throw new Error(res.error);
+        }
+        return FetchServices._makeStripePayment(res.token)
+      })
+      .then(res => {
         if (res.status === 204) {
           props.setShowCustomerForm(true);
           setPaymentSuccessful("Payment Successful!");
         }
       });
-    });
   }
 
   return (
