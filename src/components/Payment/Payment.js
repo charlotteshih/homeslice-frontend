@@ -3,7 +3,7 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 import CardForm from "./CardForm";
-import config from "../../config";
+import { REACT_APP_STRIPE_KEY } from "../../config";
 import InputMask from 'react-input-mask';
 
 export default function Payment({ match, history }) {
@@ -134,7 +134,7 @@ export default function Payment({ match, history }) {
     <div className="Payment__container padding-top-60px">
       <h1 className="Payment__heading">Payment &amp; Delivery Information</h1>
       <p>Please enter your payment information below.</p>
-      <StripeProvider apiKey={`${config.stripeKey}`}>
+      <StripeProvider apiKey={`${REACT_APP_STRIPE_KEY}`}>
         <Elements>
           <CardForm setShowCustomerForm={setShowCustomerForm} />
         </Elements>

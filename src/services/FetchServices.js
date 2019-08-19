@@ -1,8 +1,8 @@
-import Config from "../config";
+import { API_BASE_URL } from "../config";
 
 const FetchServices = {
   _submitCreateAccount(formData) {
-    return fetch(`${Config.apiBaseUrl}/restaurants`, {
+    return fetch(`${API_BASE_URL}/restaurants`, {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -11,7 +11,7 @@ const FetchServices = {
     });
   },
   _submitRestaurantLogin(dataToSubmit) {
-    return fetch(`${Config.apiBaseUrl}/authorization/login`, {
+    return fetch(`${API_BASE_URL}/authorization/login`, {
       method: "POST",
       body: JSON.stringify(dataToSubmit),
       headers: {
@@ -20,7 +20,7 @@ const FetchServices = {
     });
   },
   _submitAdminLogin(dataToSubmit) {
-    return fetch(`${Config.apiBaseUrl}/admin/login`, {
+    return fetch(`${API_BASE_URL}/admin/login`, {
       method: "POST",
       body: JSON.stringify(dataToSubmit),
       headers: {
@@ -29,7 +29,7 @@ const FetchServices = {
     });
   },
   _submitCreatePizza(formData) {
-    return fetch(`${Config.apiBaseUrl}/pizzas`, {
+    return fetch(`${API_BASE_URL}/pizzas`, {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -38,7 +38,7 @@ const FetchServices = {
     });
   },
   _submitCreateOrder(orderData) {
-    return fetch(`${Config.apiBaseUrl}/orders`, {
+    return fetch(`${API_BASE_URL}/orders`, {
       method: "POST",
       body: JSON.stringify(orderData),
       headers: {
@@ -47,7 +47,7 @@ const FetchServices = {
     });
   },
   _submitCreateCustomer(customerData) {
-    return fetch(`${Config.apiBaseUrl}/customers`, {
+    return fetch(`${API_BASE_URL}/customers`, {
       method: "POST",
       body: JSON.stringify(customerData),
       headers: {
@@ -56,13 +56,13 @@ const FetchServices = {
     });
   },
   _getOrderById(orderId) {
-    return fetch(`${Config.apiBaseUrl}/orders/${orderId}`);
+    return fetch(`${API_BASE_URL}/orders/${orderId}`);
   },
   _getOrdersAndCustomersById(restaurantId) {
     if (!restaurantId) {
       throw new Error("restaurant_id is missing. You shouldn't be here.");
     }
-    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}/orders`, {
+    return fetch(`${API_BASE_URL}/restaurants/${restaurantId}/orders`, {
       method: "GET",
       // bearer token is hard-coded until we have settled on a way to pass that information from the sign in form.
       headers: {
@@ -72,16 +72,16 @@ const FetchServices = {
     });
   },
   _getAllRestaurants() {
-    return fetch(`${Config.apiBaseUrl}/restaurants/`);
+    return fetch(`${API_BASE_URL}/restaurants/`);
   },
   _getRestaurantById(restaurantId) {
-    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`);
+    return fetch(`${API_BASE_URL}/restaurants/${restaurantId}`);
   },
   _getPizzaById(pizzaId) {
-    return fetch(`${Config.apiBaseUrl}/pizzas/${pizzaId}`);
+    return fetch(`${API_BASE_URL}/pizzas/${pizzaId}`);
   },
   _updateOrderStatusById(orderId, status) {
-    return fetch(`${Config.apiBaseUrl}/orders/${orderId}`, {
+    return fetch(`${API_BASE_URL}/orders/${orderId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/JSON"
@@ -92,12 +92,12 @@ const FetchServices = {
     });
   },
   _deleteRestaurantById(restaurantId) {
-    return fetch(`${Config.apiBaseUrl}/restaurants/${restaurantId}`, {
+    return fetch(`${API_BASE_URL}/restaurants/${restaurantId}`, {
       method: "DELETE"
     });
   },
   _adminDeleteRestaurantById(restaurantId, auth) {
-    return fetch(`${Config.apiBaseUrl}/admin/restaurant/${restaurantId}`, {
+    return fetch(`${API_BASE_URL}/admin/restaurant/${restaurantId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${auth}`
@@ -105,7 +105,7 @@ const FetchServices = {
     });
   },
   _makeStripePayment(token) {
-    return fetch(`${Config.apiBaseUrl}/stripe/charge`, {
+    return fetch(`${API_BASE_URL}/stripe/charge`, {
       method: "POST",
       headers: { "Content-Type": "Application/JSON" },
       body: JSON.stringify(token)

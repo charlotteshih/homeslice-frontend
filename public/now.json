@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "alias": "homesliceapp",
+  "name": "homeslice",
+  "routes": [
+      {
+        "src": "^/static/(.*)",
+        "dest": "/static/$1"
+      },
+      {
+        "src": ".*",
+        "dest": "/index.html"
+      }
+  ]
+}
+
