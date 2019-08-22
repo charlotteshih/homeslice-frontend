@@ -28,6 +28,7 @@ Introducing **HomeSlice:** A one-stop pizza shop builder for restaurants and cus
 - [Sass](https://sass-lang.com)
 - [Stripe API](https://stripe.com/)
 - [FontAwesome Icons](https://fontawesome.com/)
+- [Moment.js](https://momentjs.com/)
 
 ## Team
 
