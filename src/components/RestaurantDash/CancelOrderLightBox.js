@@ -17,6 +17,8 @@ export default function CancelOrderLightBox(props) {
           order={props.orderToCancel.order}
           customerInfo={props.orderToCancel.customerInfo}
           displayButtons={false}
+          displayEmail={false}
+          displayPizza={false}
         />
         <section className="RestLightBox__btn-group">
           <button 

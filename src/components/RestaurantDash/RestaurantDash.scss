@@ -102,9 +102,11 @@
 }
 
 .RestLightBox__container {
-  margin: auto;
-  max-width: 500px;
+  font-size: $m-font-size;
+  margin: 0 auto;
+  max-width: 300px;
   min-width: 300px;
+  
 }
 
 .RestLightBox__heading {
@@ -154,7 +156,7 @@
   }
 
   .RestOrderCard__cust-data {
-    font-size: $m-font-size;
+    font-size: $l-font-size;
   }
 
   .RestOrderCard__btn-group {

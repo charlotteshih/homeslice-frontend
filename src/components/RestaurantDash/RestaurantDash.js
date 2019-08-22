@@ -63,7 +63,7 @@ export default function RestaurantDash({ match }) {
         <button 
           className={`RestDash__list-toggle__btn btn ${currentTab === "New Orders / In Progress"? "selected": ""}`}
           onClick={() => setCurrentTab("New Orders / In Progress")}>
-          New Orders / In Progress
+          Current Orders
         </button>
         <button 
           className={`RestDash__list-toggle__btn btn ${currentTab === "Ready For Pickup"? "selected": ""}`}
