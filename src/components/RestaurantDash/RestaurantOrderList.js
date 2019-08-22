@@ -3,6 +3,7 @@ import RestaurantOrderCard from "./RestaurantOrderCard";
 
 export default function RestaurantOrderList(props) {
   let selectedOrders = null;
+  //create list according to what category is passed in via props.
   const displaySelectedOrders = orderArray => {
     if (orderArray === undefined || !Array.isArray(orderArray)) {
       return;

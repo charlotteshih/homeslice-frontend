@@ -2,7 +2,7 @@ import React from "react";
 import RestaurantOrderCard from "./RestaurantOrderCard";
 
 export default function CancelOrderLightBox(props) {
-
+  //display lightbox over restaurant dash
   function handleCancelConfirm(cancelType) {
     props.setOrderToCancel(props.orderToCancel);
     props.updateOrderStatus(props.orderToCancel.order.id, cancelType);
@@ -33,20 +33,6 @@ export default function CancelOrderLightBox(props) {
           >
             Cancel
           </button>
-          {/* <button
-            className="RestLightBox__btn RestOrderCard__btn-cancel btn"
-            value="Canceled: Customer request"
-            onClick={e => handleCancelConfirm(e.target.value)}
-          >
-            Canceled: Customer request
-          </button>
-          <button
-            className="RestLightBox__btn RestOrderCard__btn-cancel btn"
-            value="Canceled: Other"
-            onClick={e => handleCancelConfirm(e.target.value)}
-          >
-            Canceled: Other
-          </button> */}
         </section>
       </div>
     </div>

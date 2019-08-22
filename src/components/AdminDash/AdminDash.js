@@ -6,13 +6,12 @@ import DeleteRestaurantLightBox from './DeleteRestaurantLightBox';
 import jwt from 'jsonwebtoken';
 
 export default function AdminDash({ history }) {
+  //dashboard for admin users to create and delete accounts.
 
 
   let [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   let [restaurantToRemove, setRestaurantToRemove] = useState({});
 
-  //name: admin
-  //pw: Admin123!
   let decoded = jwt.decode(localStorage.getItem('jwt'));
   if(!decoded || decoded.admin_id !== 1) {
     history.push('/');

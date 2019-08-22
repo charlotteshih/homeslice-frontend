@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function RestaurantCard(props) {
+  //Card representing restaurant accounts.
   let { 
     details, 
     setRestaurantToRemove, 

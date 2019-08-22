@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import GlobalContext from '../../contexts/GlobalContext';
 
 export default function DashboardNav(props) {
-  
+  //navigation for logged in restaurant owners.
   let context = useContext(GlobalContext);
   
   const logOutUser = () => {

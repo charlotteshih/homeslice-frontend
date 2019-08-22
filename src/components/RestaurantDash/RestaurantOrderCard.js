@@ -3,6 +3,7 @@ import FetchServices from "../../services/FetchServices";
 const moment = require('moment');
 
 export default function RestaurantOrderCard(props) {
+  //card representing an order from a customer
   const [seconds, setSeconds] = useState(0);
   const [isOverdue, setIsOverdue] = useState(false);
   const secondsBeforeOverdue = 60 * 20; // 20 minutes
@@ -67,7 +68,7 @@ export default function RestaurantOrderCard(props) {
             alt={`${props.order.pizza_type} pizza`}/>
             : ""
           }
-        
+        {/* boolean display customer info */}
         {props.customerInfo ? (
           <div className="RestOrderCard__cust-data">
             <div className="RestOrderCard__cust-data__item">{`Ordered on: ${orderDateTime}`}</div>
@@ -95,6 +96,7 @@ export default function RestaurantOrderCard(props) {
             </div>
           </div>
         ) : null}
+      {/* boolean display status change buttons? */}
       {props.displayButtons ? (
         <div className="RestOrderCard__btn-group">
           <button
