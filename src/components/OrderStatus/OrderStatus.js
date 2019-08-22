@@ -16,8 +16,7 @@ export default function OrderStatus({ match }) {
   });
   const checkOrderStatusInterval = 1000 * 10;
   // using moment to format the timestamp of each order
-  let orderDateTime = moment(context.orderData.date_created).format("lll");
-
+  let orderDateTime;
   useEffect(() => {
     //on hard refresh this logic reloads necessary information
     if (
@@ -83,6 +82,8 @@ export default function OrderStatus({ match }) {
   }, [isLoadingRestaurant, isLoadingOrder]);
   //if still loading don't display restaurantData.
   if (!isLoadingRestaurant) {
+    // using moment to format the timestamp of each order
+    orderDateTime = moment(context.orderData.date_created).format("lll");
     var restaurantLocation = (
       <>
         <span>
