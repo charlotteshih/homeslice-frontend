@@ -19,6 +19,7 @@ export default function Payment({ match, history }) {
   const [zipcode, setZipcode] = useState("");
   const [rememberIsChecked, setRememberIsChecked] = useState(false);
 
+  // form validation variables
   let [emailErr, setEmailErr] = useState("");
   let [phoneErr, setPhoneErr] = useState("");
   let [stateErr, setStateErr] = useState("");
@@ -30,6 +31,8 @@ export default function Payment({ match, history }) {
 
   function _handleEmailChange(e) {
     const email = e.target.value;
+
+    // checks that email is formatted correctly
     let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailIsRegexMatch = emailRegex.test(email);
 
@@ -42,6 +45,8 @@ export default function Payment({ match, history }) {
 
   function _handlePhoneChange(e) {
     const phone = e.target.value;
+
+    // checks that phone number is formatted correctly
     let phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
     let phoneIsRegexMatch = phoneRegex.test(phone);
 
@@ -54,12 +59,16 @@ export default function Payment({ match, history }) {
 
   function _handleStateChange(e) {
     const state = e.target.value;
+
+    // checks that a state has been selected from the dropdown
     !state ? setStateErr("Please select a state.") : setStateErr("");
     setState(state);
   }
 
   function _handleZipcodeChange(e) {
     const zipcode = e.target.value;
+
+    // checks that the zipcode input is a 5-digit number
     let zipcodeRegex = /^\d{5}(?:[-\s]\d{4})?$/;
     let zipcodeIsRegexMatch = zipcodeRegex.test(zipcode);
 
@@ -73,6 +82,7 @@ export default function Payment({ match, history }) {
   function handleSubmit(e) {
     e.preventDefault();
 
+    // if the customer info is saved in local state, auto-populate with that info
     const customerData = {
       first_name: firstName ? firstName : savedData.first_name,
       last_name: lastName ? lastName : savedData.last_name,
@@ -132,11 +142,13 @@ export default function Payment({ match, history }) {
   return (
     <div className="Payment__container padding-top-60px">
       <h1 className="Payment__heading">Payment &amp; Delivery Information</h1>
+      {/* Stripe payment form */}
       <StripeProvider apiKey={`${REACT_APP_STRIPE_KEY}`}>
         <Elements>
           <CardForm setShowCustomerForm={setShowCustomerForm} />
         </Elements>
       </StripeProvider>
+      {/* customer info form does not display until a successful payment submission - see CardForm.js */}
       {showCustomerForm ? (
         <>
           <p>

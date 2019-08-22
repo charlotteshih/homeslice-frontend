@@ -9,6 +9,7 @@ function CardForm(props) {
   let [paymentSuccessful, setPaymentSuccessful] = useState("");
 
   function _formValid() {
+    // enables submit button as long as user has typed something in the payment form
     setButtonDisabled(false);
   }
 
@@ -23,11 +24,12 @@ function CardForm(props) {
       })
       .then(res => {
         if (res.status === 204) {
-          props.setShowCustomerForm(true);
+          props.setShowCustomerForm(true); // displays customer info form on successful payment - see Payment.js
           setPaymentSuccessful("Payment Successful!");
         }
       })
       .catch(err => {
+        // if payment form is incomplete or card info is invalid, throws an error and prompts user to re-submit
         setHasError(true);
         setErrorMessage("Oops! Something went wrong. Please try submitting your payment info again.")
         console.log(err);
@@ -37,23 +39,28 @@ function CardForm(props) {
   return (
     <div className="Payment__checkout">
       {!paymentSuccessful
-        ? 
-        <>
+        ?
+        <> {/* if payment is not successful (i.e. not submitted yet), display payment form */}
           <p>Please enter your payment information below.</p>
           <CardElement onChange={_formValid} />
           {buttonDisabled
-          ? <button
-              disabled
-              className="Payment__stripe__btn btn disabled"
-              onClick={e => _submitStripe(e)}>Submit Payment</button>
-          : <>
+          ? <> {/* if nothing is filled out, disable the submit button */}
+              <button
+                disabled
+                className="Payment__stripe__btn btn disabled"
+                onClick={e => _submitStripe(e)}>Submit Payment</button>
+            </>
+          : <> {/* if there is something in the form, enable the submit button */}
               <button
                 className="Payment__stripe__btn btn"
                 onClick={e => _submitStripe(e)}>Submit Payment</button>
+                {/* if incorrect/incomplete info is submitted, display error message */}
                 {hasError ? <div style={{ marginTop: "30px", color: "red" }}>{errorMessage}</div> : ''}
             </>}
         </>
-        : <h3 style={{ color: "green" }}>{paymentSuccessful}</h3>
+        : <> {/* if payment is successful, hide payment form and display success message */}
+            <h3 style={{ color: "green" }}>{paymentSuccessful}</h3>
+          </>
       }
     </div>
   );
