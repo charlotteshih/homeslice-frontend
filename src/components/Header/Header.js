@@ -10,7 +10,6 @@ import FetchServices from "../../services/FetchServices";
 export default function Header({ history }) {
   let [signInFormsShowing, setSignInFormsShowing] = useState(false);
   let context = useContext(GlobalContext);
-
   const token = localStorage.getItem("jwt");
   useEffect(() => {
     const token = localStorage.getItem("jwt");
