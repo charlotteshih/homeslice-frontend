@@ -32,7 +32,6 @@ function CardForm(props) {
         // if payment form is incomplete or card info is invalid, throws an error and prompts user to re-submit
         setHasError(true);
         setErrorMessage("Oops! Something went wrong. Please try submitting your payment info again.")
-        console.log(err);
       });
   }
 

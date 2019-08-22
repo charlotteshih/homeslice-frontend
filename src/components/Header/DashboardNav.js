@@ -10,11 +10,9 @@ export default function DashboardNav(props) {
   const logOutUser = () => {
     context.setUserIsAdmin(false)
       .then(() => {
-        console.log('set user is admin ran');
         return context.setUserIsSignedIn(false);
       })
       .then(() => {
-        console.log('set user is signed in ran');
         props.setSignInFormsShowing(false);
         localStorage.removeItem('jwt');
       })
