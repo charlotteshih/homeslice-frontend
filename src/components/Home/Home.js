@@ -20,7 +20,7 @@ export default function Home({ history }) {
             </h2>
             <h1>HomeSlice!</h1>
             <p className="Home_paragraph">
-              A one-stop pizza shop builder for restaurants and customers<br />
+              A one-stop pizza shop builder for mom-and-pop restaurants<br />
               Built by pizza enthusiasts for pizza enthusiasts
             </p>
             <div className="space" />
