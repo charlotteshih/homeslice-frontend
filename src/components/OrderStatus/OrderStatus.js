@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
-const moment = require('moment');
+const moment = require("moment");
 
 export default function OrderStatus({ match }) {
   const context = useContext(GlobalContext);
@@ -15,7 +15,8 @@ export default function OrderStatus({ match }) {
     isLoadingOrder: true
   });
   const checkOrderStatusInterval = 1000 * 10;
-  let orderDateTime = moment(context.orderData.date_created).format('lll');
+  // using moment to format the timestamp of each order
+  let orderDateTime = moment(context.orderData.date_created).format("lll");
 
   useEffect(() => {
     if (
@@ -63,7 +64,7 @@ export default function OrderStatus({ match }) {
                 return context.setPizzaData({ ...resJson });
               })
               .then(() => {
-                setIsLoadingPizza(false)
+                setIsLoadingPizza(false);
                 setIsLoadingOrder(false);
               });
           } else {
@@ -82,14 +83,25 @@ export default function OrderStatus({ match }) {
   if (!isLoadingRestaurant) {
     var restaurantLocation = (
       <>
-        <span>{`${context.restaurantData.name}`}<br />
-          {`${context.restaurantData.street_address}`}<br />
-          {`${context.restaurantData.city}, ${
-            context.restaurantData.state
-            } ${context.restaurantData.zipcode}`}<br />
-          <a className="RestOrderCard__link" href={`mailto:${context.restaurantData.email}`}>{`${context.restaurantData.email}`}</a><br />
-          <a className="RestOrderCard__link" href={`tel:${context.restaurantData.phone}`}>{`${context.restaurantData.phone}`}</a></span>
-
+        <span>
+          {`${context.restaurantData.name}`}
+          <br />
+          {`${context.restaurantData.street_address}`}
+          <br />
+          {`${context.restaurantData.city}, ${context.restaurantData.state} ${
+            context.restaurantData.zipcode
+          }`}
+          <br />
+          <a
+            className="RestOrderCard__link"
+            href={`mailto:${context.restaurantData.email}`}
+          >{`${context.restaurantData.email}`}</a>
+          <br />
+          <a
+            className="RestOrderCard__link"
+            href={`tel:${context.restaurantData.phone}`}
+          >{`${context.restaurantData.phone}`}</a>
+        </span>
       </>
     );
   }
@@ -108,15 +120,13 @@ export default function OrderStatus({ match }) {
 
   if (isLoading) {
     return (
-      <div
-        className="padding-top-60px" >
+      <div className="padding-top-60px">
         <h1 className="OrderStatus__header">Loading...</h1>
       </div>
     );
   } else {
     return (
-      <div
-        className="OrderStatus__container padding-top-60px" >
+      <div className="OrderStatus__container padding-top-60px">
         <h1 className="OrderStatus__header">Order Summary</h1>
         <section className="OrderStatus__card">
           <div className="OrderStatus__order-info">
@@ -137,14 +147,20 @@ export default function OrderStatus({ match }) {
               />
             </p>
             <p>
-              <b>{context.pizzaData.size} {context.pizzaData.type}</b>
+              <b>
+                {context.pizzaData.size} {context.pizzaData.type}
+              </b>
             </p>
           </div>
           <div className="OrderStatus__right">
-            <p><b>Ordered On:</b><br />
-              {orderDateTime}</p>
             <p>
-              <b>Pickup Location:</b><br />
+              <b>Ordered On:</b>
+              <br />
+              {orderDateTime}
+            </p>
+            <p>
+              <b>Pickup Location:</b>
+              <br />
               {restaurantLocation}
             </p>
             <p>
@@ -152,7 +168,10 @@ export default function OrderStatus({ match }) {
             </p>
           </div>
           <div className="OrderStatus__please-note">
-            <p><b>PLEASE NOTE:</b> For sanitary reasons, pizzas that are not picked up within 60 minutes of completion will be discarded.</p>
+            <p>
+              <b>PLEASE NOTE:</b> For sanitary reasons, pizzas that are not
+              picked up within 60 minutes of completion will be discarded.
+            </p>
           </div>
         </section>
       </div>
