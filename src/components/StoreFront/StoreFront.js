@@ -5,12 +5,7 @@ import FetchServices from "../../services/FetchServices";
 // import BackgroundImg from '../../images/restaurant_default.jpg';
 
 export default function StoreFront({ match }) {
-  // const bgStyle = {
-  //   backgroundImage: `url(${BackgroundImg})`,
-  //   backgroundPosition: 'center center',
-  //   backgroundRepeat: 'no-repeat',
-  //   backgroundSize: 'cover',
-  // }
+  //what the customer sees when they go to 'xyz' pizza shops storefront
 
   const { restaurantData, setRestaurantData } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);

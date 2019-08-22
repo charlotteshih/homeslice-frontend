@@ -5,7 +5,7 @@ import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
 
 export default function RestaurantDash({ match }) {
-
+  //Dashboard for owners to view new, in progress, and completed orders.
   const hiddenTabStyle = {
     display: "none"
   };
