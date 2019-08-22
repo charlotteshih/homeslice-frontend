@@ -71,6 +71,7 @@ body {
 .form-input {
   font-size: $l-font-size;
   padding: $text-input-padding;
+  max-width: 100%;
 }
 
 .form-label {
