@@ -13,7 +13,7 @@ import NotFound from "../components/NotFound/NotFound";
 
 import "./style.css";
 
-function Routes({ location }) {
+function Routes({ location, history }) {
   return (
     <TransitionGroup className="transition-group">
       <CSSTransition
@@ -22,7 +22,7 @@ function Routes({ location }) {
         classNames="fade"
       >
         <section className="route-section">
-          <Switch location={location}>
+          <Switch location={location} history={history}>
             <Route exact path="/" component={Home} />
             <Route exact path="/create-account" component={CreateAccount} />
             <Route
