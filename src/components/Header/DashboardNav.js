@@ -8,15 +8,18 @@ export default function DashboardNav(props) {
   let context = useContext(GlobalContext);
   
   const logOutUser = () => {
-    localStorage.removeItem('jwt');
     context.setUserIsAdmin(false)
       .then(() => {
+        console.log('set user is admin ran');
         return context.setUserIsSignedIn(false);
       })
       .then(() => {
+        console.log('set user is signed in ran');
         props.setSignInFormsShowing(false);
+        localStorage.removeItem('jwt');
       })
   };
+  
 
   let {restaurant_id} = jwt.decode(localStorage.getItem('jwt'));
   return (
