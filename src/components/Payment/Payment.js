@@ -132,7 +132,6 @@ export default function Payment({ match, history }) {
   return (
     <div className="Payment__container padding-top-60px">
       <h1 className="Payment__heading">Payment &amp; Delivery Information</h1>
-      <p>Please enter your payment information below.</p>
       <StripeProvider apiKey={`${REACT_APP_STRIPE_KEY}`}>
         <Elements>
           <CardForm setShowCustomerForm={setShowCustomerForm} />

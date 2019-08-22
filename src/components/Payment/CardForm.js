@@ -39,6 +39,7 @@ function CardForm(props) {
       {!paymentSuccessful
         ? 
         <>
+          <p>Please enter your payment information below.</p>
           <CardElement onChange={_formValid} />
           {buttonDisabled
           ? <button
