@@ -43,6 +43,7 @@ export default function RestaurantOrderList(props) {
             setOrderToCancel={props.setOrderToCancel}
             setCancelConfirmVisible={props.setCancelConfirmVisible}
             displayButtons={true}
+            displayPizza={true}
           />
         );
       });

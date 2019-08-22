@@ -58,34 +58,35 @@ export default function RestaurantOrderCard(props) {
       ) : null}
         
         <h4 className="RestOrderCard__Heading">{props.order.pizza_type}</h4>
-          {props.order.pizza_type 
-          ? <img
-              className="RestOrderCard__pizza-img"
-              src={require(`../../images/${props.order.pizza_type
-                .toLowerCase()
-                .replace(/\s+/g, "-")}.png`)}
-              alt={`${props.order.pizza_type} pizza`}/>
-          : <img
-              className="RestOrderCard__pizza-img"
-              src={require(`../../images/base.png`)}
-              alt={`${props.order.pizza_type} pizza`}/>
+          {props.displayPizza
+            ? <img
+            className="RestOrderCard__pizza-img"
+            src={require(`../../images/${props.order.pizza_type
+              .toLowerCase()
+              .replace(/\s+/g, "-")}.png`)}
+            alt={`${props.order.pizza_type} pizza`}/>
+            : ""
           }
         
         {props.customerInfo ? (
           <div className="RestOrderCard__cust-data">
             <div className="RestOrderCard__cust-data__item">{`Ordered on: ${orderDateTime}`}</div>
             <div className="RestOrderCard__cust-data__item">{`Ordered by: ${props.customerInfo.first_name} ${props.customerInfo.last_name}`}</div>
+              {props.displayEmail
+                ?<div className="RestOrderCard__cust-data__item">
+                  <a
+                      className="RestOrderCard__link" 
+                      href={`mailto:${props.customerInfo.email}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {props.customerInfo.email}
+                  </a>
+                </div>
+                : ""
+              }
             <div className="RestOrderCard__cust-data__item">
-              <a
-                className="RestOrderCard__link" 
-                href={`mailto:${props.customerInfo.email}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {props.customerInfo.email}
-              </a>
-            </div>
-            <div className="RestOrderCard__cust-data__item">
+              <span>Phone: </span>
               <a
                 className="RestOrderCard__link"
                 href={`tel:${props.customerInfo.phone}`}>

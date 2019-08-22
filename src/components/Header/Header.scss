@@ -1,7 +1,7 @@
 .DashboardNav__container {
   display: flex;
   flex-direction: column;
-  flex: 1 0 40%;
+  grid-column: 1 / -1;
   list-style: none;
   margin-bottom: 0;
   margin-top: 10px;
@@ -31,6 +31,8 @@
   top: 0;
   left: 0;
   right: 0;
+  width: 100vw;
+  max-width: 100%;
   z-index: 10;
 }
 
@@ -53,7 +55,8 @@
   background-color: $primary-color;
   border: none;
   color: $primary-font-color;
-  flex: 1 0 40%;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
   font-size: $m-font-size;
   text-align: right;
   justify-self: end;
@@ -62,8 +65,8 @@
 }
 
 .Header__nav {
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .Header--top-border {
@@ -101,6 +104,7 @@
 @media only screen and (min-width: 800px) {
 
     .DashboardNav__container {
+      display: flex;
       flex-direction: row;
       flex: 1 0 45%;
       justify-content: space-between;
@@ -119,8 +123,9 @@
       font-size: $l-font-size;
     }
 
-    .Header-nav {
+    .Header__nav {
       align-items: center;
+      display: flex;
     }
 
     .Header__home-link {
