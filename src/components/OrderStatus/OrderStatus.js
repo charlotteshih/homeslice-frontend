@@ -19,7 +19,9 @@ export default function OrderStatus({ match }) {
   let orderDateTime = moment(context.orderData.date_created).format("lll");
 
   useEffect(() => {
+    //on hard refresh this logic reloads necessary information
     if (
+      //if no resaturantData in state or restaurantId does not match one in url
       !context.RestaurantData ||
       context.RestaurantData.id !== match.params.restaurantId
     ) {
@@ -39,7 +41,7 @@ export default function OrderStatus({ match }) {
     } else {
       setIsLoadingRestaurant(false);
     }
-
+    //if no orderData in state or orderData id does not match one in url
     if (!context.orderData || context.orderData.id !== match.params.orderId) {
       FetchServices._getOrderById(match.params.orderId)
         .then(res => {
@@ -79,7 +81,7 @@ export default function OrderStatus({ match }) {
       setIsLoading(false);
     }
   }, [isLoadingRestaurant, isLoadingOrder]);
-
+  //if still loading don't display restaurantData.
   if (!isLoadingRestaurant) {
     var restaurantLocation = (
       <>
@@ -113,7 +115,7 @@ export default function OrderStatus({ match }) {
         context.setOrderData({ ...resJson });
       });
   }
-
+  //set interval to check order status every 10 seconds
   IntervalServices._useInterval(() => {
     checkOrderStatus(context.orderData.id);
   }, checkOrderStatusInterval);
