@@ -1,11 +1,10 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
+const moment = require('moment');
 
 export default function OrderStatus({ match }) {
-
   const context = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState({ isLoading: true });
   const [isLoadingRestaurant, setIsLoadingRestaurant] = useState({
@@ -16,6 +15,7 @@ export default function OrderStatus({ match }) {
     isLoadingOrder: true
   });
   const checkOrderStatusInterval = 1000 * 10;
+  let orderDateTime = moment(context.orderData.date_created).format('lll');
 
   useEffect(() => {
     if (
@@ -142,7 +142,7 @@ export default function OrderStatus({ match }) {
           </div>
           <div className="OrderStatus__right">
             <p><b>Ordered On:</b><br />
-              {context.orderData.date_created}</p>
+              {orderDateTime}</p>
             <p>
               <b>Pickup Location:</b><br />
               {restaurantLocation}

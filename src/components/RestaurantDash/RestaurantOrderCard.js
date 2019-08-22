@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import FetchServices from "../../services/FetchServices";
+const moment = require('moment');
 
 export default function RestaurantOrderCard(props) {
-  
-
   const [seconds, setSeconds] = useState(0);
   const [isOverdue, setIsOverdue] = useState(false);
   const secondsBeforeOverdue = 60 * 20; // 20 minutes
+  let orderDateTime = moment(props.order.date_created).format('lll');
 
   useEffect(() => {
     if (props.order.order_status === "Ready For Pickup") {
@@ -73,7 +73,7 @@ export default function RestaurantOrderCard(props) {
         
         {props.customerInfo ? (
           <div className="RestOrderCard__cust-data">
-            <div className="RestOrderCard__cust-data__item">{`Ordered on: ${props.order.date_created}`}</div>
+            <div className="RestOrderCard__cust-data__item">{`Ordered on: ${orderDateTime}`}</div>
             <div className="RestOrderCard__cust-data__item">{`Ordered by: ${props.customerInfo.first_name} ${props.customerInfo.last_name}`}</div>
             <div className="RestOrderCard__cust-data__item">
               <a
