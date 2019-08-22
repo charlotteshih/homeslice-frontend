@@ -19,7 +19,6 @@ export default function Payment({ match, history }) {
   const [zipcode, setZipcode] = useState("");
   const [rememberIsChecked, setRememberIsChecked] = useState(false);
 
-
   let [emailErr, setEmailErr] = useState("");
   let [phoneErr, setPhoneErr] = useState("");
   let [stateErr, setStateErr] = useState("");
