@@ -1,10 +1,8 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../contexts/GlobalContext";
 import FetchServices from "../../services/FetchServices";
 import IntervalServices from "../../services/IntervalServices";
 const moment = require('moment');
-const tz = require('moment-timezone');
 
 export default function OrderStatus({ match }) {
   const context = useContext(GlobalContext);

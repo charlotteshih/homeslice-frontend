@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import FetchServices from "../../services/FetchServices";
 const moment = require('moment');
-const tz = require('moment-timezone');
 
 export default function RestaurantOrderCard(props) {
   const [seconds, setSeconds] = useState(0);
   const [isOverdue, setIsOverdue] = useState(false);
   const secondsBeforeOverdue = 60 * 20; // 20 minutes
-  let orderDateTime = moment(props.order.date_created).tz('America/Los_Angeles').format('lll');
+  let orderDateTime = moment(props.order.date_created).format('lll');
 
   useEffect(() => {
     if (props.order.order_status === "Ready For Pickup") {
