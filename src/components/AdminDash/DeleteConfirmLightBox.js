@@ -1,7 +1,7 @@
 import React from 'react'
-import RestaurantCard from '../AdminDash/RestaurantCard';
+import RestaurantCard from './RestaurantCard';
 
-export default function DeleteRestaurantLightBox(props) {
+export default function DeleteConfirmLightBox(props) {
   //confirms if user wants to delete an account.
   let {
     deleteRestaurant,

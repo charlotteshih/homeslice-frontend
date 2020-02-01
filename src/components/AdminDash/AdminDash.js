@@ -1,24 +1,20 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react';
 import FetchServices from '../../services/FetchServices';
-import RestaurantCard from '../AdminDash/RestaurantCard';
-import AddRestaurant from '../AdminDash/AddRestaurant';
-import DeleteRestaurantLightBox from './DeleteRestaurantLightBox';
+import RestaurantCard from './RestaurantCard';
+import CreateRestaurant from './CreateRestaurant';
+import DeleteConfirmLightBox from './DeleteConfirmLightBox';
 import jwt from 'jsonwebtoken';
 
 export default function AdminDash({ history }) {
   //dashboard for admin users to create and delete accounts.
-
-
   let [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   let [restaurantToRemove, setRestaurantToRemove] = useState({});
+  let [restaurants, setRestaurants] = useState([]);
 
   let decoded = jwt.decode(localStorage.getItem('jwt'));
   if(!decoded || decoded.admin_id !== 1) {
     history.push('/');
   }
-
-
-  let [restaurants, setRestaurants] = useState([])
 
   useEffect(() => {
     FetchServices._getAllRestaurants()
@@ -61,12 +57,12 @@ export default function AdminDash({ history }) {
       :
       <>
         {deleteConfirmVisible
-        ? <DeleteRestaurantLightBox 
+        ? <DeleteConfirmLightBox 
             deleteRestaurant={deleteRestaurant} 
             restaurantToRemove={restaurantToRemove}
             setDeleteConfirmVisible={setDeleteConfirmVisible} />
         : ""}
-        <AddRestaurant 
+        <CreateRestaurant 
           setRestaurants={setRestaurants}
           restaurants={restaurants}
         />

@@ -37,7 +37,7 @@ export default function Header({ history }) {
             context.setUserIsAdmin(true);
           }
         });
-      console.dir(decoded);
+
     }
   }, []);
 

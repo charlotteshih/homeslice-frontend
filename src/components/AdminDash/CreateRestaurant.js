@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import CreateAccount from '../CreateAccount/CreateAccount';
 
-export default function AddRestaurant(props) {
+export default function CreateRestaurant(props) {
   //reuses the CreateAccount component only permanently expanded.
   let [isExpanded, setIsExpanded] = useState(false);
 

@@ -7,7 +7,7 @@ export default function RestaurantCard(props) {
     setRestaurantToRemove, 
     setDeleteConfirmVisible 
   } = props;
-  console.dir(details);
+  
 
   function handleDeleteButtonClick() {
     setRestaurantToRemove(props.details);
