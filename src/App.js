@@ -5,16 +5,21 @@ import Header from "./components/Header/Header";
 import Routes from "./routes/Routes";
 
 function App() {
-  const [state, setState] = useState({});
-
-  const setRestaurantData = obj => setState(state => ({ ...state, restaurantData: obj }));
-  const setPizzaData = obj => setState(state => ({ ...state, pizzaData: obj }));
-  const setCustomerData = obj => setState(state => ({ ...state, customerData: obj }));
-  const setOrderData = obj => setState(state => ({ ...state, orderData: obj }));
-  const setUserIsSignedIn = bool => setState(state => ({ ...state, userIsSignedIn: bool }));
-  const setUserIsAdmin = bool => setState(state => ({ ...state, userIsAdmin: bool }));
+  
+  const [restaurantData, setRestaurantData] = useState({});
+  const [pizzaData, setPizzaData] = useState({});
+  const [orderData, setOrderData] = useState({});
+  const [customerData, setCustomerData] = useState({});
+  const [userIsSignedIn, setUserIsSignedIn] = useState(false);
+  const [userIsAdmin, setUserIsAdmin] = useState(false);
 
   const context = {
+    restaurantData,
+    pizzaData,
+    orderData,
+    customerData,
+    userIsSignedIn,
+    userIsAdmin,
     setRestaurantData,
     setPizzaData,
     setCustomerData,

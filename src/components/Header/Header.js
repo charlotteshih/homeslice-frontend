@@ -30,9 +30,7 @@ export default function Header({ history }) {
           throw new Error({ ...res });
         })
         .then(json => {
-          return context.setRestaurantData({ ...json });
-        })
-        .then(() => {
+          context.setRestaurantData({ ...json });
           if (decoded.sub === "Admin") {
             context.setUserIsAdmin(true);
           }

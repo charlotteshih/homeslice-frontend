@@ -109,15 +109,13 @@ export default function Payment({ match, history }) {
         if (rememberIsChecked) {
           localStorage.setItem("customerData", JSON.stringify(json));
         }
-        return context.setCustomerData({ ...json });
-      })
-      .then(updatedState => {
         const orderData = {
           restaurant_id: match.params.restaurantId,
-          pizza_id: updatedState.pizzaData.id,
-          customer_id: updatedState.customerData.id,
+          pizza_id: context.pizzaData.id,
+          customer_id: context.customerData.id,
           order_status: "Ordered"
         };
+        context.setCustomerData({ ...json });
         return FetchServices._submitCreateOrder(orderData);
       })
       .then(res => {
@@ -127,12 +125,10 @@ export default function Payment({ match, history }) {
         throw new Error(res);
       })
       .then(json => {
-        return context.setOrderData({ ...json });
-      })
-      .then(updatedState => {
+        context.setOrderData({ ...json });
         history.push(
           `/restaurant/${match.params.restaurantId}/order-status/${
-          updatedState.orderData.id
+          context.orderData.id
           }`
         );
       })
